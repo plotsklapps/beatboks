@@ -11,6 +11,7 @@ environment:
 dependencies:
   cloud_firestore: ^4.14.0
   cupertino_icons: ^1.0.6
+  firebase_analytics: ^10.8.0
   firebase_auth: ^4.16.0
   firebase_core: ^2.24.2
   flex_color_scheme: ^7.3.1
