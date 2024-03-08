@@ -39,15 +39,25 @@ class FirebaseNotifier extends Notifier<FirebaseAuth> {
     required void Function() onSuccess,
   }) async {
     try {
+      // Create new user.
       await state.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
+      // Send verification email.
       await state.currentUser!.sendEmailVerification();
+
+      // Log the success.
+      Logger().i('User created, verification email sent');
+
+      // Trigger the onSuccess callback.
       onSuccess();
     } catch (error) {
+      // Log the error.
       Logger().e(error);
+
+      // Trigger the onError callback.
       onError(error.toString());
     }
   }

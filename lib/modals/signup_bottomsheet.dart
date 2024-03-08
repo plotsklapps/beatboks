@@ -97,11 +97,14 @@ class _SignupBottomSheetState extends ConsumerState<SignupBottomSheet> {
                                 return const VerifyBottomSheet();
                               },
                             );
-                            Snacks.showSuccessSnack(context, 'Success!');
+                            Snacks.showSuccessSnack(
+                                context,
+                                'Account created! Please check '
+                                '${_emailController.text.trim()} for the '
+                                'verification email');
                           },
                         );
                   },
-                  tooltip: 'Continue',
                   child: const FaIcon(FontAwesomeIcons.forwardStep),
                 ),
               ],
