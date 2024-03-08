@@ -1,29 +1,39 @@
-import 'package:beatboks/main.dart';
-import 'package:beatboks/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:toastification/toastification.dart';
 
 class Snacks {
-  static void showErrorSnack(String message) {
-    rootScaffoldMessengerKey.currentState!.showSnackBar(
-      SnackBar(
-        content: Text(
-          message,
-          style: TextStyle(color: flexScheme.onError),
-        ),
-        showCloseIcon: true,
-        backgroundColor: flexScheme.error,
+  static void showErrorSnack(BuildContext context, String error) {
+    toastification.show(
+      context: context,
+      type: ToastificationType.error,
+      style: ToastificationStyle.flatColored,
+      description: Text(error),
+      alignment: Alignment.topRight,
+      autoCloseDuration: const Duration(seconds: 5),
+      icon: const FaIcon(
+        FontAwesomeIcons.triangleExclamation,
       ),
+      borderRadius: BorderRadius.circular(12),
+      showProgressBar: true,
+      dragToClose: true,
     );
   }
 
-  static void showSuccessSnack(String message) {
-    rootScaffoldMessengerKey.currentState!.showSnackBar(
-      SnackBar(
-        content: Text(
-          message,
-        ),
-        showCloseIcon: true,
+  static void showSuccessSnack(BuildContext context, String message) {
+    toastification.show(
+      context: context,
+      type: ToastificationType.success,
+      style: ToastificationStyle.flatColored,
+      description: Text(message),
+      alignment: Alignment.topRight,
+      autoCloseDuration: const Duration(seconds: 5),
+      icon: const FaIcon(
+        FontAwesomeIcons.circleCheck,
       ),
+      borderRadius: BorderRadius.circular(12),
+      showProgressBar: true,
+      dragToClose: true,
     );
   }
 }

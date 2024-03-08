@@ -1,4 +1,4 @@
-import 'package:beatboks/dialogs/signup_dialog.dart';
+import 'package:beatboks/modals/signup_bottomsheet.dart';
 import 'package:beatboks/theme/theme.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:flutter/material.dart';
@@ -26,10 +26,12 @@ class StartScreenBottomSheet extends StatelessWidget {
             const SizedBox(height: 16),
             ListTile(
               onTap: () {
-                showDialog<AlertDialog>(
+                showModalBottomSheet<Widget>(
+                  showDragHandle: true,
+                  isScrollControlled: true,
                   context: context,
                   builder: (BuildContext context) {
-                    return const SignupDialog();
+                    return const SignupBottomSheet();
                   },
                 );
               },
