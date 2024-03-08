@@ -1,4 +1,5 @@
-import 'package:beatboks/theme.dart';
+import 'package:beatboks/dialogs/signup_dialog.dart';
+import 'package:beatboks/theme/theme.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -11,11 +12,11 @@ class StartScreenBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Padding(
-        padding: EdgeInsets.fromLTRB(
+        padding: const EdgeInsets.fromLTRB(
           16,
           0,
           16,
-          MediaQuery.viewInsetsOf(context).bottom + 16,
+          16,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -24,7 +25,14 @@ class StartScreenBottomSheet extends StatelessWidget {
             const Divider(thickness: 2),
             const SizedBox(height: 16),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                showDialog<AlertDialog>(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const SignupDialog();
+                  },
+                );
+              },
               leading: const FaIcon(FontAwesomeIcons.userPlus),
               title: const Text(
                 'Create an account',

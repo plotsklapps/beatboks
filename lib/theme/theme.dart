@@ -80,6 +80,40 @@ ThemeData themeDark = FlexThemeData.dark(
   fontFamily: GoogleFonts.teko().fontFamily,
 );
 
+const ColorScheme flexScheme = ColorScheme(
+  brightness: Brightness.light,
+  primary: Color(0xff1f3339),
+  onPrimary: Color(0xffffffff),
+  primaryContainer: Color(0xff9ec4d4),
+  onPrimaryContainer: Color(0xff0d1012),
+  secondary: Color(0xff93a0a9),
+  onSecondary: Color(0xff000000),
+  secondaryContainer: Color(0xffb5cddb),
+  onSecondaryContainer: Color(0xff0f1112),
+  tertiary: Color(0xffd2600a),
+  onTertiary: Color(0xffffffff),
+  tertiaryContainer: Color(0xffffdbc8),
+  onTertiaryContainer: Color(0xff141211),
+  error: Color(0xffb00020),
+  onError: Color(0xffffffff),
+  errorContainer: Color(0xfffcd8df),
+  onErrorContainer: Color(0xff141213),
+  background: Color(0xfff8f9f9),
+  onBackground: Color(0xff090909),
+  surface: Color(0xfff8f9f9),
+  onSurface: Color(0xff090909),
+  surfaceVariant: Color(0xffe2e3e4),
+  onSurfaceVariant: Color(0xff111111),
+  outline: Color(0xff7c7c7c),
+  outlineVariant: Color(0xffc8c8c8),
+  shadow: Color(0xff000000),
+  scrim: Color(0xff000000),
+  inverseSurface: Color(0xff111112),
+  onInverseSurface: Color(0xfff5f5f5),
+  inversePrimary: Color(0xffa2b1b5),
+  surfaceTint: Color(0xff1f3339),
+);
+
 class TextUtils {
   static const TextStyle fontS = TextStyle(fontSize: 12);
   static const TextStyle fontM = TextStyle(fontSize: 16);

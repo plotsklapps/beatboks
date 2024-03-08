@@ -1,9 +1,13 @@
 import 'package:beatboks/firebase_options.dart';
 import 'package:beatboks/screens/start_screen.dart';
-import 'package:beatboks/theme.dart';
+import 'package:beatboks/theme/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Using a GlobalKey for showing SnackBars to users.
+final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
+    GlobalKey<ScaffoldMessengerState>();
 
 Future<void> main() async {
   // Completely boot the Flutter framework before running the application.
@@ -22,6 +26,7 @@ class MainEntry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scaffoldMessengerKey: rootScaffoldMessengerKey,
       title: 'Flutter Demo',
       theme: themeLight,
       home: const StartScreen(),
