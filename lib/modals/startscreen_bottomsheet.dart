@@ -1,3 +1,4 @@
+import 'package:beatboks/modals/signin_bottomsheet.dart';
 import 'package:beatboks/modals/signup_bottomsheet.dart';
 import 'package:beatboks/theme/theme.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
@@ -44,7 +45,16 @@ class StartScreenBottomSheet extends StatelessWidget {
                   ' and save your statistics (recommended)'),
             ).animate().fade().moveX(delay: 200.ms),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                showModalBottomSheet<Widget>(
+                  showDragHandle: true,
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const SigninBottomSheet();
+                  },
+                );
+              },
               leading: const FaIcon(FontAwesomeIcons.userCheck),
               title: const Text(
                 'Use an existing account',
