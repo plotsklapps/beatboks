@@ -268,35 +268,18 @@ class FirebaseService {
 
   Future<void> updatePassword({
     required String email,
-    required String password,
-    required String newPassword,
     required void Function(String) onError,
     required void Function() onSuccess,
   }) async {
     try {
-      final User? user = _firebase.currentUser;
+      // Update password.
+      await _firebase.sendPasswordResetEmail(email: email);
 
-      if (user != null) {
-        // Re-authenticate the user.
-        await user.reauthenticateWithCredential(
-          EmailAuthProvider.credential(email: email, password: password),
-        );
+      // Log the success.
+      Logger().i('Password reset email sent.');
 
-        // Update password.
-        await user.updatePassword(newPassword);
-
-        // Log the success.
-        Logger().i('Password updated.');
-
-        // Trigger the onSuccess callback.
-        onSuccess();
-      } else {
-        // Log the error.
-        Logger().e('Unexpected error: No user found.');
-
-        // Trigger the onError callback.
-        onError('Unexpected error: No user found.');
-      }
+      // Trigger the onSuccess callback.
+      onSuccess();
     } catch (error) {
       // Log the error.
       Logger().e(error);

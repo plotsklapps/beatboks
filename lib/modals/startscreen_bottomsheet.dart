@@ -4,6 +4,7 @@ import 'package:beatboks/navigation/navigation.dart';
 import 'package:beatboks/state/sneakpeek_signal.dart';
 import 'package:beatboks/theme/theme.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
+import 'package:beatboks/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -75,6 +76,13 @@ class StartScreenBottomSheet extends StatelessWidget {
 
                 // Navigate to HomeScreen.
                 Navigate.toHomeScreen(context);
+
+                // Show a SnackBar.
+                Snacks.showSuccessSnack(
+                  context,
+                  'You have signed in as Sneak Peeker, your data will NOT be '
+                  'stored. Enjoy!',
+                );
               },
               leading: const FaIcon(FontAwesomeIcons.userSecret),
               title: const Text(

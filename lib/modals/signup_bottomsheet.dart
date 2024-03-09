@@ -63,6 +63,7 @@ class _SignupBottomSheetState extends State<SignupBottomSheet> {
                 icon: FaIcon(FontAwesomeIcons.solidEnvelope),
                 labelText: 'Email',
               ),
+              keyboardType: TextInputType.emailAddress,
             ).animate().fade().moveX(delay: 200.ms),
             const SizedBox(height: 8),
             TextField(
@@ -73,6 +74,7 @@ class _SignupBottomSheetState extends State<SignupBottomSheet> {
                 labelText: 'Password',
                 suffixIcon: TextButton(
                   onPressed: () {
+                    // Toggle the obscureText property.
                     setState(() {
                       _isObscured = !_isObscured;
                     });
@@ -87,25 +89,38 @@ class _SignupBottomSheetState extends State<SignupBottomSheet> {
               children: <Widget>[
                 TextButton(
                   onPressed: () {
+                    // Cancel the spinner.
                     sSpinner.value = false;
+
+                    // Pop the bottomsheet.
                     Navigator.of(context).pop();
                   },
                   child: const Text('CANCEL'),
                 ),
                 FloatingActionButton(
                   onPressed: () {
+                    // Start the spinner.
                     sSpinner.value = true;
+
                     // Create user and send verification email.
                     _firebase.signUp(
                       email: _emailController.text.trim(),
                       password: _passwordController.text.trim(),
                       onError: (String error) {
+                        // Cancel the spinner.
                         sSpinner.value = false;
+
+                        // Show a SnackBar.
                         Snacks.showErrorSnack(context, error);
                       },
                       onSuccess: () {
+                        // Cancel the spinner.
                         sSpinner.value = false;
+
+                        // Pop the bottomsheet.
                         Navigator.pop(context);
+
+                        // Show the VerifyBottomSheet.
                         showModalBottomSheet<Widget>(
                           showDragHandle: true,
                           isScrollControlled: true,
@@ -114,6 +129,8 @@ class _SignupBottomSheetState extends State<SignupBottomSheet> {
                             return const VerifyBottomSheet();
                           },
                         );
+
+                        // Show a SnackBar.
                         Snacks.showSuccessSnack(
                             context,
                             'Account created! Please check '
@@ -122,6 +139,7 @@ class _SignupBottomSheetState extends State<SignupBottomSheet> {
                       },
                     );
                   },
+                  // Show a spinner or icon.
                   child: cSpinner.watch(context),
                 ),
               ],

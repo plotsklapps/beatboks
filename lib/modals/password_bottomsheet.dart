@@ -1,5 +1,4 @@
 import 'package:beatboks/firebase_service.dart';
-import 'package:beatboks/navigation/navigation.dart';
 import 'package:beatboks/state/spinner_signal.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:beatboks/widgets/snackbars.dart';
@@ -8,34 +7,28 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:signals/signals_flutter.dart';
 
-class SigninBottomSheet extends StatefulWidget {
-  const SigninBottomSheet({
-    super.key,
-  });
+class PasswordBottomSheet extends StatefulWidget {
+  const PasswordBottomSheet({super.key});
 
   @override
-  State<SigninBottomSheet> createState() {
-    return _SigninBottomSheet();
+  State<PasswordBottomSheet> createState() {
+    return _PasswordBottomSheetState();
   }
 }
 
-class _SigninBottomSheet extends State<SigninBottomSheet> {
+class _PasswordBottomSheetState extends State<PasswordBottomSheet> {
   final FirebaseService _firebase = FirebaseService();
   late TextEditingController _emailController;
-  late TextEditingController _passwordController;
-  bool _isObscured = true;
 
   @override
   void initState() {
     super.initState();
     _emailController = TextEditingController();
-    _passwordController = TextEditingController();
   }
 
   @override
   void dispose() {
     _emailController.dispose();
-    _passwordController.dispose();
     super.dispose();
   }
 
@@ -53,7 +46,7 @@ class _SigninBottomSheet extends State<SigninBottomSheet> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             const BottomSheetHeader(
-              title: 'Sign in to your account',
+              title: 'Reset your password',
             ),
             const Divider(thickness: 2),
             const SizedBox(height: 16),
@@ -63,32 +56,8 @@ class _SigninBottomSheet extends State<SigninBottomSheet> {
                 icon: FaIcon(FontAwesomeIcons.solidEnvelope),
                 labelText: 'Email',
               ),
+              keyboardType: TextInputType.emailAddress,
             ).animate().fade().moveX(delay: 200.ms),
-            const SizedBox(height: 8),
-            TextField(
-              controller: _passwordController,
-              obscureText: _isObscured,
-              decoration: InputDecoration(
-                icon: const FaIcon(FontAwesomeIcons.lock),
-                labelText: 'Password',
-                suffixIcon: TextButton(
-                  onPressed: () {
-                    // Toggle the obscureText property.
-                    setState(() {
-                      _isObscured = !_isObscured;
-                    });
-                  },
-                  child: _isObscured ? const Text('SHOW') : const Text('HIDE'),
-                ),
-              ),
-            ).animate().fade(delay: 200.ms).moveX(delay: 400.ms),
-            const SizedBox(height: 8),
-            TextButton(
-              onPressed: () {
-                // Show the ResetPasswordBottomSheet.
-              },
-              child: const Text('FORGOT PASSWORD'),
-            ),
             const SizedBox(height: 32),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -99,7 +68,7 @@ class _SigninBottomSheet extends State<SigninBottomSheet> {
                     sSpinner.value = false;
 
                     // Pop the bottomsheet.
-                    Navigator.of(context).pop();
+                    Navigator.pop(context);
                   },
                   child: const Text('CANCEL'),
                 ),
@@ -108,10 +77,9 @@ class _SigninBottomSheet extends State<SigninBottomSheet> {
                     // Start the spinner.
                     sSpinner.value = true;
 
-                    // Sign in the user.
-                    _firebase.signIn(
+                    // Send the password reset email.
+                    _firebase.updatePassword(
                       email: _emailController.text.trim(),
-                      password: _passwordController.text.trim(),
                       onError: (String error) {
                         // Cancel the spinner.
                         sSpinner.value = false;
@@ -126,18 +94,15 @@ class _SigninBottomSheet extends State<SigninBottomSheet> {
                         // Pop the bottomsheet.
                         Navigator.pop(context);
 
-                        // Navigate to the HomeScreen.
-                        Navigate.toHomeScreen(context);
-
                         // Show a SnackBar.
                         Snacks.showSuccessSnack(
                           context,
-                          'Welcome to beatBOKS! Enjoy your workout!',
+                          'Password reset email sent! Please check your inbox '
+                          'and/or spamfolder.',
                         );
                       },
                     );
                   },
-                  // Show a spinner or icon.
                   child: cSpinner.watch(context),
                 ),
               ],
