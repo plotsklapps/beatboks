@@ -1,10 +1,12 @@
 import 'package:beatboks/firebase_service.dart';
 import 'package:beatboks/modals/verify_bottomsheet.dart';
+import 'package:beatboks/state/spinner_signal.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:beatboks/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:signals/signals_flutter.dart';
 
 class SignupBottomSheet extends StatefulWidget {
   const SignupBottomSheet({
@@ -85,20 +87,24 @@ class _SignupBottomSheetState extends State<SignupBottomSheet> {
               children: <Widget>[
                 TextButton(
                   onPressed: () {
+                    sSpinner.value = false;
                     Navigator.of(context).pop();
                   },
                   child: const Text('CANCEL'),
                 ),
                 FloatingActionButton(
                   onPressed: () {
+                    sSpinner.value = true;
                     // Create user and send verification email.
                     _firebase.signUp(
                       email: _emailController.text.trim(),
                       password: _passwordController.text.trim(),
                       onError: (String error) {
+                        sSpinner.value = false;
                         Snacks.showErrorSnack(context, error);
                       },
                       onSuccess: () {
+                        sSpinner.value = false;
                         Navigator.pop(context);
                         showModalBottomSheet<Widget>(
                           showDragHandle: true,
@@ -116,7 +122,7 @@ class _SignupBottomSheetState extends State<SignupBottomSheet> {
                       },
                     );
                   },
-                  child: const FaIcon(FontAwesomeIcons.forwardStep),
+                  child: cSpinner.watch(context),
                 ),
               ],
             ),
