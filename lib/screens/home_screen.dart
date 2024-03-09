@@ -1,12 +1,13 @@
-import 'package:beatboks/widgets/bottomsheetheader.dart';
+import 'package:beatboks/modals/settings_bottomsheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: const Center(
         child: Text('Welcome to the home screen!'),
@@ -31,31 +32,7 @@ class HomeScreen extends StatelessWidget {
                   isScrollControlled: true,
                   context: context,
                   builder: (BuildContext context) {
-                    return const SizedBox(
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            BottomSheetHeader(
-                              title: 'Settings',
-                            ),
-                            Divider(thickness: 2),
-                            SizedBox(height: 32),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                ListTile(
-                                  title: Text('Log out'),
-                                  leading:
-                                      FaIcon(FontAwesomeIcons.rightFromBracket),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
+                    return const SettingsBottomSheet();
                   },
                 );
               },

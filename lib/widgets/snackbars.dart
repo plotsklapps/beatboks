@@ -26,7 +26,7 @@ class Snacks {
       context: context,
       type: ToastificationType.success,
       style: ToastificationStyle.flatColored,
-      title: const Text('Yay!'),
+      title: const Text('SUCCESS!'),
       description: Text(message),
       alignment: Alignment.topRight,
       autoCloseDuration: const Duration(seconds: 5),

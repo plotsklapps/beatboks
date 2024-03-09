@@ -1,3 +1,4 @@
+import 'package:beatboks/providers/sneakpeek_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
@@ -99,8 +100,33 @@ class FirebaseNotifier extends Notifier<FirebaseAuth> {
     }
   }
 
-  void signOut() {
-    state.signOut();
+  Future<void> signOut({
+    required void Function(String) onError,
+    required void Function() onSuccess,
+  }) async {
+    try {
+      if (!ref.watch(sneakPeekProvider)) {
+        await state.signOut();
+
+        // Log the success.
+        Logger().i('User signed out');
+
+        // Trigger the onSuccess callback.
+        onSuccess();
+      } else {
+        // Log the success.
+        Logger().i('User signed out');
+
+        // Trigger the onSuccess callback.
+        onSuccess();
+      }
+    } catch (error) {
+      // Log the error.
+      Logger().e(error);
+
+      // Trigger the onError callback.
+      onError(error.toString());
+    }
   }
 
   Future<void> checkEmailVerified({
