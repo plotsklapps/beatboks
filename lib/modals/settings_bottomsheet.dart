@@ -1,7 +1,5 @@
-import 'package:beatboks/firebase_service.dart';
-import 'package:beatboks/navigation/navigation.dart';
+import 'package:beatboks/modals/signout_bottomsheet.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
-import 'package:beatboks/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -10,7 +8,6 @@ class SettingsBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final FirebaseService firebase = FirebaseService();
     return SizedBox(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
@@ -24,24 +21,18 @@ class SettingsBottomSheet extends StatelessWidget {
             const SizedBox(height: 32),
             ListTile(
               onTap: () {
-                // Log out the user.
-                firebase.signOut(
-                  onError: (String error) {
-                    Snacks.showErrorSnack(context, error);
-                  },
-                  onSuccess: () {
-                    Navigator.pop(context);
-                    Navigate.toStartScreen(context);
-                    Snacks.showSuccessSnack(
-                      context,
-                      'You have successfully signed out',
-                    );
+                // Show the SignoutBottomSheet
+                showModalBottomSheet<Widget>(
+                  showDragHandle: true,
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const SignoutBottomSheet();
                   },
                 );
               },
               title: const Text('Log out'),
               leading: const FaIcon(FontAwesomeIcons.rightFromBracket),
-              trailing: const FaIcon(FontAwesomeIcons.forwardStep),
             ),
           ],
         ),
