@@ -1,19 +1,18 @@
 import 'package:beatboks/modals/signin_bottomsheet.dart';
 import 'package:beatboks/modals/signup_bottomsheet.dart';
 import 'package:beatboks/navigation/navigation.dart';
-import 'package:beatboks/providers/sneakpeek_provider.dart';
+import 'package:beatboks/state/sneakpeek_signal.dart';
 import 'package:beatboks/theme/theme.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class StartScreenBottomSheet extends ConsumerWidget {
+class StartScreenBottomSheet extends StatelessWidget {
   const StartScreenBottomSheet({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return SizedBox(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(
@@ -69,7 +68,7 @@ class StartScreenBottomSheet extends ConsumerWidget {
             ListTile(
               onTap: () {
                 // Set sneak peek to true.
-                ref.read(sneakPeekProvider.notifier).setSneakPeekTrue();
+                sSneakPeek.value = true;
 
                 // Pop the bottomsheet.
                 Navigator.pop(context);

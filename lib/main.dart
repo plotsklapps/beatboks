@@ -3,7 +3,6 @@ import 'package:beatboks/navigation/navigation.dart';
 import 'package:beatboks/theme/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Using a GlobalKey for showing SnackBars to users.
 final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
@@ -17,7 +16,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   // Start the app, wrapped in Riverpod's ProviderScope.
-  runApp(const ProviderScope(child: MainEntry()));
+  runApp(const MainEntry());
 }
 
 class MainEntry extends StatelessWidget {

@@ -222,14 +222,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.5.0"
-  flutter_riverpod:
-    dependency: "direct main"
-    description:
-      name: flutter_riverpod
-      sha256: "4bce556b7ecbfea26109638d5237684538d4abc509d253e6c5c4c5733b360098"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.10"
   flutter_shaders:
     dependency: transitive
     description:
@@ -440,14 +432,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
-  riverpod:
-    dependency: transitive
+  signals:
+    dependency: "direct main"
     description:
-      name: riverpod
-      sha256: "548e2192eb7aeb826eb89387f814edb76594f3363e2c0bb99dd733d795ba3589"
+      name: signals
+      sha256: a411a60a180570d23446ed233bbf7330384188d446302a47c032f3c14e4fc6cb
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.0"
+    version: "4.5.1"
+  signals_core:
+    dependency: transitive
+    description:
+      name: signals_core
+      sha256: "29258212f4e89297e7a6abbc0a000fda934bfa6d8b5634c30ce31ec1033bf9e4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.5.0"
+  signals_flutter:
+    dependency: transitive
+    description:
+      name: signals_flutter
+      sha256: dd4971b2a0165d1ef8de1a45d59e89cdcdd5fc1c8f7fa180d55e6d049be89e92
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.5.1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -477,14 +485,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.1"
-  state_notifier:
-    dependency: transitive
-    description:
-      name: state_notifier
-      sha256: b8677376aa54f2d7c58280d5a007f9e8774f1968d1fb1c096adcb4792fba29bb
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   stream_channel:
     dependency: transitive
     description:

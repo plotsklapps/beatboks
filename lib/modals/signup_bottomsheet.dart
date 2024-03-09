@@ -1,24 +1,24 @@
+import 'package:beatboks/firebase_service.dart';
 import 'package:beatboks/modals/verify_bottomsheet.dart';
-import 'package:beatboks/providers/firebase_provider.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:beatboks/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class SignupBottomSheet extends ConsumerStatefulWidget {
+class SignupBottomSheet extends StatefulWidget {
   const SignupBottomSheet({
     super.key,
   });
 
   @override
-  ConsumerState<SignupBottomSheet> createState() {
+  State<SignupBottomSheet> createState() {
     return _SignupBottomSheetState();
   }
 }
 
-class _SignupBottomSheetState extends ConsumerState<SignupBottomSheet> {
+class _SignupBottomSheetState extends State<SignupBottomSheet> {
+  final FirebaseService _firebase = FirebaseService();
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
   bool _isObscured = true;
@@ -92,29 +92,29 @@ class _SignupBottomSheetState extends ConsumerState<SignupBottomSheet> {
                 FloatingActionButton(
                   onPressed: () {
                     // Create user and send verification email.
-                    ref.read(firebaseProvider.notifier).signUp(
-                          email: _emailController.text.trim(),
-                          password: _passwordController.text.trim(),
-                          onError: (String error) {
-                            Snacks.showErrorSnack(context, error);
-                          },
-                          onSuccess: () {
-                            Navigator.pop(context);
-                            showModalBottomSheet<Widget>(
-                              showDragHandle: true,
-                              isScrollControlled: true,
-                              context: context,
-                              builder: (BuildContext context) {
-                                return const VerifyBottomSheet();
-                              },
-                            );
-                            Snacks.showSuccessSnack(
-                                context,
-                                'Account created! Please check '
-                                '${_emailController.text.trim()} for the '
-                                'verification email');
+                    _firebase.signUp(
+                      email: _emailController.text.trim(),
+                      password: _passwordController.text.trim(),
+                      onError: (String error) {
+                        Snacks.showErrorSnack(context, error);
+                      },
+                      onSuccess: () {
+                        Navigator.pop(context);
+                        showModalBottomSheet<Widget>(
+                          showDragHandle: true,
+                          isScrollControlled: true,
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const VerifyBottomSheet();
                           },
                         );
+                        Snacks.showSuccessSnack(
+                            context,
+                            'Account created! Please check '
+                            '${_emailController.text.trim()} for the '
+                            'verification email');
+                      },
+                    );
                   },
                   child: const FaIcon(FontAwesomeIcons.forwardStep),
                 ),

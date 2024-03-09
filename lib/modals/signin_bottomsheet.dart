@@ -1,24 +1,24 @@
+import 'package:beatboks/firebase_service.dart';
 import 'package:beatboks/navigation/navigation.dart';
-import 'package:beatboks/providers/firebase_provider.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:beatboks/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class SigninBottomSheet extends ConsumerStatefulWidget {
+class SigninBottomSheet extends StatefulWidget {
   const SigninBottomSheet({
     super.key,
   });
 
   @override
-  ConsumerState<SigninBottomSheet> createState() {
+  State<SigninBottomSheet> createState() {
     return _SigninBottomSheet();
   }
 }
 
-class _SigninBottomSheet extends ConsumerState<SigninBottomSheet> {
+class _SigninBottomSheet extends State<SigninBottomSheet> {
+  final FirebaseService _firebase = FirebaseService();
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
   bool _isObscured = true;
@@ -92,21 +92,21 @@ class _SigninBottomSheet extends ConsumerState<SigninBottomSheet> {
                 FloatingActionButton(
                   onPressed: () {
                     // Sign in user.
-                    ref.read(firebaseProvider.notifier).signIn(
-                          email: _emailController.text,
-                          password: _passwordController.text,
-                          onError: (String error) {
-                            Snacks.showErrorSnack(context, error);
-                          },
-                          onSuccess: () {
-                            Navigator.pop(context);
-                            Navigate.toHomeScreen(context);
-                            Snacks.showSuccessSnack(
-                              context,
-                              'Welcome to beatBOKS! Enjoy your workout!',
-                            );
-                          },
+                    _firebase.signIn(
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                      onError: (String error) {
+                        Snacks.showErrorSnack(context, error);
+                      },
+                      onSuccess: () {
+                        Navigator.pop(context);
+                        Navigate.toHomeScreen(context);
+                        Snacks.showSuccessSnack(
+                          context,
+                          'Welcome to beatBOKS! Enjoy your workout!',
                         );
+                      },
+                    );
                   },
                   child: const FaIcon(FontAwesomeIcons.forwardStep),
                 ),
