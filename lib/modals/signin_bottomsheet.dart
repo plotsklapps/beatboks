@@ -3,25 +3,23 @@ import 'package:beatboks/providers/firebase_provider.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:beatboks/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class SignupBottomSheet extends ConsumerStatefulWidget {
-  const SignupBottomSheet({
+class SigninBottomSheet extends ConsumerStatefulWidget {
+  const SigninBottomSheet({
     super.key,
   });
 
   @override
-  ConsumerState<SignupBottomSheet> createState() {
-    return _SignupBottomSheetState();
+  ConsumerState<SigninBottomSheet> createState() {
+    return _SigninBottomSheet();
   }
 }
 
-class _SignupBottomSheetState extends ConsumerState<SignupBottomSheet> {
+class _SigninBottomSheet extends ConsumerState<SigninBottomSheet> {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
-  bool _isObscured = true;
 
   @override
   void initState() {
@@ -45,7 +43,7 @@ class _SignupBottomSheetState extends ConsumerState<SignupBottomSheet> {
           16,
           0,
           16,
-          MediaQuery.viewInsetsOf(context).bottom + 32,
+          MediaQuery.viewInsetsOf(context).bottom + 16,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -61,25 +59,16 @@ class _SignupBottomSheetState extends ConsumerState<SignupBottomSheet> {
                 icon: FaIcon(FontAwesomeIcons.solidEnvelope),
                 labelText: 'Email',
               ),
-            ).animate().fade().moveX(delay: 200.ms),
+            ),
             const SizedBox(height: 8),
             TextField(
               controller: _passwordController,
-              obscureText: _isObscured,
-              decoration: InputDecoration(
-                icon: const FaIcon(FontAwesomeIcons.lock),
+              decoration: const InputDecoration(
+                icon: FaIcon(FontAwesomeIcons.lock),
                 labelText: 'Password',
-                suffixIcon: TextButton(
-                  onPressed: () {
-                    setState(() {
-                      _isObscured = !_isObscured;
-                    });
-                  },
-                  child: _isObscured ? const Text('SHOW') : const Text('HIDE'),
-                ),
               ),
-            ).animate().fade(delay: 200.ms).moveX(delay: 400.ms),
-            const SizedBox(height: 32),
+            ),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[

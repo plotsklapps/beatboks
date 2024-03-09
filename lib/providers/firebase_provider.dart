@@ -62,12 +62,76 @@ class FirebaseNotifier extends Notifier<FirebaseAuth> {
     }
   }
 
-  void signIn(String email, String password) {
-    state.signInWithEmailAndPassword(email: email, password: password);
+  Future<void> signIn({
+    required String email,
+    required String password,
+    required void Function(String) onError,
+    required void Function() onSuccess,
+  }) async {
+    try {
+      // Sign in the user.
+      await state.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      if (state.currentUser != null) {
+        if (state.currentUser!.emailVerified) {
+          // Log the success.
+          Logger().i('User signed in');
+
+          // Trigger the onSuccess callback.
+          onSuccess();
+        } else {
+          // Log the error.
+          Logger().e('User exists, but is not verified');
+
+          // Trigger the onError callback.
+          onError('User exists, but is not verified.');
+        }
+      }
+    } catch (error) {
+      // Log the error.
+      Logger().e(error);
+
+      // Trigger the onError callback.
+      onError(error.toString());
+    }
   }
 
   void signOut() {
     state.signOut();
+  }
+
+  Future<void> checkEmailVerified({
+    required void Function(String) onError,
+    required void Function() onSuccess,
+  }) async {
+    try {
+      // Force reload the user.
+      await state.currentUser!.reload();
+
+      if (state.currentUser!.emailVerified) {
+        // Log the success.
+        Logger().i('User verified');
+
+        // Trigger the onSuccess callback.
+        onSuccess();
+      } else {
+        // Log the error.
+        Logger().e('User not verified');
+
+        // Trigger the onError callback.
+        onError('Our backend has not responded yet. Take a deep breath and '
+            'try again.');
+      }
+    } catch (error) {
+      // Log the error.
+      Logger().e(error);
+
+      // Trigger the onError callback.
+      onError(error.toString());
+    }
   }
 
   void sendPasswordResetEmail(String email) {

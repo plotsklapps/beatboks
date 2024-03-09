@@ -42,7 +42,7 @@ class StartScreenBottomSheet extends StatelessWidget {
               ),
               subtitle: const Text('Get a personalized experience'
                   ' and save your statistics (recommended)'),
-            ).animate().fade().moveX(delay: 200.ms, begin: -32),
+            ).animate().fade().moveX(delay: 200.ms),
             ListTile(
               onTap: () {},
               leading: const FaIcon(FontAwesomeIcons.userCheck),
@@ -52,7 +52,7 @@ class StartScreenBottomSheet extends StatelessWidget {
               ),
               subtitle: const Text("You've already used beatBOKS "
                   'before and want to sign in'),
-            ).animate().fade(delay: 200.ms).moveX(delay: 400.ms, begin: -32),
+            ).animate().fade(delay: 200.ms).moveX(delay: 400.ms),
             ListTile(
               onTap: () {},
               leading: const FaIcon(FontAwesomeIcons.userSecret),
@@ -62,7 +62,7 @@ class StartScreenBottomSheet extends StatelessWidget {
               ),
               subtitle: const Text('Try out beatBOKS anonymously '
                   'without storing any data'),
-            ).animate().fade(delay: 400.ms).moveX(delay: 600.ms, begin: -32),
+            ).animate().fade(delay: 400.ms).moveX(delay: 600.ms),
           ],
         ),
       ),

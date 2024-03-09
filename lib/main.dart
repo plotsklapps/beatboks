@@ -1,5 +1,5 @@
 import 'package:beatboks/firebase_options.dart';
-import 'package:beatboks/screens/start_screen.dart';
+import 'package:beatboks/navigation/navigation.dart';
 import 'package:beatboks/theme/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,8 @@ class MainEntry extends StatelessWidget {
       scaffoldMessengerKey: rootScaffoldMessengerKey,
       title: 'Flutter Demo',
       theme: themeLight,
-      home: const StartScreen(),
+      initialRoute: NavString.startScreen,
+      routes: routes,
     );
   }
 }
