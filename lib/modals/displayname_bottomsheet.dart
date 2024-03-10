@@ -1,4 +1,5 @@
 import 'package:beatboks/firebase/firebase_service.dart';
+import 'package:beatboks/state/displayname_signal.dart';
 import 'package:beatboks/state/spinner_signal.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:beatboks/widgets/snackbars.dart';
@@ -7,28 +8,28 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:signals/signals_flutter.dart';
 
-class PasswordBottomSheet extends StatefulWidget {
-  const PasswordBottomSheet({super.key});
+class DisplayNameBottomsheet extends StatefulWidget {
+  const DisplayNameBottomsheet({super.key});
 
   @override
-  State<PasswordBottomSheet> createState() {
-    return _PasswordBottomSheetState();
+  State<DisplayNameBottomsheet> createState() {
+    return _DisplayNameBottomsheetState();
   }
 }
 
-class _PasswordBottomSheetState extends State<PasswordBottomSheet> {
+class _DisplayNameBottomsheetState extends State<DisplayNameBottomsheet> {
   final FirebaseService _firebase = FirebaseService();
-  late TextEditingController _emailController;
+  late TextEditingController _displayNameController;
 
   @override
   void initState() {
     super.initState();
-    _emailController = TextEditingController();
+    _displayNameController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _displayNameController.dispose();
     super.dispose();
   }
 
@@ -46,17 +47,17 @@ class _PasswordBottomSheetState extends State<PasswordBottomSheet> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             const BottomSheetHeader(
-              title: 'Reset your password',
+              title: 'Change your username',
             ),
             const Divider(thickness: 2),
             const SizedBox(height: 16),
             TextField(
-              controller: _emailController,
+              controller: _displayNameController,
               decoration: const InputDecoration(
-                icon: FaIcon(FontAwesomeIcons.solidEnvelope),
-                labelText: 'Email',
+                icon: FaIcon(FontAwesomeIcons.userPen),
+                labelText: 'Name',
               ),
-              keyboardType: TextInputType.emailAddress,
+              keyboardType: TextInputType.text,
             ).animate().fade().moveX(delay: 200.ms),
             const SizedBox(height: 32),
             Row(
@@ -77,9 +78,12 @@ class _PasswordBottomSheetState extends State<PasswordBottomSheet> {
                     // Start the spinner.
                     sSpinner.value = true;
 
+                    // Set the signal.
+                    sDisplayName.value = _displayNameController.text.trim();
+
                     // Send the password reset email.
-                    _firebase.updatePassword(
-                      email: _emailController.text.trim(),
+                    _firebase.updateDisplayName(
+                      displayName: sDisplayName.value,
                       onError: (String error) {
                         // Cancel the spinner.
                         sSpinner.value = false;
@@ -97,8 +101,8 @@ class _PasswordBottomSheetState extends State<PasswordBottomSheet> {
                         // Show a SnackBar.
                         Snacks.showSuccessSnack(
                           context,
-                          'Password reset email sent! Please check your inbox '
-                          'and/or spamfolder.',
+                          'Username changed! Hello, '
+                          '${_displayNameController.text.trim()}!',
                         );
                       },
                     );

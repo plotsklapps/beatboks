@@ -15,7 +15,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // Start the app, wrapped in Riverpod's ProviderScope.
+  // Start the app.
   runApp(const MainEntry());
 }
 

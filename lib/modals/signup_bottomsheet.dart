@@ -1,4 +1,4 @@
-import 'package:beatboks/firebase_service.dart';
+import 'package:beatboks/firebase/firebase_service.dart';
 import 'package:beatboks/modals/verify_bottomsheet.dart';
 import 'package:beatboks/state/spinner_signal.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';

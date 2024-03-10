@@ -1,6 +1,8 @@
+import 'package:beatboks/modals/displayname_bottomsheet.dart';
 import 'package:beatboks/modals/signout_bottomsheet.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SettingsBottomSheet extends StatelessWidget {
@@ -27,13 +29,28 @@ class SettingsBottomSheet extends StatelessWidget {
                   isScrollControlled: true,
                   context: context,
                   builder: (BuildContext context) {
+                    return const DisplayNameBottomsheet();
+                  },
+                );
+              },
+              title: const Text('Log out'),
+              leading: const FaIcon(FontAwesomeIcons.rightFromBracket),
+            ).animate().fade().moveX(delay: 200.ms),
+            ListTile(
+              onTap: () {
+                // Show the SignoutBottomSheet
+                showModalBottomSheet<Widget>(
+                  showDragHandle: true,
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (BuildContext context) {
                     return const SignoutBottomSheet();
                   },
                 );
               },
               title: const Text('Log out'),
               leading: const FaIcon(FontAwesomeIcons.rightFromBracket),
-            ),
+            ).animate().fade(delay: 200.ms).moveX(delay: 400.ms),
           ],
         ),
       ),

@@ -210,29 +210,6 @@ class FirebaseService {
     }
   }
 
-  Future<void> sendPasswordResetEmail({
-    required String email,
-    required void Function(String) onError,
-    required void Function() onSuccess,
-  }) async {
-    try {
-      // Send password reset email.
-      await _firebase.sendPasswordResetEmail(email: email);
-
-      // Log the success.
-      Logger().i('Password reset email sent.');
-
-      // Trigger the onSuccess callback.
-      onSuccess();
-    } catch (error) {
-      // Log the error.
-      Logger().e(error);
-
-      // Trigger the onError callback.
-      onError(error.toString());
-    }
-  }
-
   Future<void> updateEmail({
     required String email,
     required void Function(String) onError,
@@ -280,6 +257,39 @@ class FirebaseService {
 
       // Trigger the onSuccess callback.
       onSuccess();
+    } catch (error) {
+      // Log the error.
+      Logger().e(error);
+
+      // Trigger the onError callback.
+      onError(error.toString());
+    }
+  }
+
+  Future<void> updateDisplayName({
+    required String displayName,
+    required void Function(String) onError,
+    required void Function() onSuccess,
+  }) async {
+    try {
+      final User? user = _firebase.currentUser;
+
+      if (user != null) {
+        // Update display name.
+        await user.updateDisplayName(displayName);
+
+        // Log the success.
+        Logger().i('Display name updated.');
+
+        // Trigger the onSuccess callback.
+        onSuccess();
+      } else {
+        // Log the error.
+        Logger().e('Unexpected error: No user found.');
+
+        // Trigger the onError callback.
+        onError('Unexpected error: No user found.');
+      }
     } catch (error) {
       // Log the error.
       Logger().e(error);

@@ -1,4 +1,4 @@
-import 'package:beatboks/firebase_service.dart';
+import 'package:beatboks/firebase/firebase_service.dart';
 import 'package:beatboks/navigation/navigation.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:beatboks/widgets/snackbars.dart';
