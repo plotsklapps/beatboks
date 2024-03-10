@@ -33,8 +33,8 @@ class SettingsBottomSheet extends StatelessWidget {
                   },
                 );
               },
-              title: const Text('Log out'),
-              leading: const FaIcon(FontAwesomeIcons.rightFromBracket),
+              title: const Text('Change username'),
+              leading: const FaIcon(FontAwesomeIcons.userPen),
             ).animate().fade().moveX(delay: 200.ms),
             ListTile(
               onTap: () {

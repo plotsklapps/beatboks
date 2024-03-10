@@ -1,6 +1,8 @@
 import 'package:beatboks/modals/settings_bottomsheet.dart';
+import 'package:beatboks/state/displayname_signal.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:signals/signals_flutter.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -8,8 +10,17 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Center(
-        child: Text('Welcome to the home screen!'),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text('Welcome to the home screen,'),
+            const SizedBox(height: 32),
+
+            // Watch the signal and display the value.
+            Text(cDisplayName.watch(context)),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

@@ -1,3 +1,4 @@
+import 'package:beatboks/state/displayname_signal.dart';
 import 'package:beatboks/state/sneakpeek_signal.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
@@ -140,6 +141,9 @@ class FirebaseService {
       if (!sSneakPeek.value) {
         // Sign out from Firebase.
         await _firebase.signOut();
+
+        // Set display name to default.
+        sDisplayName.value = 'New Boxer';
 
         // Log the success.
         Logger().i('User signed out.');
