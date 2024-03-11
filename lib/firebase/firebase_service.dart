@@ -1,4 +1,7 @@
+import 'package:beatboks/state/currentuser_signal.dart';
 import 'package:beatboks/state/displayname_signal.dart';
+import 'package:beatboks/state/email_signal.dart';
+import 'package:beatboks/state/photoURL_signal.dart';
 import 'package:beatboks/state/sneakpeek_signal.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
@@ -24,6 +27,14 @@ class FirebaseService {
 
   String? get photoURL {
     return _firebase.currentUser?.photoURL;
+  }
+
+  void _setSignalsFromFirebase() {
+    sCurrentUser.value = currentUser;
+    sEmail.value = email;
+    sEmailVerified.value = emailVerified;
+    sDisplayName.value = displayName;
+    sPhotoURL.value = photoURL;
   }
 
   Future<void> signUp({
@@ -85,6 +96,8 @@ class FirebaseService {
         if (user.emailVerified) {
           // Log the success.
           Logger().i('User signed in via Firebase.');
+
+          _setSignalsFromFirebase();
 
           // Trigger the onSuccess callback.
           onSuccess();

@@ -83,7 +83,7 @@ class _DisplayNameBottomsheetState extends State<DisplayNameBottomsheet> {
 
                     // Send the password reset email.
                     _firebase.updateDisplayName(
-                      displayName: sDisplayName.value,
+                      displayName: sDisplayName.value!,
                       onError: (String error) {
                         // Cancel the spinner.
                         sSpinner.value = false;
