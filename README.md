@@ -43,8 +43,6 @@ and well-being with every punch.
 
 ## Installation
 
-Provide instructions on how to install and run your app locally.
-
 ```bash
 $ git clone https://github.com/plotsklapps/beatboks.git
 $ cd your-repo
