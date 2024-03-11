@@ -42,19 +42,7 @@ class VerifyBottomSheet extends StatelessWidget {
                       },
                       onSuccess: () {
                         // Create user doc in Firestore.
-                        firestore.createUserDoc(
-                          onError: (String error) {
-                            // Show a SnackBar.
-                            Snacks.showErrorSnack(context, error);
-                          },
-                          onSuccess: () {
-                            // Show a SnackBar.
-                            Snacks.showSuccessSnack(
-                              context,
-                              'Email verified, user document created!',
-                            );
-                          },
-                        );
+                        firestore.createUserDoc();
 
                         // Pop the bottomsheet.
                         Navigator.pop(context);

@@ -15,10 +15,7 @@ class FirestoreService {
 
   // Create a new user document in Firestore under the 'users' collection and
   // the user's uid as the document id.
-  Future<void> createUserDoc({
-    required void Function(String) onError,
-    required void Function() onSuccess,
-  }) async {
+  Future<void> createUserDoc() async {
     final User? user = _firebase.currentUser;
 
     if (user != null) {
@@ -29,10 +26,10 @@ class FirestoreService {
             .doc(user.uid)
             .set(<String, dynamic>{
           'uid': user.uid,
-          'email': user.email,
+          'email': user.email ?? '',
           'emailVerified': user.emailVerified,
-          'displayName': user.displayName,
-          'photoURL': user.photoURL,
+          'displayName': user.displayName ?? '',
+          'photoURL': user.photoURL ?? '',
           'createdAt': DateTime.now(),
           'lastVisit': DateTime.now(),
           'darkMode': sDarkMode.value,
@@ -40,22 +37,13 @@ class FirestoreService {
 
         // Log the success.
         Logger().i('User document created.');
-
-        // Trigger the onSuccess callback.
-        onSuccess();
       } catch (error) {
         // Log the error.
         Logger().e(error);
-
-        // Trigger the onError callback.
-        onError(error.toString());
       }
     } else {
       // Log the error.
       Logger().e('Unexpected error: User not found.');
-
-      // Trigger the onError callback.
-      onError('Unexpected error: User not found.');
     }
   }
 
@@ -75,23 +63,31 @@ class FirestoreService {
 
         if (doc.exists) {
           // Fetch the data from the doc.
-          final Map<String, dynamic> data = doc.data()!;
+          final Map<String, dynamic>? data = doc.data();
 
-          // Set the signals.
-          sUID.value = data['uid'] as String;
-          sEmail.value = data['email'] as String;
-          sEmailVerified.value = data['emailVerified'] as bool;
-          sDisplayName.value = data['displayName'] as String;
-          sPhotoURL.value = data['photoURL'] as String;
-          sCreationDate.value = data['createdAt'] as DateTime;
-          sLastVisit.value = data['lastVisit'] as DateTime;
-          sDarkMode.value = data['darkMode'] as bool;
+          if (data != null) {
+            // Set the signals.
+            sUID.value = data['uid'] as String;
+            sEmail.value = data['email'] as String;
+            sEmailVerified.value = data['emailVerified'] as bool;
+            sDisplayName.value = data['displayName'] as String;
+            sPhotoURL.value = data['photoURL'] as String;
+            sCreationDate.value = data['createdAt'] as DateTime;
+            sLastVisit.value = data['lastVisit'] as DateTime;
+            sDarkMode.value = data['darkMode'] as bool;
 
-          // Log the success.
-          Logger().i('User document fetched.');
+            // Log the success.
+            Logger().i('User document fetched.');
 
-          // Trigger the onSuccess callback.
-          onSuccess();
+            // Trigger the onSuccess callback.
+            onSuccess();
+          } else {
+            // Log the error.
+            Logger().e('Unexpected error: User document data not found.');
+
+            // Trigger the onError callback.
+            onError('Unexpected error: User document data not found.');
+          }
         } else {
           // Log the error.
           Logger().e('Unexpected error: User document not found.');
