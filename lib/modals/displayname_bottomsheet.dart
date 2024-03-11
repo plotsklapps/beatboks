@@ -102,7 +102,7 @@ class _DisplayNameBottomsheetState extends State<DisplayNameBottomsheet> {
                         Snacks.showSuccessSnack(
                           context,
                           'Username changed! Hello, '
-                          '${_displayNameController.text.trim()}!',
+                          '${sDisplayName.value}!',
                         );
                       },
                     );
