@@ -1,6 +1,8 @@
 import 'package:beatboks/modals/displayname_bottomsheet.dart';
 import 'package:beatboks/modals/signout_bottomsheet.dart';
+import 'package:beatboks/state/sneakpeek_signal.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
+import 'package:beatboks/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -23,6 +25,15 @@ class SettingsBottomSheet extends StatelessWidget {
             const SizedBox(height: 32),
             ListTile(
               onTap: () {
+                if (sSneakPeek.value) {
+                  // Show a SnackBar.
+                  Snacks.showErrorSnack(
+                    context,
+                    'You are a Sneak Peeker. You cannot change your '
+                    'username.',
+                  );
+                  return;
+                }
                 // Show the SignoutBottomSheet
                 showModalBottomSheet<Widget>(
                   showDragHandle: true,
