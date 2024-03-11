@@ -1,4 +1,5 @@
 import 'package:beatboks/firebase/firebase_service.dart';
+import 'package:beatboks/firebase/firestore_service.dart';
 import 'package:beatboks/navigation/navigation.dart';
 import 'package:beatboks/state/spinner_signal.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
@@ -21,6 +22,7 @@ class SigninBottomSheet extends StatefulWidget {
 
 class _SigninBottomSheet extends State<SigninBottomSheet> {
   final FirebaseService _firebase = FirebaseService();
+  final FirestoreService _firestore = FirestoreService();
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
   bool _isObscured = true;
@@ -120,6 +122,21 @@ class _SigninBottomSheet extends State<SigninBottomSheet> {
                         Snacks.showErrorSnack(context, error);
                       },
                       onSuccess: () {
+                        // Fetch the user doc from Firestore.
+                        _firestore.fetchUserDoc(
+                          onError: (String error) {
+                            // Show a SnackBar.
+                            Snacks.showErrorSnack(context, error);
+                          },
+                          onSuccess: () {
+                            // Show a SnackBar.
+                            Snacks.showSuccessSnack(
+                              context,
+                              'User data retrieved!',
+                            );
+                          },
+                        );
+
                         // Cancel the spinner.
                         sSpinner.value = false;
 

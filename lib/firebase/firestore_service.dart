@@ -1,3 +1,10 @@
+import 'package:beatboks/state/creationdate_signal.dart';
+import 'package:beatboks/state/displayname_signal.dart';
+import 'package:beatboks/state/email_signal.dart';
+import 'package:beatboks/state/lastvisit_signal.dart';
+import 'package:beatboks/state/photoURL_signal.dart';
+import 'package:beatboks/state/theme_signal.dart';
+import 'package:beatboks/state/uid_signal.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
@@ -26,7 +33,9 @@ class FirestoreService {
           'emailVerified': user.emailVerified,
           'displayName': user.displayName,
           'photoURL': user.photoURL,
-          'lastSeen': DateTime.now(),
+          'createdAt': DateTime.now(),
+          'lastVisit': DateTime.now(),
+          'darkMode': sDarkMode.value,
         });
 
         // Log the success.
@@ -51,7 +60,7 @@ class FirestoreService {
   }
 
   // Fetch the user document from Firestore and store the values to their
-// respective signals.
+  // respective signals.
   Future<void> fetchUserDoc({
     required void Function(String) onError,
     required void Function() onSuccess,
@@ -69,15 +78,40 @@ class FirestoreService {
           final Map<String, dynamic> data = doc.data()!;
 
           // Set the signals.
+          sUID.value = data['uid'] as String;
+          sEmail.value = data['email'] as String;
+          sEmailVerified.value = data['emailVerified'] as bool;
+          sDisplayName.value = data['displayName'] as String;
+          sPhotoURL.value = data['photoURL'] as String;
+          sCreationDate.value = data['createdAt'] as DateTime;
+          sLastVisit.value = data['lastVisit'] as DateTime;
+          sDarkMode.value = data['darkMode'] as bool;
 
           // Log the success.
           Logger().i('User document fetched.');
-        }
 
-        Logger().i('User document fetched.');
+          // Trigger the onSuccess callback.
+          onSuccess();
+        } else {
+          // Log the error.
+          Logger().e('Unexpected error: User document not found.');
+
+          // Trigger the onError callback.
+          onError('Unexpected error: User document not found.');
+        }
       } catch (error) {
+        // Log the error.
         Logger().e(error);
+
+        // Trigger the onError callback.
+        onError(error.toString());
       }
-    } else {}
+    } else {
+      // Log the error.
+      Logger().e('Unexpected error: User not found.');
+
+      // Trigger the onError callback.
+      onError('Unexpected error: User not found.');
+    }
   }
 }

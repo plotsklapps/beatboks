@@ -1,4 +1,5 @@
 import 'package:beatboks/firebase/firebase_service.dart';
+import 'package:beatboks/firebase/firestore_service.dart';
 import 'package:beatboks/navigation/navigation.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:beatboks/widgets/snackbars.dart';
@@ -11,6 +12,7 @@ class VerifyBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final FirebaseService firebase = FirebaseService();
+    final FirestoreService firestore = FirestoreService();
     return SizedBox(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
@@ -39,6 +41,21 @@ class VerifyBottomSheet extends StatelessWidget {
                         Snacks.showErrorSnack(context, error);
                       },
                       onSuccess: () {
+                        // Create user doc in Firestore.
+                        firestore.createUserDoc(
+                          onError: (String error) {
+                            // Show a SnackBar.
+                            Snacks.showErrorSnack(context, error);
+                          },
+                          onSuccess: () {
+                            // Show a SnackBar.
+                            Snacks.showSuccessSnack(
+                              context,
+                              'Email verified, user document created!',
+                            );
+                          },
+                        );
+
                         // Pop the bottomsheet.
                         Navigator.pop(context);
 
@@ -48,7 +65,7 @@ class VerifyBottomSheet extends StatelessWidget {
                         // Show a SnackBar.
                         Snacks.showSuccessSnack(
                           context,
-                          'Email verified, welcome to beatBOKS!',
+                          'Welcome to beatBOKS! Enjoy your workout!',
                         );
                       },
                     );
