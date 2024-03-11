@@ -1,7 +1,5 @@
-import 'package:beatboks/firebase/firebase_service.dart';
 import 'package:signals/signals.dart';
 
-final Signal<String?> sEmail = signal<String?>(FirebaseService().email ?? '');
+final Signal<String?> sEmail = signal<String?>('JohnDoe@email.com');
 
-final Signal<bool?> sEmailVerified =
-    signal<bool?>(FirebaseService().emailVerified ?? false);
+final Signal<bool?> sEmailVerified = signal<bool?>(false);
