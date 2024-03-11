@@ -49,4 +49,35 @@ class FirestoreService {
       onError('Unexpected error: User not found.');
     }
   }
+
+  // Fetch the user document from Firestore and store the values to their
+// respective signals.
+  Future<void> fetchUserDoc({
+    required void Function(String) onError,
+    required void Function() onSuccess,
+  }) async {
+    final User? user = _firebase.currentUser;
+
+    if (user != null) {
+      try {
+        // Fetch the doc.
+        final DocumentSnapshot<Map<String, dynamic>> doc =
+            await _firestore.collection('users').doc(user.uid).get();
+
+        if (doc.exists) {
+          // Fetch the data from the doc.
+          final Map<String, dynamic> data = doc.data()!;
+
+          // Set the signals.
+
+          // Log the success.
+          Logger().i('User document fetched.');
+        }
+
+        Logger().i('User document fetched.');
+      } catch (error) {
+        Logger().e(error);
+      }
+    } else {}
+  }
 }
