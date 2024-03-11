@@ -1,8 +1,9 @@
 import 'package:beatboks/firebase_options.dart';
 import 'package:beatboks/navigation/navigation.dart';
-import 'package:beatboks/theme/theme.dart';
+import 'package:beatboks/state/theme_signal.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:signals/signals_flutter.dart';
 
 // Using a GlobalKey for showing SnackBars to users.
 final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
@@ -27,7 +28,8 @@ class MainEntry extends StatelessWidget {
     return MaterialApp(
       scaffoldMessengerKey: rootScaffoldMessengerKey,
       title: 'Flutter Demo',
-      theme: themeLight,
+      // Watch the computed Signal for changes to the theme.
+      theme: cThemeData.watch(context),
       initialRoute: NavString.startScreen,
       routes: routes,
     );

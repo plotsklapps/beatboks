@@ -1,11 +1,14 @@
 import 'package:beatboks/modals/displayname_bottomsheet.dart';
 import 'package:beatboks/modals/signout_bottomsheet.dart';
+import 'package:beatboks/modals/theme_bottomsheet.dart';
 import 'package:beatboks/state/sneakpeek_signal.dart';
+import 'package:beatboks/state/theme_signal.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:beatboks/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:signals/signals_flutter.dart';
 
 class SettingsBottomSheet extends StatelessWidget {
   const SettingsBottomSheet({super.key});
@@ -34,7 +37,7 @@ class SettingsBottomSheet extends StatelessWidget {
                   );
                   return;
                 }
-                // Show the SignoutBottomSheet
+                // Show the DisplayNameBottomsheet.
                 showModalBottomSheet<Widget>(
                   showDragHandle: true,
                   isScrollControlled: true,
@@ -45,8 +48,29 @@ class SettingsBottomSheet extends StatelessWidget {
                 );
               },
               title: const Text('Change username'),
-              leading: const FaIcon(FontAwesomeIcons.userPen),
+              leading: const SizedBox(
+                width: 40,
+                child: FaIcon(FontAwesomeIcons.userPen),
+              ),
             ).animate().fade().moveX(delay: 200.ms),
+            ListTile(
+              onTap: () {
+                // Show the SignoutBottomSheet
+                showModalBottomSheet<Widget>(
+                  showDragHandle: true,
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const ThemeBottomSheet();
+                  },
+                );
+              },
+              title: const Text('Change theme'),
+              leading: SizedBox(
+                width: 40,
+                child: cThemeModeIcon.watch(context),
+              ),
+            ).animate().fade(delay: 200.ms).moveX(delay: 400.ms),
             ListTile(
               onTap: () {
                 // Show the SignoutBottomSheet
@@ -60,8 +84,11 @@ class SettingsBottomSheet extends StatelessWidget {
                 );
               },
               title: const Text('Log out'),
-              leading: const FaIcon(FontAwesomeIcons.rightFromBracket),
-            ).animate().fade(delay: 200.ms).moveX(delay: 400.ms),
+              leading: const SizedBox(
+                width: 40,
+                child: FaIcon(FontAwesomeIcons.rightFromBracket),
+              ),
+            ).animate().fade(delay: 400.ms).moveX(delay: 600.ms),
           ],
         ),
       ),
