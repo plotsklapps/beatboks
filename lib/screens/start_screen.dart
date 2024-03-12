@@ -1,10 +1,61 @@
 import 'package:beatboks/modals/startscreen_bottomsheet.dart';
+import 'package:beatboks/navigation/navigation.dart';
+import 'package:beatboks/state/spinner_signal.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:logger/logger.dart';
+import 'package:signals/signals_flutter.dart';
 
-class StartScreen extends StatelessWidget {
+class StartScreen extends StatefulWidget {
   const StartScreen({super.key});
+
+  @override
+  State<StartScreen> createState() {
+    return _StartScreenState();
+  }
+}
+
+class _StartScreenState extends State<StartScreen> {
+  final FirebaseAuth _firebase = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkAuthentication();
+    });
+  }
+
+  Future<void> _checkAuthentication() async {
+    // Start the spinner.
+    sSpinner.value = true;
+
+    try {
+      final User? user = _firebase.currentUser;
+
+      if (user != null) {
+        if (user.emailVerified) {
+          // Log the success.
+          Logger().i('User is signed in and verified.');
+
+          // Navigate to the HomeScreen.
+          Navigate.toHomeScreen(context);
+        } else {
+          // Log the error.
+          Logger().e('User is signed in but NOT verified.');
+
+          return;
+        }
+      }
+    } catch (error) {
+      // Log the error.
+      Logger().e(error);
+    } finally {
+      // Cancel the spinner.
+      sSpinner.value = false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +95,7 @@ class StartScreen extends StatelessWidget {
           );
         },
         tooltip: 'Continue',
-        child: const FaIcon(FontAwesomeIcons.forwardStep),
+        child: cSpinner.watch(context),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       bottomNavigationBar: const BottomAppBar(
