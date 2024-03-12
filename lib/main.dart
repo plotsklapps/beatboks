@@ -1,6 +1,6 @@
 import 'package:beatboks/firebase_options.dart';
 import 'package:beatboks/navigation/navigation.dart';
-import 'package:beatboks/state/theme_signal.dart';
+import 'package:beatboks/state/thememode_signal.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
