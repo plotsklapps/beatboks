@@ -106,12 +106,12 @@ class _SigninBottomSheet extends State<SigninBottomSheet> {
                   child: const Text('CANCEL'),
                 ),
                 FloatingActionButton(
-                  onPressed: () {
+                  onPressed: () async {
                     // Start the spinner.
                     sSpinner.value = true;
 
                     // Sign in the user.
-                    _firebase.signIn(
+                    await _firebase.signIn(
                       email: _emailController.text.trim(),
                       password: _passwordController.text.trim(),
                       onError: (String error) {
@@ -121,24 +121,26 @@ class _SigninBottomSheet extends State<SigninBottomSheet> {
                         // Show a SnackBar.
                         Snacks.showErrorSnack(context, error);
                       },
-                      onSuccess: () {
+                      onSuccess: () async {
                         // Fetch the user doc from Firestore.
-                        _firestore.fetchUserDoc();
+                        await _firestore.fetchUserDoc();
 
                         // Cancel the spinner.
                         sSpinner.value = false;
 
-                        // Pop the bottomsheet.
-                        Navigator.pop(context);
+                        if (context.mounted) {
+                          // Pop the bottomsheet.
+                          Navigator.pop(context);
 
-                        // Navigate to the HomeScreen.
-                        Navigate.toHomeScreen(context);
+                          // Navigate to the HomeScreen.
+                          Navigate.toHomeScreen(context);
 
-                        // Show a SnackBar.
-                        Snacks.showSuccessSnack(
-                          context,
-                          'Welcome to beatBOKS! Enjoy your workout!',
-                        );
+                          // Show a SnackBar.
+                          Snacks.showSuccessSnack(
+                            context,
+                            'Welcome to beatBOKS! Enjoy your workout!',
+                          );
+                        }
                       },
                     );
                   },

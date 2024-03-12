@@ -1,5 +1,6 @@
 import 'package:beatboks/state/displayname_signal.dart';
 import 'package:beatboks/state/sneakpeek_signal.dart';
+import 'package:beatboks/state/theme_signal.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
@@ -124,8 +125,9 @@ class FirebaseService {
         // Sign out from Firebase.
         await _firebase.signOut();
 
-        // Set display name to default.
+        // Set signals to default.
         sDisplayName.value = 'New Boxer';
+        sDarkMode.value = false;
 
         // Log the success.
         Logger().i('User signed out.');
@@ -265,7 +267,10 @@ class FirebaseService {
         await user.updateDisplayName(displayName);
 
         // Update the Firestore doc.
-        await _firestore.collection('users').doc(user.uid).update(<Object, Object?>{
+        await _firestore
+            .collection('users')
+            .doc(user.uid)
+            .update(<String, String>{
           'displayName': displayName,
         });
 

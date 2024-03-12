@@ -9,7 +9,7 @@ final Signal<bool> sDarkMode = signal<bool>(false);
 
 final Computed<ThemeData> cThemeData = computed<ThemeData>(
   () {
-    return sDarkMode.value ? darkTheme : lightTheme;
+    return sDarkMode.value ? cDarkTheme.value : cLightTheme.value;
   },
 );
 
@@ -19,7 +19,7 @@ final Computed<Widget> cThemeModeIcon = computed(() {
       : const FaIcon(FontAwesomeIcons.solidSun);
 });
 
-final Signal<bool> sTeko = signal<bool>(false);
+final Signal<bool> sTeko = signal<bool>(true);
 
 final Computed<String?> cFont = computed(() {
   return sTeko.value
