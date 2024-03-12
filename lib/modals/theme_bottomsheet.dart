@@ -1,7 +1,6 @@
 import 'package:beatboks/state/sneakpeek_signal.dart';
 import 'package:beatboks/state/theme_signal.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
-import 'package:beatboks/widgets/snackbars.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -52,11 +51,10 @@ class ThemeBottomSheet extends StatelessWidget {
             ).animate().fade().moveX(delay: 200.ms),
             ListTile(
               onTap: () {
-                Snacks.showErrorSnack(
-                    context,
-                    'Feature coming soon, as soon '
-                    'as I figure out how to watch(context) inside a global '
-                    'variable.');
+                // Update the state.
+                sOuterSpace.value = !sOuterSpace.value;
+
+                // TODO(plotsklapps): Update the firestore doc.
               },
               title: const Text('Change themecolor'),
               leading: const SizedBox(
@@ -67,11 +65,10 @@ class ThemeBottomSheet extends StatelessWidget {
             ).animate().fade(delay: 200.ms).moveX(delay: 400.ms),
             ListTile(
               onTap: () {
-                Snacks.showErrorSnack(
-                    context,
-                    'Feature coming soon, as soon '
-                    'as I figure out how to watch(context) inside a global '
-                    'variable.');
+                // Update the state.
+                sTeko.value = !sTeko.value;
+
+                // TODO(plotsklapps): Update the firestore doc.
               },
               title: const Text('Change font'),
               leading: const SizedBox(

@@ -5,7 +5,8 @@ import 'package:signals/signals.dart';
 
 final Computed<ThemeData> cLightTheme = computed<ThemeData>(() {
   return FlexThemeData.light(
-    scheme: FlexScheme.outerSpace,
+    // Color is chosen by user.
+    scheme: cColor.value,
     usedColors: 1,
     surfaceMode: FlexSurfaceMode.highBackgroundLowScaffold,
     blendLevel: 8,
@@ -57,13 +58,15 @@ final Computed<ThemeData> cLightTheme = computed<ThemeData>(() {
     tones: FlexTones.oneHue(Brightness.light),
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
     useMaterial3: true,
+    // Font is chosen by user.
     fontFamily: cFont.value,
   );
 });
 
 final Computed<ThemeData> cDarkTheme = computed<ThemeData>(() {
   return FlexThemeData.dark(
-    scheme: FlexScheme.outerSpace,
+    // Color is chosen by user.
+    scheme: cColor.value,
     usedColors: 1,
     surfaceMode: FlexSurfaceMode.highBackgroundLowScaffold,
     blendLevel: 4,
@@ -114,6 +117,7 @@ final Computed<ThemeData> cDarkTheme = computed<ThemeData>(() {
     tones: FlexTones.oneHue(Brightness.dark),
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
     useMaterial3: true,
+    // Font is chosen by user.
     fontFamily: cFont.value,
   );
 });

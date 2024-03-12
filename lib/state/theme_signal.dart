@@ -35,7 +35,7 @@ final Computed<Widget> cFontIcon = computed(() {
 
 final Signal<bool> sOuterSpace = signal<bool>(true);
 
-final Computed<FlexScheme> cOuterSpace = computed<FlexScheme>(
+final Computed<FlexScheme> cColor = computed<FlexScheme>(
   () {
     return sOuterSpace.value ? FlexScheme.outerSpace : FlexScheme.money;
   },
