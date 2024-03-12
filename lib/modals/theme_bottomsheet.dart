@@ -1,6 +1,9 @@
+import 'package:beatboks/state/sneakpeek_signal.dart';
 import 'package:beatboks/state/theme_signal.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:beatboks/widgets/snackbars.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,6 +14,7 @@ class ThemeBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
     return SizedBox(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
@@ -24,7 +28,20 @@ class ThemeBottomSheet extends StatelessWidget {
             const SizedBox(height: 32),
             ListTile(
               onTap: () {
+                // Update the state.
                 sDarkMode.value = !sDarkMode.value;
+
+                if (!sSneakPeek.value) {
+                  final User? user = FirebaseAuth.instance.currentUser;
+
+                  // Update the firestore doc.
+                  firestore
+                      .collection('users')
+                      .doc(user?.uid)
+                      .update(<String, bool>{
+                    'darkMode': sDarkMode.value,
+                  });
+                }
               },
               title: const Text('Change thememode'),
               leading: const SizedBox(

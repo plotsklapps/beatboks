@@ -265,7 +265,7 @@ class FirebaseService {
         await user.updateDisplayName(displayName);
 
         // Update the Firestore doc.
-        await _firestore.collection('users').doc(user.uid).update({
+        await _firestore.collection('users').doc(user.uid).update(<Object, Object?>{
           'displayName': displayName,
         });
 
