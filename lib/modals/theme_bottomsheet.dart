@@ -1,5 +1,7 @@
 import 'package:beatboks/state/sneakpeek_signal.dart';
-import 'package:beatboks/state/theme_signal.dart';
+import 'package:beatboks/state/themecolor_signal.dart';
+import 'package:beatboks/state/themefont_signal.dart';
+import 'package:beatboks/state/thememode_signal.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';

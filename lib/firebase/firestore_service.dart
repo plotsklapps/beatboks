@@ -3,7 +3,7 @@ import 'package:beatboks/state/displayname_signal.dart';
 import 'package:beatboks/state/email_signal.dart';
 import 'package:beatboks/state/lastvisit_signal.dart';
 import 'package:beatboks/state/photoURL_signal.dart';
-import 'package:beatboks/state/theme_signal.dart';
+import 'package:beatboks/state/thememode_signal.dart';
 import 'package:beatboks/state/uid_signal.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';

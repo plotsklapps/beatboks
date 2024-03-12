@@ -1,6 +1,6 @@
 import 'package:beatboks/state/displayname_signal.dart';
 import 'package:beatboks/state/sneakpeek_signal.dart';
-import 'package:beatboks/state/theme_signal.dart';
+import 'package:beatboks/state/thememode_signal.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';

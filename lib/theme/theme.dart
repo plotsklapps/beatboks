@@ -1,4 +1,5 @@
-import 'package:beatboks/state/theme_signal.dart';
+import 'package:beatboks/state/themecolor_signal.dart';
+import 'package:beatboks/state/themefont_signal.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals.dart';

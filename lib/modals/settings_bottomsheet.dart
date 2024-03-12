@@ -2,7 +2,7 @@ import 'package:beatboks/modals/displayname_bottomsheet.dart';
 import 'package:beatboks/modals/signout_bottomsheet.dart';
 import 'package:beatboks/modals/theme_bottomsheet.dart';
 import 'package:beatboks/state/sneakpeek_signal.dart';
-import 'package:beatboks/state/theme_signal.dart';
+import 'package:beatboks/state/thememode_signal.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:beatboks/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
