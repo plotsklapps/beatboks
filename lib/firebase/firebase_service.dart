@@ -1,41 +1,12 @@
-import 'package:beatboks/state/currentuser_signal.dart';
 import 'package:beatboks/state/displayname_signal.dart';
-import 'package:beatboks/state/email_signal.dart';
-import 'package:beatboks/state/photoURL_signal.dart';
 import 'package:beatboks/state/sneakpeek_signal.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
 
 class FirebaseService {
   final FirebaseAuth _firebase = FirebaseAuth.instance;
-
-  User? get currentUser {
-    return _firebase.currentUser;
-  }
-
-  String? get email {
-    return _firebase.currentUser?.email;
-  }
-
-  bool? get emailVerified {
-    return _firebase.currentUser?.emailVerified;
-  }
-
-  String? get displayName {
-    return _firebase.currentUser?.displayName;
-  }
-
-  String? get photoURL {
-    return _firebase.currentUser?.photoURL;
-  }
-
-  void _setSignalsFromFirebase() {
-    sCurrentUser.value = currentUser;
-    sEmail.value = email;
-    sEmailVerified.value = emailVerified;
-    sDisplayName.value = displayName;
-    sPhotoURL.value = photoURL;
-  }
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<void> signUp({
     required String email,
@@ -96,8 +67,6 @@ class FirebaseService {
         if (user.emailVerified) {
           // Log the success.
           Logger().i('User signed in via Firebase.');
-
-          _setSignalsFromFirebase();
 
           // Trigger the onSuccess callback.
           onSuccess();
@@ -198,7 +167,7 @@ class FirebaseService {
 
         if (updatedUser != null && updatedUser.emailVerified) {
           // Log the success.
-          Logger().i('User is email verified.');
+          Logger().i('User has verified their email address.');
 
           // Trigger the onSuccess callback.
           onSuccess();
@@ -294,6 +263,11 @@ class FirebaseService {
       if (user != null) {
         // Update display name.
         await user.updateDisplayName(displayName);
+
+        // Update the Firestore doc.
+        await _firestore.collection('users').doc(user.uid).update({
+          'displayName': displayName,
+        });
 
         // Log the success.
         Logger().i('Display name updated.');

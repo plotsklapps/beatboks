@@ -123,19 +123,7 @@ class _SigninBottomSheet extends State<SigninBottomSheet> {
                       },
                       onSuccess: () {
                         // Fetch the user doc from Firestore.
-                        _firestore.fetchUserDoc(
-                          onError: (String error) {
-                            // Show a SnackBar.
-                            Snacks.showErrorSnack(context, error);
-                          },
-                          onSuccess: () {
-                            // Show a SnackBar.
-                            Snacks.showSuccessSnack(
-                              context,
-                              'User data retrieved!',
-                            );
-                          },
-                        );
+                        _firestore.fetchUserDoc();
 
                         // Cancel the spinner.
                         sSpinner.value = false;

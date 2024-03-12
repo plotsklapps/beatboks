@@ -49,10 +49,7 @@ class FirestoreService {
 
   // Fetch the user document from Firestore and store the values to their
   // respective signals.
-  Future<void> fetchUserDoc({
-    required void Function(String) onError,
-    required void Function() onSuccess,
-  }) async {
+  Future<void> fetchUserDoc() async {
     final User? user = _firebase.currentUser;
 
     if (user != null) {
@@ -72,42 +69,31 @@ class FirestoreService {
             sEmailVerified.value = data['emailVerified'] as bool;
             sDisplayName.value = data['displayName'] as String;
             sPhotoURL.value = data['photoURL'] as String;
-            sCreationDate.value = data['createdAt'] as DateTime;
-            sLastVisit.value = data['lastVisit'] as DateTime;
             sDarkMode.value = data['darkMode'] as bool;
+
+            final Timestamp creationDate = data['createdAt'] as Timestamp;
+            sCreationDate.value = creationDate.toDate();
+
+            final Timestamp lastVisit = data['lastVisit'] as Timestamp;
+            sLastVisit.value = lastVisit.toDate();
 
             // Log the success.
             Logger().i('User document fetched.');
-
-            // Trigger the onSuccess callback.
-            onSuccess();
           } else {
             // Log the error.
             Logger().e('Unexpected error: User document data not found.');
-
-            // Trigger the onError callback.
-            onError('Unexpected error: User document data not found.');
           }
         } else {
           // Log the error.
           Logger().e('Unexpected error: User document not found.');
-
-          // Trigger the onError callback.
-          onError('Unexpected error: User document not found.');
         }
       } catch (error) {
         // Log the error.
         Logger().e(error);
-
-        // Trigger the onError callback.
-        onError(error.toString());
       }
     } else {
       // Log the error.
       Logger().e('Unexpected error: User not found.');
-
-      // Trigger the onError callback.
-      onError('Unexpected error: User not found.');
     }
   }
 }
