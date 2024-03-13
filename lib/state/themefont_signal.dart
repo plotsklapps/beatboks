@@ -14,5 +14,5 @@ final Computed<String?> cFont = computed(() {
 final Computed<Widget> cFontIcon = computed(() {
   return sTeko.value
       ? const FaIcon(FontAwesomeIcons.t)
-      : const FaIcon(FontAwesomeIcons.bold);
+      : const FaIcon(FontAwesomeIcons.q);
 });

@@ -3,6 +3,7 @@ import 'package:beatboks/state/themecolor_signal.dart';
 import 'package:beatboks/state/themefont_signal.dart';
 import 'package:beatboks/state/thememode_signal.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
+import 'package:beatboks/widgets/snackbars.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,11 @@ class ThemeBottomSheet extends StatelessWidget {
                       .update(<String, bool>{
                     'darkMode': sDarkMode.value,
                   });
+                } else {
+                  Snacks.showErrorSnack(
+                    context,
+                    'You are a sneak peeker, the changes will not be saved.',
+                  );
                 }
               },
               title: const Text('Change thememode'),
@@ -56,7 +62,22 @@ class ThemeBottomSheet extends StatelessWidget {
                 // Update the state.
                 sOuterSpace.value = !sOuterSpace.value;
 
-                // TODO(plotsklapps): Update the firestore doc.
+                if (!sSneakPeek.value) {
+                  final User? user = FirebaseAuth.instance.currentUser;
+
+                  // Update the firestore doc.
+                  firestore
+                      .collection('users')
+                      .doc(user?.uid)
+                      .update(<String, bool>{
+                    'outerSpace': sOuterSpace.value,
+                  });
+                } else {
+                  Snacks.showErrorSnack(
+                    context,
+                    'You are a sneak peeker, the changes will not be saved.',
+                  );
+                }
               },
               title: const Text('Change themecolor'),
               leading: const SizedBox(
@@ -70,7 +91,22 @@ class ThemeBottomSheet extends StatelessWidget {
                 // Update the state.
                 sTeko.value = !sTeko.value;
 
-                // TODO(plotsklapps): Update the firestore doc.
+                if (!sSneakPeek.value) {
+                  final User? user = FirebaseAuth.instance.currentUser;
+
+                  // Update the firestore doc.
+                  firestore
+                      .collection('users')
+                      .doc(user?.uid)
+                      .update(<String, bool>{
+                    'tekoFont': sTeko.value,
+                  });
+                } else {
+                  Snacks.showErrorSnack(
+                    context,
+                    'You are a sneak peeker, the changes will not be saved.',
+                  );
+                }
               },
               title: const Text('Change font'),
               leading: const SizedBox(

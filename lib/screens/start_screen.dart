@@ -1,6 +1,7 @@
 import 'package:beatboks/modals/startscreen_bottomsheet.dart';
 import 'package:beatboks/navigation/navigation.dart';
 import 'package:beatboks/state/spinner_signal.dart';
+import 'package:beatboks/widgets/snackbars.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -41,9 +42,20 @@ class _StartScreenState extends State<StartScreen> {
 
           // Navigate to the HomeScreen.
           Navigate.toHomeScreen(context);
+
+          // Show a SnackBar.
+          Snacks.showSuccessSnack(context,
+              'Welcome back, ${user.displayName}! Have a great workout.');
         } else {
           // Log the error.
           Logger().e('User is signed in but NOT verified.');
+
+          // Show a SnackBar.
+          Snacks.showErrorSnack(
+            context,
+            'Your account was created, but your email has not been '
+            'verified yet. Please verify your email address to continue.',
+          );
 
           return;
         }
@@ -51,6 +63,9 @@ class _StartScreenState extends State<StartScreen> {
     } catch (error) {
       // Log the error.
       Logger().e(error);
+
+      // Show a SnackBar.
+      Snacks.showErrorSnack(context, error.toString());
     } finally {
       // Cancel the spinner.
       sSpinner.value = false;

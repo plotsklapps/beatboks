@@ -3,6 +3,8 @@ import 'package:beatboks/state/displayname_signal.dart';
 import 'package:beatboks/state/email_signal.dart';
 import 'package:beatboks/state/lastvisit_signal.dart';
 import 'package:beatboks/state/photoURL_signal.dart';
+import 'package:beatboks/state/themecolor_signal.dart';
+import 'package:beatboks/state/themefont_signal.dart';
 import 'package:beatboks/state/thememode_signal.dart';
 import 'package:beatboks/state/uid_signal.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -33,6 +35,8 @@ class FirestoreService {
           'createdAt': DateTime.now(),
           'lastVisit': DateTime.now(),
           'darkMode': sDarkMode.value,
+          'outerSpace': sOuterSpace.value,
+          'tekoFont': sTeko.value,
         });
 
         // Log the success.
@@ -70,6 +74,8 @@ class FirestoreService {
             sDisplayName.value = data['displayName'] as String;
             sPhotoURL.value = data['photoURL'] as String;
             sDarkMode.value = data['darkMode'] as bool;
+            sOuterSpace.value = data['outerSpace'] as bool;
+            sTeko.value = data['tekoFont'] as bool;
 
             final Timestamp creationDate = data['createdAt'] as Timestamp;
             sCreationDate.value = creationDate.toDate();
