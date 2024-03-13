@@ -10,15 +10,99 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            const Text('Welcome to the home screen,'),
-            const SizedBox(height: 32),
-
-            // Watch the signal and display the value.
-            Text(cDisplayName.watch(context)),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: <Widget>[
+                          const FaIcon(FontAwesomeIcons.userNinja),
+                          const SizedBox(height: 8),
+                          // Watch the signal and display the value.
+                          Text(cDisplayName.watch(context)),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const Expanded(
+                  child: Card(
+                    child: Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Column(
+                        children: <Widget>[
+                          FaIcon(FontAwesomeIcons.chartColumn),
+                          SizedBox(height: 8),
+                          Text('Statistics'),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const Divider(thickness: 2),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: <Widget>[
+                    ListTile(
+                      onTap: () {
+                        // TODO(plotsklapps): Create tutorial workout.
+                      },
+                      leading: const FaIcon(FontAwesomeIcons.headphonesSimple),
+                      title: const Text('Eminem - Till I Collapse'),
+                      subtitle: const Text('Tutorial Workout'),
+                      trailing: const FaIcon(FontAwesomeIcons.forwardStep),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: <Widget>[
+                    ListTile(
+                      onTap: () {
+                        // TODO(plotsklapps): Create first workout.
+                      },
+                      leading: const FaIcon(FontAwesomeIcons.headphonesSimple),
+                      title: const Text('Kanye West - POWER'),
+                      subtitle: const Text('Jab First'),
+                      trailing: const FaIcon(FontAwesomeIcons.forwardStep),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: <Widget>[
+                    ListTile(
+                      onTap: () {
+                        // TODO(plotsklapps): Create second workout.
+                      },
+                      leading: const FaIcon(FontAwesomeIcons.headphonesSimple),
+                      title: const Text('Otherwise - Soldiers'),
+                      subtitle: const Text('Hook Finish'),
+                      trailing: const FaIcon(FontAwesomeIcons.forwardStep),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
