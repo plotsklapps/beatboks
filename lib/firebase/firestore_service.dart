@@ -22,15 +22,15 @@ class FirestoreService {
 
     if (user != null) {
       try {
-        // Create the new doc.
+        // Create the new doc in Firestore.
         await _firestore
             .collection('users')
             .doc(user.uid)
             .set(<String, dynamic>{
           'uid': user.uid,
-          'email': user.email ?? '',
+          'email': user.email ?? 'JohnDoe@email.com',
           'emailVerified': user.emailVerified,
-          'displayName': user.displayName ?? '',
+          'displayName': user.displayName ?? 'New Boxer',
           'photoURL': user.photoURL ?? '',
           'createdAt': DateTime.now(),
           'lastVisit': DateTime.now(),

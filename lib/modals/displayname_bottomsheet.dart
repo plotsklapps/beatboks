@@ -37,6 +37,7 @@ class _DisplayNameBottomsheetState extends State<DisplayNameBottomsheet> {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Padding(
+        // Allow the bottomsheet to be pushed up by the keyboard.
         padding: EdgeInsets.fromLTRB(
           16,
           0,
@@ -53,11 +54,11 @@ class _DisplayNameBottomsheetState extends State<DisplayNameBottomsheet> {
             const SizedBox(height: 16),
             TextField(
               controller: _displayNameController,
+              keyboardType: TextInputType.text,
               decoration: const InputDecoration(
                 icon: FaIcon(FontAwesomeIcons.userPen),
                 labelText: 'Name',
               ),
-              keyboardType: TextInputType.text,
             ).animate().fade().moveX(delay: 200.ms),
             const SizedBox(height: 32),
             Row(
@@ -81,7 +82,7 @@ class _DisplayNameBottomsheetState extends State<DisplayNameBottomsheet> {
                     // Set the signal.
                     sDisplayName.value = _displayNameController.text.trim();
 
-                    // Send the password reset email.
+                    // Update the displayName in Firebase and Firestore.
                     _firebase.updateDisplayName(
                       displayName: sDisplayName.value!,
                       onError: (String error) {
@@ -107,6 +108,7 @@ class _DisplayNameBottomsheetState extends State<DisplayNameBottomsheet> {
                       },
                     );
                   },
+                  // Show Spinner or Icon.
                   child: cSpinner.watch(context),
                 ),
               ],

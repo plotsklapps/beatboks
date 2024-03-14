@@ -1,7 +1,7 @@
+import 'package:beatboks/firebase/firebase_service.dart';
 import 'package:beatboks/modals/signin_bottomsheet.dart';
 import 'package:beatboks/modals/signup_bottomsheet.dart';
 import 'package:beatboks/navigation/navigation.dart';
-import 'package:beatboks/state/sneakpeek_signal.dart';
 import 'package:beatboks/theme/text_utils.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:beatboks/widgets/snackbars.dart';
@@ -14,6 +14,8 @@ class StartScreenBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseService firebase = FirebaseService();
+
     return SizedBox(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(
@@ -67,21 +69,25 @@ class StartScreenBottomSheet extends StatelessWidget {
                   'before and want to sign in'),
             ).animate().fade(delay: 200.ms).moveX(delay: 400.ms),
             ListTile(
-              onTap: () {
-                // Set sneak peek to true.
-                sSneakPeek.value = true;
+              onTap: () async {
+                await firebase.signInAnonymously(
+                  onError: (String error) {
+                    Snacks.showErrorSnack(context, error);
+                  },
+                  onSuccess: () {
+                    // Pop the bottomsheet.
+                    Navigator.pop(context);
 
-                // Pop the bottomsheet.
-                Navigator.pop(context);
+                    // Navigate to HomeScreen.
+                    Navigate.toHomeScreen(context);
 
-                // Navigate to HomeScreen.
-                Navigate.toHomeScreen(context);
-
-                // Show a SnackBar.
-                Snacks.showSuccessSnack(
-                  context,
-                  'You have signed in as Sneak Peeker, your data will NOT be '
-                  'stored. Enjoy!',
+                    // Show a SnackBar.
+                    Snacks.showSuccessSnack(
+                      context,
+                      'You have signed in as Sneak Peeker, your data will NOT '
+                      'be stored. Enjoy!',
+                    );
+                  },
                 );
               },
               leading: const FaIcon(FontAwesomeIcons.userSecret),

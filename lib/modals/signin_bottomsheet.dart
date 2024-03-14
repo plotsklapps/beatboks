@@ -1,5 +1,6 @@
 import 'package:beatboks/firebase/firebase_service.dart';
 import 'package:beatboks/firebase/firestore_service.dart';
+import 'package:beatboks/modals/password_bottomsheet.dart';
 import 'package:beatboks/navigation/navigation.dart';
 import 'package:beatboks/state/spinner_signal.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
@@ -23,6 +24,7 @@ class SigninBottomSheet extends StatefulWidget {
 class _SigninBottomSheet extends State<SigninBottomSheet> {
   final FirebaseService _firebase = FirebaseService();
   final FirestoreService _firestore = FirestoreService();
+
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
   bool _isObscured = true;
@@ -45,6 +47,7 @@ class _SigninBottomSheet extends State<SigninBottomSheet> {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Padding(
+        // Allow the bottomsheet to be pushed up by the keyboard.
         padding: EdgeInsets.fromLTRB(
           16,
           0,
@@ -61,6 +64,7 @@ class _SigninBottomSheet extends State<SigninBottomSheet> {
             const SizedBox(height: 16),
             TextField(
               controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
                 icon: FaIcon(FontAwesomeIcons.solidEnvelope),
                 labelText: 'Email',
@@ -69,13 +73,13 @@ class _SigninBottomSheet extends State<SigninBottomSheet> {
             const SizedBox(height: 8),
             TextField(
               controller: _passwordController,
+              keyboardType: TextInputType.text,
               obscureText: _isObscured,
               decoration: InputDecoration(
                 icon: const FaIcon(FontAwesomeIcons.lock),
                 labelText: 'Password',
                 suffixIcon: TextButton(
                   onPressed: () {
-                    // Toggle the obscureText property.
                     setState(() {
                       _isObscured = !_isObscured;
                     });
@@ -87,7 +91,14 @@ class _SigninBottomSheet extends State<SigninBottomSheet> {
             const SizedBox(height: 8),
             TextButton(
               onPressed: () {
-                // Show the ResetPasswordBottomSheet.
+                // Show the PasswordBottomsheet.
+                showModalBottomSheet<Widget>(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (BuildContext context) {
+                    return const PasswordBottomSheet();
+                  },
+                );
               },
               child: const Text('FORGOT PASSWORD'),
             ),
@@ -144,7 +155,7 @@ class _SigninBottomSheet extends State<SigninBottomSheet> {
                       },
                     );
                   },
-                  // Show a spinner or icon.
+                  // Show a Spinner or Icon.
                   child: cSpinner.watch(context),
                 ),
               ],

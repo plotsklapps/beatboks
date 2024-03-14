@@ -1,6 +1,13 @@
 import 'package:beatboks/state/displayname_signal.dart';
+import 'package:beatboks/state/email_signal.dart';
+import 'package:beatboks/state/lastvisit_signal.dart';
+import 'package:beatboks/state/photoURL_signal.dart';
 import 'package:beatboks/state/sneakpeek_signal.dart';
+import 'package:beatboks/state/spinner_signal.dart';
+import 'package:beatboks/state/themecolor_signal.dart';
+import 'package:beatboks/state/themefont_signal.dart';
 import 'package:beatboks/state/thememode_signal.dart';
+import 'package:beatboks/state/uid_signal.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
@@ -8,6 +15,8 @@ import 'package:logger/logger.dart';
 class FirebaseService {
   final FirebaseAuth _firebase = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  // SIGN UP
 
   Future<void> signUp({
     required String email,
@@ -48,6 +57,8 @@ class FirebaseService {
       onError(error.toString());
     }
   }
+
+  // SIGN IN
 
   Future<void> signIn({
     required String email,
@@ -94,6 +105,8 @@ class FirebaseService {
     }
   }
 
+  // SIGN IN ANONYMOUSLY
+
   Future<void> signInAnonymously({
     required void Function(String) onError,
     required void Function() onSuccess,
@@ -116,6 +129,8 @@ class FirebaseService {
     }
   }
 
+  // SIGN OUT
+
   Future<void> signOut({
     required void Function(String) onError,
     required void Function() onSuccess,
@@ -125,9 +140,16 @@ class FirebaseService {
         // Sign out from Firebase.
         await _firebase.signOut();
 
-        // Set signals to default.
+        // Set all signals to default.
+        sUID.value = '';
+        sEmail.value = 'JohnDoe@email.com';
         sDisplayName.value = 'New Boxer';
+        sPhotoURL.value = '';
         sDarkMode.value = false;
+        sTeko.value = true;
+        sOuterSpace.value = true;
+        sLastVisit.value = DateTime.now();
+        sSpinner.value = false;
 
         // Log the success.
         Logger().i('User signed out.');
@@ -152,6 +174,8 @@ class FirebaseService {
       onError(error.toString());
     }
   }
+
+  // CHECK EMAIL VERIFICATION
 
   Future<void> checkEmailVerified({
     required void Function(String) onError,
@@ -198,6 +222,8 @@ class FirebaseService {
     }
   }
 
+  // UPDATE EMAIL
+
   Future<void> updateEmail({
     required String email,
     required void Function(String) onError,
@@ -231,13 +257,15 @@ class FirebaseService {
     }
   }
 
+  // UPDATE PASSWORD
+
   Future<void> updatePassword({
     required String email,
     required void Function(String) onError,
     required void Function() onSuccess,
   }) async {
     try {
-      // Update password.
+      // Send password reset email.
       await _firebase.sendPasswordResetEmail(email: email);
 
       // Log the success.
@@ -254,6 +282,8 @@ class FirebaseService {
     }
   }
 
+  // UPDATE DISPLAYNAME
+
   Future<void> updateDisplayName({
     required String displayName,
     required void Function(String) onError,
@@ -263,10 +293,10 @@ class FirebaseService {
       final User? user = _firebase.currentUser;
 
       if (user != null) {
-        // Update display name.
+        // Update displayName to Firebase.
         await user.updateDisplayName(displayName);
 
-        // Update the Firestore doc.
+        // Update displayName to Firestore.
         await _firestore
             .collection('users')
             .doc(user.uid)

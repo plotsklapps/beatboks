@@ -36,6 +36,7 @@ class _PasswordBottomSheetState extends State<PasswordBottomSheet> {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Padding(
+        // Allow the bottomsheet to be pushed up by the keyboard.
         padding: EdgeInsets.fromLTRB(
           16,
           0,
@@ -52,11 +53,11 @@ class _PasswordBottomSheetState extends State<PasswordBottomSheet> {
             const SizedBox(height: 16),
             TextField(
               controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
                 icon: FaIcon(FontAwesomeIcons.solidEnvelope),
                 labelText: 'Email',
               ),
-              keyboardType: TextInputType.emailAddress,
             ).animate().fade().moveX(delay: 200.ms),
             const SizedBox(height: 32),
             Row(
@@ -103,6 +104,7 @@ class _PasswordBottomSheetState extends State<PasswordBottomSheet> {
                       },
                     );
                   },
+                  // Show Spinner or Icon.
                   child: cSpinner.watch(context),
                 ),
               ],
