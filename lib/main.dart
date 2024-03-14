@@ -27,7 +27,7 @@ class MainEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       scaffoldMessengerKey: rootScaffoldMessengerKey,
-      title: 'Flutter Demo',
+      title: 'beatBOKS',
       // Watch the computed Signal for changes to the theme.
       theme: cThemeData.watch(context),
       initialRoute: NavString.startScreen,
