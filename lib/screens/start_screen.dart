@@ -45,7 +45,7 @@ class _StartScreenState extends State<StartScreen> {
 
           // Show a SnackBar.
           Snacks.showSuccessSnack(context,
-              'Welcome back, ${user.displayName}! Have a great workout.');
+              'Welcome back, ${user.displayName}! Have a great workout.',);
         } else {
           // Log the error.
           Logger().e('User is signed in but NOT verified.');
