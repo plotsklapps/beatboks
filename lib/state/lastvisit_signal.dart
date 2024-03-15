@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
 import 'package:signals/signals.dart';
 
-final Signal<DateTime> sLastVisit = signal<DateTime>(DateTime.now());
+final Signal<String> sLastVisit =
+    signal<String>(DateFormat('dd-MM-yyyy').format(DateTime.now()));

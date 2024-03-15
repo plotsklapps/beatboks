@@ -9,6 +9,7 @@ import 'package:beatboks/state/thememode_signal.dart';
 import 'package:beatboks/state/uid_signal.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 
 class FirestoreService {
@@ -32,8 +33,8 @@ class FirestoreService {
           'emailVerified': user.emailVerified,
           'displayName': user.displayName ?? 'New Boxer',
           'photoURL': user.photoURL ?? '',
-          'createdAt': DateTime.now(),
-          'lastVisit': DateTime.now(),
+          'createdAt': DateFormat('dd-MM-yyyy').format(DateTime.now()),
+          'lastVisit': DateFormat('dd-MM-yyyy').format(DateTime.now()),
           'darkMode': sDarkMode.value,
           'outerSpace': sOuterSpace.value,
           'tekoFont': sTeko.value,
@@ -73,15 +74,11 @@ class FirestoreService {
             sEmailVerified.value = data['emailVerified'] as bool;
             sDisplayName.value = data['displayName'] as String;
             sPhotoURL.value = data['photoURL'] as String;
+            sCreationDate.value = data['createdAt'] as String;
+            sLastVisit.value = data['lastVisit'] as String;
             sDarkMode.value = data['darkMode'] as bool;
             sOuterSpace.value = data['outerSpace'] as bool;
             sTeko.value = data['tekoFont'] as bool;
-
-            final Timestamp creationDate = data['createdAt'] as Timestamp;
-            sCreationDate.value = creationDate.toDate();
-
-            final Timestamp lastVisit = data['lastVisit'] as Timestamp;
-            sLastVisit.value = lastVisit.toDate();
 
             // Log the success.
             Logger().i('User document fetched.');

@@ -10,6 +10,7 @@ import 'package:beatboks/state/thememode_signal.dart';
 import 'package:beatboks/state/uid_signal.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 
 class FirebaseService {
@@ -148,7 +149,7 @@ class FirebaseService {
         sDarkMode.value = false;
         sTeko.value = true;
         sOuterSpace.value = true;
-        sLastVisit.value = DateTime.now();
+        sLastVisit.value = DateFormat('dd-MM-yyyy').format(DateTime.now());
         sSpinner.value = false;
 
         // Log the success.

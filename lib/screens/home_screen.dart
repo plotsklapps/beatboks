@@ -1,5 +1,6 @@
 import 'package:beatboks/modals/settings_bottomsheet.dart';
 import 'package:beatboks/state/displayname_signal.dart';
+import 'package:beatboks/state/lastvisit_signal.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:signals/signals_flutter.dart';
@@ -41,6 +42,21 @@ class HomeScreen extends StatelessWidget {
                           FaIcon(FontAwesomeIcons.chartColumn),
                           SizedBox(height: 8),
                           Text('Statistics'),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: <Widget>[
+                          const FaIcon(FontAwesomeIcons.calendarCheck),
+                          const SizedBox(height: 8),
+                          // Watch the signal and display the value.
+                          Text(sLastVisit.watch(context)),
                         ],
                       ),
                     ),

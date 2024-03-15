@@ -1,3 +1,4 @@
+import 'package:beatboks/firebase/firestore_service.dart';
 import 'package:beatboks/modals/startscreen_bottomsheet.dart';
 import 'package:beatboks/navigation/navigation.dart';
 import 'package:beatboks/state/spinner_signal.dart';
@@ -19,6 +20,7 @@ class StartScreen extends StatefulWidget {
 
 class _StartScreenState extends State<StartScreen> {
   final FirebaseAuth _firebase = FirebaseAuth.instance;
+  final FirestoreService _firestore = FirestoreService();
 
   @override
   void initState() {
@@ -37,15 +39,22 @@ class _StartScreenState extends State<StartScreen> {
 
       if (user != null) {
         if (user.emailVerified) {
+          // Fetch user doc.
+          await _firestore.fetchUserDoc();
+
           // Log the success.
           Logger().i('User is signed in and verified.');
 
-          // Navigate to the HomeScreen.
-          Navigate.toHomeScreen(context);
+          if (mounted) {
+            // Navigate to the HomeScreen.
+            Navigate.toHomeScreen(context);
 
-          // Show a SnackBar.
-          Snacks.showSuccessSnack(context,
-              'Welcome back, ${user.displayName}! Have a great workout.',);
+            // Show a SnackBar.
+            Snacks.showSuccessSnack(
+              context,
+              'Welcome back, ${user.displayName}! Have a great workout.',
+            );
+          }
         } else {
           // Log the error.
           Logger().e('User is signed in but NOT verified.');
@@ -64,8 +73,10 @@ class _StartScreenState extends State<StartScreen> {
       // Log the error.
       Logger().e(error);
 
-      // Show a SnackBar.
-      Snacks.showErrorSnack(context, error.toString());
+      if (mounted) {
+        // Show a SnackBar.
+        Snacks.showErrorSnack(context, error.toString());
+      }
     } finally {
       // Cancel the spinner.
       sSpinner.value = false;
