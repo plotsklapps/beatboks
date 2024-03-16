@@ -74,11 +74,19 @@ class FirestoreService {
             sEmailVerified.value = data['emailVerified'] as bool;
             sDisplayName.value = data['displayName'] as String;
             sPhotoURL.value = data['photoURL'] as String;
-            sCreationDate.value = data['createdAt'] as String;
-            sLastVisit.value = data['lastVisit'] as String;
             sDarkMode.value = data['darkMode'] as bool;
             sOuterSpace.value = data['outerSpace'] as bool;
             sTeko.value = data['tekoFont'] as bool;
+
+            final Timestamp creationTimestamp = data['createdAt'] as Timestamp;
+            final DateTime creationDateTime = creationTimestamp.toDate();
+            sCreationDate.value =
+                DateFormat('dd-MM-yyyy').format(creationDateTime);
+
+            final Timestamp lastVisitTimestamp = data['lastVisit'] as Timestamp;
+            final DateTime lastVisitDateTime = lastVisitTimestamp.toDate();
+            sLastVisit.value =
+                DateFormat('dd-MM-yyyy').format(lastVisitDateTime);
 
             // Log the success.
             Logger().i('User document fetched.');
