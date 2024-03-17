@@ -74,7 +74,13 @@ class HomeScreen extends StatelessWidget {
                       onTap: () {
                         // TODO(plotsklapps): Create tutorial workout.
                       },
-                      leading: const FaIcon(FontAwesomeIcons.headphonesSimple),
+                      leading: const Column(
+                        children: <Widget>[
+                          FaIcon(FontAwesomeIcons.headphonesSimple),
+                          SizedBox(height: 4),
+                          FaIcon(FontAwesomeIcons.circlePlay),
+                        ],
+                      ),
                       title: const Text('Eminem - Till I Collapse'),
                       subtitle: const Text('Tutorial Workout'),
                       trailing: const FaIcon(FontAwesomeIcons.forwardStep),
@@ -92,7 +98,13 @@ class HomeScreen extends StatelessWidget {
                       onTap: () {
                         // TODO(plotsklapps): Create first workout.
                       },
-                      leading: const FaIcon(FontAwesomeIcons.headphonesSimple),
+                      leading: const Column(
+                        children: <Widget>[
+                          FaIcon(FontAwesomeIcons.headphonesSimple),
+                          SizedBox(height: 4),
+                          FaIcon(FontAwesomeIcons.circlePlay),
+                        ],
+                      ),
                       title: const Text('Kanye West - POWER'),
                       subtitle: const Text('Jab First'),
                       trailing: const FaIcon(FontAwesomeIcons.forwardStep),
@@ -110,7 +122,13 @@ class HomeScreen extends StatelessWidget {
                       onTap: () {
                         // TODO(plotsklapps): Create second workout.
                       },
-                      leading: const FaIcon(FontAwesomeIcons.headphonesSimple),
+                      leading: const Column(
+                        children: <Widget>[
+                          FaIcon(FontAwesomeIcons.headphonesSimple),
+                          SizedBox(height: 4),
+                          FaIcon(FontAwesomeIcons.circlePlay),
+                        ],
+                      ),
                       title: const Text('Otherwise - Soldiers'),
                       subtitle: const Text('Hook Finish'),
                       trailing: const FaIcon(FontAwesomeIcons.forwardStep),
