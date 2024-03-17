@@ -42,9 +42,6 @@ class _StartScreenState extends State<StartScreen> {
           // Fetch user doc.
           await _firestore.fetchUserDoc();
 
-          // Log the success.
-          Logger().i('User is signed in and verified.');
-
           if (mounted) {
             // Navigate to the HomeScreen.
             Navigate.toHomeScreen(context);
