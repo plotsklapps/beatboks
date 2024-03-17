@@ -25,16 +25,13 @@ class MainEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 600),
-      child: MaterialApp(
-        scaffoldMessengerKey: rootScaffoldMessengerKey,
-        title: 'beatBOKS',
-        // Watch the computed Signal for changes to the theme.
-        theme: cThemeData.watch(context),
-        initialRoute: NavString.startScreen,
-        routes: routes,
-      ),
+    return MaterialApp(
+      scaffoldMessengerKey: rootScaffoldMessengerKey,
+      title: 'beatBOKS',
+      // Watch the computed Signal for changes to the theme.
+      theme: cThemeData.watch(context),
+      initialRoute: NavString.startScreen,
+      routes: routes,
     );
   }
 }
