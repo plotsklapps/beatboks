@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:toastification/toastification.dart';
 
+// Dedicated class for showing snackbars. For now,
+// it only shows error and success snackbars.
 class Snacks {
   static void showErrorSnack(BuildContext context, String error) {
     toastification.show(
@@ -26,7 +28,7 @@ class Snacks {
       context: context,
       type: ToastificationType.success,
       style: ToastificationStyle.flatColored,
-      title: const Text('SUCCESS!'),
+      title: const Text('SUCCESS'),
       description: Text(message),
       alignment: Alignment.topRight,
       autoCloseDuration: const Duration(seconds: 5),

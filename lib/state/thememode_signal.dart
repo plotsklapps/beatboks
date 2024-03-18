@@ -1,4 +1,4 @@
-import 'package:beatboks/theme/theme.dart';
+import 'package:beatboks/theme/theme_data.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:signals/signals_flutter.dart';

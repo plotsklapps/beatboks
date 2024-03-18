@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Dedicated class for text styles
 class TextUtils {
   static const TextStyle fontS = TextStyle(fontSize: 12);
   static const TextStyle fontM = TextStyle(fontSize: 16);

@@ -2,6 +2,7 @@ import 'package:beatboks/theme/text_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+// Header used inside all bottomsheets for a consistent look.
 class BottomSheetHeader extends StatelessWidget {
   const BottomSheetHeader({
     required this.title,
