@@ -1,9 +1,6 @@
 import 'package:beatboks/modals/settings_bottomsheet.dart';
-import 'package:beatboks/state/displayname_signal.dart';
-import 'package:beatboks/state/lastvisit_signal.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:signals/signals_flutter.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -11,133 +8,46 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+      extendBody: true,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Row(
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        children: <Widget>[
-                          const FaIcon(FontAwesomeIcons.userNinja),
-                          const SizedBox(height: 8),
-                          // Watch the signal and display the value.
-                          Text(cDisplayName.watch(context)),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                const Expanded(
-                  child: Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Column(
-                        children: <Widget>[
-                          FaIcon(FontAwesomeIcons.chartColumn),
-                          SizedBox(height: 8),
-                          Text('Statistics'),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        children: <Widget>[
-                          const FaIcon(FontAwesomeIcons.calendarCheck),
-                          const SizedBox(height: 8),
-                          // Watch the signal and display the value.
-                          Text(sLastVisit.watch(context)),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const Divider(thickness: 2),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: <Widget>[
-                    ListTile(
-                      onTap: () {
-                        // TODO(plotsklapps): Create tutorial workout.
-                      },
-                      leading: const Column(
-                        children: <Widget>[
-                          FaIcon(FontAwesomeIcons.headphonesSimple),
-                          SizedBox(height: 4),
-                          FaIcon(FontAwesomeIcons.circlePlay),
-                        ],
-                      ),
-                      title: const Text('Eminem - Till I Collapse'),
-                      subtitle: const Text('Tutorial Workout'),
-                      trailing: const FaIcon(FontAwesomeIcons.forwardStep),
-                    ),
-                  ],
+            Expanded(
+              child: Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Center(child: FaIcon(FontAwesomeIcons.userLarge)),
                 ),
               ),
             ),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: <Widget>[
-                    ListTile(
-                      onTap: () {
-                        // TODO(plotsklapps): Create first workout.
-                      },
-                      leading: const Column(
-                        children: <Widget>[
-                          FaIcon(FontAwesomeIcons.headphonesSimple),
-                          SizedBox(height: 4),
-                          FaIcon(FontAwesomeIcons.circlePlay),
-                        ],
-                      ),
-                      title: const Text('Kanye West - POWER'),
-                      subtitle: const Text('Jab First'),
-                      trailing: const FaIcon(FontAwesomeIcons.forwardStep),
-                    ),
-                  ],
+            Expanded(
+              child: Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Center(child: FaIcon(FontAwesomeIcons.chartColumn)),
                 ),
               ),
             ),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: <Widget>[
-                    ListTile(
-                      onTap: () {
-                        // TODO(plotsklapps): Create second workout.
-                      },
-                      leading: const Column(
-                        children: <Widget>[
-                          FaIcon(FontAwesomeIcons.headphonesSimple),
-                          SizedBox(height: 4),
-                          FaIcon(FontAwesomeIcons.circlePlay),
-                        ],
-                      ),
-                      title: const Text('Otherwise - Soldiers'),
-                      subtitle: const Text('Hook Finish'),
-                      trailing: const FaIcon(FontAwesomeIcons.forwardStep),
-                    ),
-                  ],
+            Expanded(
+              child: Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Center(child: FaIcon(FontAwesomeIcons.calendarCheck)),
                 ),
               ),
             ),
           ],
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8),
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: 8,
+          itemBuilder: (BuildContext context, int index) {
+            return songSelectList[index];
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -164,7 +74,104 @@ class HomeScreen extends StatelessWidget {
                   },
                 );
               },
-              icon: const FaIcon(FontAwesomeIcons.bars),
+              icon: const FaIcon(FontAwesomeIcons.gear),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+List<SongSelectCard> songSelectList = <SongSelectCard>[
+  SongSelectCard(
+    title: 'Eminem',
+    subTitle: 'Till I Collapse',
+    onTap: () {},
+  ),
+  SongSelectCard(
+    title: 'Kanye West',
+    subTitle: 'POWER',
+    onTap: () {},
+  ),
+  SongSelectCard(
+    title: 'Otherwise',
+    subTitle: 'Soldiers',
+    onTap: () {},
+  ),
+  SongSelectCard(
+    title: 'Eminem',
+    subTitle: 'Till I Collapse',
+    onTap: () {},
+  ),
+  SongSelectCard(
+    title: 'Kanye West',
+    subTitle: 'POWER',
+    onTap: () {},
+  ),
+  SongSelectCard(
+    title: 'Otherwise',
+    subTitle: 'Soldiers',
+    onTap: () {},
+  ),
+  SongSelectCard(
+    title: 'Eminem',
+    subTitle: 'Till I Collapse',
+    onTap: () {},
+  ),
+  SongSelectCard(
+    title: 'Kanye West',
+    subTitle: 'POWER',
+    onTap: () {},
+  ),
+  SongSelectCard(
+    title: 'Otherwise',
+    subTitle: 'Soldiers',
+    onTap: () {},
+  ),
+];
+
+class SongSelectCard extends StatefulWidget {
+  const SongSelectCard({
+    required this.title,
+    required this.subTitle,
+    required this.onTap,
+    super.key,
+  });
+
+  final String title;
+  final String subTitle;
+  final VoidCallback onTap;
+
+  @override
+  State<SongSelectCard> createState() => _SongSelectCardState();
+}
+
+class _SongSelectCardState extends State<SongSelectCard> {
+  bool isChecked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: <Widget>[
+            ListTile(
+              onTap: widget.onTap,
+              leading: const FaIcon(FontAwesomeIcons.circlePlay),
+              title: Text(widget.title),
+              subtitle: Text(widget.subTitle),
+              trailing: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    isChecked = !isChecked;
+                  });
+                },
+                child: isChecked
+                    ? const FaIcon(FontAwesomeIcons.circleCheck)
+                    : const FaIcon(FontAwesomeIcons.circle),
+              ),
             ),
           ],
         ),
