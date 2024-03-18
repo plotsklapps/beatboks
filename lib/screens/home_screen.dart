@@ -1,6 +1,9 @@
 import 'package:beatboks/modals/settings_bottomsheet.dart';
+import 'package:beatboks/state/checkedsongs_signal.dart';
+import 'package:beatboks/theme/text_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:signals/signals_flutter.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -41,7 +44,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(16),
         child: ListView.builder(
           shrinkWrap: true,
           itemCount: 8,
@@ -55,7 +58,10 @@ class HomeScreen extends StatelessWidget {
           // Navigate to the StartScreen.
           Navigator.pop(context);
         },
-        child: const FaIcon(FontAwesomeIcons.forwardStep),
+        child: Text(
+          sCheckedSongs.watch(context).toString(),
+          style: TextUtils.fontXL,
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       bottomNavigationBar: BottomAppBar(
@@ -144,7 +150,9 @@ class SongSelectCard extends StatefulWidget {
   final VoidCallback onTap;
 
   @override
-  State<SongSelectCard> createState() => _SongSelectCardState();
+  State<SongSelectCard> createState() {
+    return _SongSelectCardState();
+  }
 }
 
 class _SongSelectCardState extends State<SongSelectCard> {
@@ -154,7 +162,7 @@ class _SongSelectCardState extends State<SongSelectCard> {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(8),
         child: Column(
           children: <Widget>[
             ListTile(
@@ -166,6 +174,11 @@ class _SongSelectCardState extends State<SongSelectCard> {
                 onTap: () {
                   setState(() {
                     isChecked = !isChecked;
+                    if (isChecked) {
+                      sCheckedSongs.value++;
+                    } else {
+                      sCheckedSongs.value--;
+                    }
                   });
                 },
                 child: isChecked
