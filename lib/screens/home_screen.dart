@@ -1,6 +1,7 @@
 import 'package:beatboks/modals/settings_bottomsheet.dart';
 import 'package:beatboks/state/checkedsongs_signal.dart';
 import 'package:beatboks/theme/text_utils.dart';
+import 'package:beatboks/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:signals/signals_flutter.dart';
@@ -12,37 +13,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Row(
-          children: <Widget>[
-            Expanded(
-              child: Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Center(child: FaIcon(FontAwesomeIcons.userLarge)),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Center(child: FaIcon(FontAwesomeIcons.chartColumn)),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Center(child: FaIcon(FontAwesomeIcons.calendarCheck)),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView.builder(
@@ -55,8 +25,11 @@ class HomeScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigate to the StartScreen.
-          Navigator.pop(context);
+          // Show a SnackBar.
+          Snacks.showErrorSnack(
+            context,
+            'This app is work in progress! Please check back soon.',
+          );
         },
         child: Text(
           sCheckedSongs.watch(context).toString(),
