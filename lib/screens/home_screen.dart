@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Row(
-                children: [
+                children: <Widget>[
                   Expanded(
                     child: Card(
                       child: Padding(
@@ -42,29 +42,31 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   const Expanded(
-                      child: Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Column(
-                        children: <Widget>[
-                          FaIcon(FontAwesomeIcons.barsProgress),
-                          Text('Statistics'),
-                        ],
+                    child: Card(
+                      child: Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Column(
+                          children: <Widget>[
+                            FaIcon(FontAwesomeIcons.barsProgress),
+                            Text('Statistics'),
+                          ],
+                        ),
                       ),
                     ),
-                  )),
+                  ),
                   Expanded(
-                      child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Column(
-                        children: <Widget>[
-                          const FaIcon(FontAwesomeIcons.calendarCheck),
-                          Text(sLastVisit.watch(context)),
-                        ],
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Column(
+                          children: <Widget>[
+                            const FaIcon(FontAwesomeIcons.calendarCheck),
+                            Text(sLastVisit.watch(context)),
+                          ],
+                        ),
                       ),
                     ),
-                  )),
+                  ),
                 ],
               ),
               const Divider(thickness: 2),
