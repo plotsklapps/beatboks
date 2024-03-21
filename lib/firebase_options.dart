@@ -36,7 +36,6 @@ class DefaultFirebaseOptions {
           'DefaultFirebaseOptions have not been configured for linux - '
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
-      // ignore: no_default_cases
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -51,6 +50,7 @@ class DefaultFirebaseOptions {
     projectId: 'beatboks',
     authDomain: 'beatboks.firebaseapp.com',
     storageBucket: 'beatboks.appspot.com',
+    measurementId: 'G-LHC073M4Q8',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
