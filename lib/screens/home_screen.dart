@@ -1,14 +1,15 @@
 import 'dart:ui';
 
 import 'package:beatboks/modals/settings_bottomsheet.dart';
+import 'package:beatboks/song_class.dart';
 import 'package:beatboks/state/checkedsongs_signal.dart';
 import 'package:beatboks/state/displayname_signal.dart';
 import 'package:beatboks/state/lastvisit_signal.dart';
 import 'package:beatboks/theme/text_utils.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:beatboks/widgets/snackbars.dart';
+import 'package:beatboks/widgets/song_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:signals/signals_flutter.dart';
 
@@ -21,6 +22,24 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<Song> songList = <Song>[
+      Song(
+        title: 'Eminem (feat. Nate Dogg) - Till I Collapse',
+        subtitle: 'TUTORIAL WORKOUT',
+        isChecked: isEminemChecked,
+      ),
+      Song(
+        title: 'Kanye West - POWER',
+        subtitle: 'ALL DAY JABS',
+        isChecked: isKanyeChecked,
+      ),
+      Song(
+        title: 'Masked Wolf - Astronaut In The Ocean',
+        subtitle: 'HOOKS '
+            'GALORE',
+        isChecked: isWolfChecked,
+      ),
+    ];
     return SafeArea(
       child: Scaffold(
         extendBody: true,
@@ -83,116 +102,26 @@ class HomeScreen extends StatelessWidget {
                     PointerDeviceKind.invertedStylus,
                   },
                 ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      InkWell(
-                        onTap: () {
-                          showModalBottomSheet<Widget>(
-                            showDragHandle: true,
-                            isScrollControlled: true,
-                            context: context,
-                            builder: (BuildContext context) {
-                              return const EminemBottomSheet();
-                            },
-                          );
-                        },
-                        child: Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: ListTile(
-                              leading:
-                                  const FaIcon(FontAwesomeIcons.circlePlay),
-                              title: const Text('Eminem - Till I Collapse'),
-                              subtitle: const Text('TUTORIAL WORKOUT'),
-                              trailing: IconButton(
-                                onPressed: () {
-                                  isEminemChecked.value =
-                                      !isEminemChecked.value;
-                                  if (isEminemChecked.value == true) {
-                                    sCheckedSongs.value++;
-                                  } else {
-                                    sCheckedSongs.value--;
-                                  }
-                                },
-                                icon: isEminemChecked.watch(context)
-                                    ? const FaIcon(FontAwesomeIcons.circleCheck)
-                                    : const FaIcon(FontAwesomeIcons.circle),
-                              ),
-                            ),
-                          ),
-                        ).animate().fade().moveX(delay: 200.ms),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          // Show a SnackBar.
-                          Snacks.showErrorSnack(
-                            context,
-                            'This app is work in progress! Please check back soon.',
-                          );
-                        },
-                        child: Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: ListTile(
-                              leading:
-                                  const FaIcon(FontAwesomeIcons.circlePlay),
-                              title: const Text('Kanye West - Power'),
-                              subtitle: const Text('ALL DAY JABS'),
-                              trailing: IconButton(
-                                onPressed: () {
-                                  isKanyeChecked.value = !isKanyeChecked.value;
-                                  if (isKanyeChecked.value == true) {
-                                    sCheckedSongs.value++;
-                                  } else {
-                                    sCheckedSongs.value--;
-                                  }
-                                },
-                                icon: isKanyeChecked.watch(context)
-                                    ? const FaIcon(FontAwesomeIcons.circleCheck)
-                                    : const FaIcon(FontAwesomeIcons.circle),
-                              ),
-                            ),
-                          ),
-                        ).animate().fade(delay: 200.ms).moveX(delay: 400.ms),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          // Show a SnackBar.
-                          Snacks.showErrorSnack(
-                            context,
-                            'This app is work in progress! Please check back soon.',
-                          );
-                        },
-                        child: Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: ListTile(
-                              leading:
-                                  const FaIcon(FontAwesomeIcons.circlePlay),
-                              title: const Text('Masked Wolf - Astronaut In The'
-                                  ' Ocean'),
-                              subtitle: const Text('HOOKS GALORE'),
-                              trailing: IconButton(
-                                onPressed: () {
-                                  isWolfChecked.value = !isWolfChecked.value;
-                                  if (isWolfChecked.value == true) {
-                                    sCheckedSongs.value++;
-                                  } else {
-                                    sCheckedSongs.value--;
-                                  }
-                                },
-                                icon: isWolfChecked.watch(context)
-                                    ? const FaIcon(FontAwesomeIcons.circleCheck)
-                                    : const FaIcon(FontAwesomeIcons.circle),
-                              ),
-                            ),
-                          ),
-                        ).animate().fade(delay: 400.ms).moveX(delay: 600.ms),
-                      ),
-                    ],
-                  ),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: songList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return SongCard(
+                      leadingIcon: FontAwesomeIcons.circlePlay,
+                      title: songList[index].title,
+                      subtitle: songList[index].subtitle,
+                      isChecked: songList[index].isChecked,
+                      onPressed: () {
+                        songList[index].isChecked.value =
+                            !songList[index].isChecked.value;
+                        if (songList[index].isChecked.value == true) {
+                          sCheckedSongs.value++;
+                        } else {
+                          sCheckedSongs.value--;
+                        }
+                      },
+                    );
+                  },
                 ),
               ),
             ],
@@ -200,6 +129,14 @@ class HomeScreen extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
+            showModalBottomSheet<Widget>(
+              showDragHandle: true,
+              isScrollControlled: true,
+              context: context,
+              builder: (BuildContext context) {
+                return const WorkoutResumeBottomSheet();
+              },
+            );
             // Show a SnackBar.
             Snacks.showErrorSnack(
               context,
@@ -323,6 +260,30 @@ class EminemBottomSheet extends StatelessWidget {
                 ),
               ],
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class WorkoutResumeBottomSheet extends StatelessWidget {
+  const WorkoutResumeBottomSheet({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            BottomSheetHeader(
+              title: 'Workout Resume',
+            ),
+            Divider(thickness: 2),
+            SizedBox(height: 32),
+            Column(),
           ],
         ),
       ),
