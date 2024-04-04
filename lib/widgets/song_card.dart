@@ -29,6 +29,27 @@ class _SongCardState extends State<SongCard> {
   final AudioPlayer audioPlayer = AudioPlayer();
   final Signal<bool> sIsPlaying = signal<bool>(false);
 
+  // In the initState method, we listen to the playerStateStream of the
+  // audioPlayer. When the processingState of the player is
+  // ProcessingState.ready, we update the sIsPlaying signal with the current
+  // playing state of the player. This ensures that the sIsPlaying signal is
+  // always in sync with the actual playing state of the player.
+  @override
+  void initState() {
+    super.initState();
+    audioPlayer.playerStateStream.listen((PlayerState playerState) {
+      if (playerState.processingState == ProcessingState.ready) {
+        sIsPlaying.value = playerState.playing;
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    audioPlayer.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -37,16 +58,16 @@ class _SongCardState extends State<SongCard> {
         child: ListTile(
           leading: GestureDetector(
             onTap: () async {
-              if (sIsPlaying.value = true) {
+              if (sIsPlaying.value == true) {
                 await audioPlayer.pause();
-                sIsPlaying.value = false;
               } else {
                 try {
-                  await audioPlayer.setAsset('assets/audio/song.mp3');
+                  await audioPlayer.setAsset('assets/MP3/eminem_tillicollapse'
+                      '.mp3');
                   await audioPlayer.play();
-                  sIsPlaying.value = true;
                 } catch (e) {
                   if (e is PlayerException) {
+                    // TODO(plotsklapps): Handle player exceptions.
                     print('Error: ${e.message}');
                   }
                 }
