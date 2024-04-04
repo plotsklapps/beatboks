@@ -41,6 +41,7 @@ class _SongCardState extends State<SongCard> {
   }
 
   Future<void> _initAudioPlayer() async {
+    // Set the asset to the player on initialization.
     try {
       await audioPlayer.setAsset('assets/MP3/eminem_tillicollapse.mp3');
     } catch (e) {
@@ -50,6 +51,9 @@ class _SongCardState extends State<SongCard> {
       }
     }
 
+    // playerState.playing returns a bool that we store in the sIsPlaying
+    // signal. This signal is used to update the UI when the player is playing
+    // or paused.
     audioPlayer.playerStateStream.listen((PlayerState playerState) {
       if (playerState.processingState == ProcessingState.ready) {
         sIsPlaying.value = playerState.playing;
