@@ -37,6 +37,19 @@ class _SongCardState extends State<SongCard> {
   @override
   void initState() {
     super.initState();
+    _initAudioPlayer();
+  }
+
+  Future<void> _initAudioPlayer() async {
+    try {
+      await audioPlayer.setAsset('assets/MP3/eminem_tillicollapse.mp3');
+    } catch (e) {
+      if (e is PlayerException) {
+        // Handle player exceptions.
+        print('Error: ${e.message}');
+      }
+    }
+
     audioPlayer.playerStateStream.listen((PlayerState playerState) {
       if (playerState.processingState == ProcessingState.ready) {
         sIsPlaying.value = playerState.playing;
@@ -62,8 +75,6 @@ class _SongCardState extends State<SongCard> {
                 await audioPlayer.pause();
               } else {
                 try {
-                  await audioPlayer.setAsset('assets/MP3/eminem_tillicollapse'
-                      '.mp3');
                   await audioPlayer.play();
                 } catch (e) {
                   if (e is PlayerException) {
