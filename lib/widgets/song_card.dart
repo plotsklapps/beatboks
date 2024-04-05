@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:logger/logger.dart';
 import 'package:signals/signals_flutter.dart';
 
 class SongCard extends StatefulWidget {
@@ -29,11 +30,6 @@ class _SongCardState extends State<SongCard> {
   final AudioPlayer audioPlayer = AudioPlayer();
   final Signal<bool> sIsPlaying = signal<bool>(false);
 
-  // In the initState method, we listen to the playerStateStream of the
-  // audioPlayer. When the processingState of the player is
-  // ProcessingState.ready, we update the sIsPlaying signal with the current
-  // playing state of the player. This ensures that the sIsPlaying signal is
-  // always in sync with the actual playing state of the player.
   @override
   void initState() {
     super.initState();
@@ -42,16 +38,14 @@ class _SongCardState extends State<SongCard> {
 
   Future<void> _initAudioPlayer() async {
     // Set the asset to the player on initialization.
+    // Widget title String corresponds to MP3 file name.
     try {
-      await audioPlayer.setAsset('assets/MP3/eminem_tillicollapse.mp3');
+      await audioPlayer.setAsset('assets/MP3/${widget.title}.mp3');
     } catch (e) {
-      if (e is PlayerException) {
-        // Handle player exceptions.
-        print('Error: ${e.message}');
-      }
+      Logger().e('Error: $e');
     }
 
-    // playerState.playing returns a bool that we store in the sIsPlaying
+    // playerState.playing returns a bool that is stored in the sIsPlaying
     // signal. This signal is used to update the UI when the player is playing
     // or paused.
     audioPlayer.playerStateStream.listen((PlayerState playerState) {
@@ -64,6 +58,7 @@ class _SongCardState extends State<SongCard> {
   @override
   void dispose() {
     audioPlayer.dispose();
+    Logger().i('Audio player disposed.');
     super.dispose();
   }
 
@@ -81,10 +76,7 @@ class _SongCardState extends State<SongCard> {
                 try {
                   await audioPlayer.play();
                 } catch (e) {
-                  if (e is PlayerException) {
-                    // TODO(plotsklapps): Handle player exceptions.
-                    print('Error: ${e.message}');
-                  }
+                  Logger().e('Error: $e');
                 }
               }
             },

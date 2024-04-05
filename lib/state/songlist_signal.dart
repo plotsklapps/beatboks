@@ -9,18 +9,18 @@ final Signal<bool> isWolfChecked = signal<bool>(false);
 
 final ListSignal<Song> sSongList = listSignal(<Song>[
   Song(
-    title: 'Eminem (feat. Nate Dogg) - Till I Collapse',
-    subtitle: 'TUTORIAL WORKOUT',
+    title: 'Eminem - Till I Collapse',
+    subtitle: 'Duration - 5:37 min',
     isChecked: isEminemChecked,
   ),
   Song(
     title: 'Kanye West - POWER',
-    subtitle: 'ALL DAY JABS',
+    subtitle: 'Duration - 0:00 min',
     isChecked: isKanyeChecked,
   ),
   Song(
     title: 'Masked Wolf - Astronaut In The Ocean',
-    subtitle: 'HOOKS GALORE',
+    subtitle: 'Duration - 0:00 min',
     isChecked: isWolfChecked,
   ),
 ]);
