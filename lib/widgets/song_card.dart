@@ -67,7 +67,7 @@ class _SongCardState extends State<SongCard> {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8),
-        child: ListTile(
+        child: ExpansionTile(
           leading: GestureDetector(
             onTap: () async {
               if (sIsPlaying.value == true) {
@@ -94,6 +94,61 @@ class _SongCardState extends State<SongCard> {
                   : FontAwesomeIcons.circle,
             ),
           ),
+          children: const <Widget>[
+            Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('Artist'),
+                    Text('Eminem (feat. Nate Dogg)'),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('Songtitle'),
+                    Text('Till I Collapse'),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('Album'),
+                    Text('The Eminem Show'),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('Year'),
+                    Text('2002'),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('Genre'),
+                    Text('Rap, Hiphop'),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('Duration'),
+                    Text('5:37'),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('Source'),
+                    Text('hipstrumentals.com'),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
