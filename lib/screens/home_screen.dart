@@ -85,8 +85,13 @@ class HomeScreen extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     return SongCard(
                       leadingIcon: FontAwesomeIcons.circlePlay,
+                      artist: sSongList[index].artist,
                       title: sSongList[index].title,
-                      subtitle: sSongList[index].subtitle,
+                      album: sSongList[index].album,
+                      year: sSongList[index].year,
+                      genre: sSongList[index].genre,
+                      duration: sSongList[index].duration,
+                      source: sSongList[index].source,
                       isChecked: sSongList[index].isChecked,
                       onPressed: () {
                         sSongList[index].isChecked.value =

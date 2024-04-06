@@ -7,16 +7,26 @@ import 'package:signals/signals_flutter.dart';
 class SongCard extends StatefulWidget {
   const SongCard({
     required this.leadingIcon,
+    required this.artist,
     required this.title,
-    required this.subtitle,
+    required this.album,
+    required this.year,
+    required this.genre,
+    required this.duration,
+    required this.source,
     required this.isChecked,
     required this.onPressed,
     super.key,
   });
 
   final IconData leadingIcon;
+  final String artist;
   final String title;
-  final String subtitle;
+  final String album;
+  final String year;
+  final String genre;
+  final String duration;
+  final String source;
   final Signal<bool> isChecked;
   final VoidCallback onPressed;
 
@@ -40,7 +50,9 @@ class _SongCardState extends State<SongCard> {
     // Set the asset to the player on initialization.
     // Widget title String corresponds to MP3 file name.
     try {
-      await audioPlayer.setAsset('assets/MP3/${widget.title}.mp3');
+      await audioPlayer.setAsset(
+        'assets/MP3/${widget.artist} - ${widget.title}.mp3',
+      );
     } catch (e) {
       Logger().e('Error: $e');
     }
@@ -84,8 +96,8 @@ class _SongCardState extends State<SongCard> {
                 ? const FaIcon(FontAwesomeIcons.circlePause)
                 : FaIcon(widget.leadingIcon),
           ),
-          title: Text(widget.title),
-          subtitle: Text(widget.subtitle),
+          title: Text(widget.artist),
+          subtitle: Text(widget.title),
           trailing: IconButton(
             onPressed: widget.onPressed,
             icon: FaIcon(
@@ -94,56 +106,56 @@ class _SongCardState extends State<SongCard> {
                   : FontAwesomeIcons.circle,
             ),
           ),
-          children: const <Widget>[
+          children: <Widget>[
             Column(
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('Artist'),
-                    Text('Eminem (feat. Nate Dogg)'),
+                    const Text('Artist'),
+                    Text(widget.artist),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('Songtitle'),
-                    Text('Till I Collapse'),
+                    const Text('Title'),
+                    Text(widget.title),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('Album'),
-                    Text('The Eminem Show'),
+                    const Text('Album'),
+                    Text(widget.album),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('Year'),
-                    Text('2002'),
+                    const Text('Year'),
+                    Text(widget.year),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('Genre'),
-                    Text('Rap, Hiphop'),
+                    const Text('Genre'),
+                    Text(widget.genre),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('Duration'),
-                    Text('5:37'),
+                    const Text('Duration'),
+                    Text(widget.duration),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('Source'),
-                    Text('hipstrumentals.com'),
+                    const Text('Source'),
+                    Text(widget.source),
                   ],
                 ),
               ],
