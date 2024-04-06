@@ -19,3 +19,5 @@ final ListSignal<Song> sSongList = listSignal(<Song>[
     isChecked: isEminemChecked,
   ),
 ]);
+
+final ListSignal<Song> sCheckedSongList = listSignal(<Song>[]);

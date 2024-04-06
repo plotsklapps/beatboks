@@ -1,12 +1,11 @@
 import 'dart:ui';
 
 import 'package:beatboks/modals/settings_bottomsheet.dart';
+import 'package:beatboks/modals/summary_bottomsheet.dart';
 import 'package:beatboks/state/displayname_signal.dart';
 import 'package:beatboks/state/lastvisit_signal.dart';
 import 'package:beatboks/state/songlist_signal.dart';
 import 'package:beatboks/theme/text_utils.dart';
-import 'package:beatboks/widgets/bottomsheetheader.dart';
-import 'package:beatboks/widgets/snackbars.dart';
 import 'package:beatboks/widgets/song_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -98,8 +97,10 @@ class HomeScreen extends StatelessWidget {
                             !sSongList[index].isChecked.value;
                         if (sSongList[index].isChecked.value == true) {
                           sCheckedSongs.value++;
+                          sCheckedSongList.add(sSongList[index]);
                         } else {
                           sCheckedSongs.value--;
+                          sCheckedSongList.remove(sSongList[index]);
                         }
                       },
                     );
@@ -116,13 +117,8 @@ class HomeScreen extends StatelessWidget {
               isScrollControlled: true,
               context: context,
               builder: (BuildContext context) {
-                return const WorkoutResumeBottomSheet();
+                return const SummaryBottomsheet();
               },
-            );
-            // Show a SnackBar.
-            Snacks.showErrorSnack(
-              context,
-              'This app is work in progress! Please check back soon.',
             );
           },
           child: Text(
@@ -151,30 +147,6 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class WorkoutResumeBottomSheet extends StatelessWidget {
-  const WorkoutResumeBottomSheet({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox(
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            BottomSheetHeader(
-              title: 'Workout Resume',
-            ),
-            Divider(thickness: 2),
-            SizedBox(height: 32),
-            Column(),
-          ],
         ),
       ),
     );
