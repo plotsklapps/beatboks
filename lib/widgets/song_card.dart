@@ -58,8 +58,7 @@ class _SongCardState extends State<SongCard> {
     }
 
     // playerState.playing returns a bool that is stored in the sIsPlaying
-    // signal. This signal is used to update the UI when the player is playing
-    // or paused.
+    // signal. This signal is then used to update the UI.
     audioPlayer.playerStateStream.listen((PlayerState playerState) {
       if (playerState.processingState == ProcessingState.ready) {
         sIsPlaying.value = playerState.playing;
