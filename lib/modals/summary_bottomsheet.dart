@@ -25,7 +25,7 @@ class _SummaryBottomsheetState extends State<SummaryBottomsheet> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             const BottomSheetHeader(
-              title: 'Workout Resume',
+              title: 'Workout Summary',
             ),
             const Divider(thickness: 2),
             ListView.builder(
@@ -43,6 +43,19 @@ class _SummaryBottomsheetState extends State<SummaryBottomsheet> {
               },
             ),
             const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                const Text(
+                  'Total Duration',
+                  style: TextUtils.fontXL,
+                ),
+                Text(
+                  cTotalDuration.value,
+                  style: TextUtils.fontXL,
+                ),
+              ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
