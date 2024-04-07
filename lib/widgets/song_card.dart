@@ -63,6 +63,9 @@ class _SongCardState extends State<SongCard> {
       if (playerState.processingState == ProcessingState.ready) {
         sIsPlaying.value = playerState.playing;
       }
+      if (playerState.processingState == ProcessingState.completed) {
+        sIsPlaying.value = false;
+      }
     });
   }
 
