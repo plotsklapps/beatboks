@@ -18,6 +18,16 @@ final ListSignal<Song> sSongList = listSignal(<Song>[
     source: 'hipstrumentals.com',
     isChecked: isEminemChecked,
   ),
+  Song(
+    artist: 'Kanye West',
+    title: 'Power',
+    album: 'My Beautiful Dark Twisted Fantasy',
+    year: '2010',
+    genre: 'Rap, Hiphop',
+    duration: '4:51',
+    source: 'hipstrumentals.com',
+    isChecked: isKanyeChecked,
+  ),
 ]);
 
 final ListSignal<Song> sCheckedSongList = listSignal(<Song>[]);
