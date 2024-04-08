@@ -8,6 +8,19 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:signals/signals_flutter.dart';
 
+final ListSignal<String> sPunchAvatarList = listSignal<String>([
+  'assets/PNG/punches/1.png',
+  'assets/PNG/punches/2.png',
+  'assets/PNG/punches/3.png',
+  'assets/PNG/punches/4.png',
+  'assets/PNG/punches/5.png',
+  'assets/PNG/punches/6.png',
+  'assets/PNG/punches/1B.png',
+  'assets/PNG/punches/2B.png',
+  'assets/PNG/punches/3B.png',
+  'assets/PNG/punches/4B.png',
+]);
+
 class DisplayNameBottomsheet extends StatefulWidget {
   const DisplayNameBottomsheet({super.key});
 
@@ -51,6 +64,25 @@ class _DisplayNameBottomsheetState extends State<DisplayNameBottomsheet> {
               title: 'Change your username',
             ),
             const Divider(thickness: 2),
+            const SizedBox(height: 16),
+            SizedBox(
+              height: 80,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: sPunchAvatarList.value.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Image.asset(
+                        sPunchAvatarList.value[index],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
             const SizedBox(height: 16),
             TextField(
               controller: _displayNameController,
