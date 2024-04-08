@@ -1,9 +1,11 @@
+import 'package:beatboks/song_class.dart';
 import 'package:beatboks/state/songlist_signal.dart';
 import 'package:beatboks/theme/text_utils.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:beatboks/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:signals/signals_flutter.dart';
 
 class SummaryBottomsheet extends StatefulWidget {
@@ -16,6 +18,8 @@ class SummaryBottomsheet extends StatefulWidget {
 }
 
 class _SummaryBottomsheetState extends State<SummaryBottomsheet> {
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -60,12 +64,24 @@ class _SummaryBottomsheetState extends State<SummaryBottomsheet> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 FloatingActionButton(
-                  onPressed: () {
-                    // Show a SnackBar.
-                    Snacks.showErrorSnack(
-                      context,
-                      'Working on it! Hold on tight.',
-                    );
+                  onPressed: () async {
+                    if (sCheckedSongList.watch(context).isEmpty) {
+                      Snacks.showErrorSnack(
+                          context,
+                          'Please add some songs '
+                          'first, we recommend 3-8 songs for a solid workout!');
+                    } else {
+                      final List<AudioSource> playList =
+                          sCheckedSongList.watch(context).map((Song song) {
+                        return AudioSource.asset(
+                            'assets/MP3/${song.artist} - ${song.title}.mp3');
+                      }).toList();
+
+                      await _audioPlayer.setAudioSource(
+                        ConcatenatingAudioSource(children: playList),
+                      );
+                      await _audioPlayer.play();
+                    }
                   },
                   child: const FaIcon(FontAwesomeIcons.play),
                 ),

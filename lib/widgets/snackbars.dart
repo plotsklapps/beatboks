@@ -12,7 +12,7 @@ class Snacks {
       style: ToastificationStyle.flatColored,
       title: const Text('ERROR'),
       description: Text(error),
-      alignment: Alignment.center,
+      alignment: Alignment.bottomRight,
       autoCloseDuration: const Duration(seconds: 5),
       icon: const FaIcon(
         FontAwesomeIcons.triangleExclamation,
@@ -30,7 +30,7 @@ class Snacks {
       style: ToastificationStyle.flatColored,
       title: const Text('SUCCESS'),
       description: Text(message),
-      alignment: Alignment.center,
+      alignment: Alignment.bottomRight,
       autoCloseDuration: const Duration(seconds: 5),
       icon: const FaIcon(
         FontAwesomeIcons.circleCheck,

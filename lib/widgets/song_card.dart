@@ -37,7 +37,7 @@ class SongCard extends StatefulWidget {
 }
 
 class _SongCardState extends State<SongCard> {
-  final AudioPlayer audioPlayer = AudioPlayer();
+  final AudioPlayer _audioPlayer = AudioPlayer();
   final Signal<bool> sIsPlaying = signal<bool>(false);
 
   @override
@@ -50,7 +50,7 @@ class _SongCardState extends State<SongCard> {
     // Set the asset to the player on initialization.
     // Widget title String corresponds to MP3 file name.
     try {
-      await audioPlayer.setAsset(
+      await _audioPlayer.setAsset(
         'assets/MP3/${widget.artist} - ${widget.title}.mp3',
       );
     } catch (e) {
@@ -59,7 +59,7 @@ class _SongCardState extends State<SongCard> {
 
     // playerState.playing returns a bool that is stored in the sIsPlaying
     // signal. This signal is then used to update the UI.
-    audioPlayer.playerStateStream.listen((PlayerState playerState) {
+    _audioPlayer.playerStateStream.listen((PlayerState playerState) {
       if (playerState.processingState == ProcessingState.ready) {
         sIsPlaying.value = playerState.playing;
       }
@@ -71,7 +71,7 @@ class _SongCardState extends State<SongCard> {
 
   @override
   void dispose() {
-    audioPlayer.dispose();
+    _audioPlayer.dispose();
     Logger().i('Audio player disposed.');
     super.dispose();
   }
@@ -85,10 +85,10 @@ class _SongCardState extends State<SongCard> {
           leading: GestureDetector(
             onTap: () async {
               if (sIsPlaying.value == true) {
-                await audioPlayer.pause();
+                await _audioPlayer.pause();
               } else {
                 try {
-                  await audioPlayer.play();
+                  await _audioPlayer.play();
                 } catch (e) {
                   Logger().e('Error: $e');
                 }

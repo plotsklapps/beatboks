@@ -31,10 +31,10 @@ final ListSignal<Song> sSongList = listSignal(<Song>[
   Song(
     artist: 'Ciara',
     title: 'Level Up',
-    album: 'Level Up',
+    album: 'Beauty Marks',
     year: '2018',
     genre: 'Pop, Dance',
-    duration: '3:25',
+    duration: '3:24',
     source: 'hipstrumentals.com',
     isChecked: isCiaraChecked,
   ),
