@@ -8,7 +8,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:signals/signals_flutter.dart';
 
-final ListSignal<String> sPunchAvatarList = listSignal<String>([
+final ListSignal<String> sPunchAvatarList = listSignal<String>(<String>[
   'assets/PNG/punches/1.png',
   'assets/PNG/punches/2.png',
   'assets/PNG/punches/3.png',
