@@ -5,7 +5,7 @@ final Signal<int> sCheckedSongs = signal<int>(0);
 
 final Signal<bool> isEminemChecked = signal<bool>(false);
 final Signal<bool> isKanyeChecked = signal<bool>(false);
-final Signal<bool> isWolfChecked = signal<bool>(false);
+final Signal<bool> isCiaraChecked = signal<bool>(false);
 
 final ListSignal<Song> sSongList = listSignal(<Song>[
   Song(
@@ -27,6 +27,16 @@ final ListSignal<Song> sSongList = listSignal(<Song>[
     duration: '4:51',
     source: 'hipstrumentals.com',
     isChecked: isKanyeChecked,
+  ),
+  Song(
+    artist: 'Ciara',
+    title: 'Level Up',
+    album: 'Level Up',
+    year: '2018',
+    genre: 'Pop, Dance',
+    duration: '3:25',
+    source: 'hipstrumentals.com',
+    isChecked: isCiaraChecked,
   ),
 ]);
 
