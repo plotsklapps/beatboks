@@ -4,6 +4,7 @@ import 'package:beatboks/state/thememode_signal.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 // Using a GlobalKey for showing SnackBars to users.
 final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
@@ -12,6 +13,8 @@ final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
 Future<void> main() async {
   // Completely boot the Flutter framework before running the application.
   WidgetsFlutterBinding.ensureInitialized();
+  // Have screen active at all time considering the nature of the app.
+  await WakelockPlus.enable();
   // Set up a connection between the app and the Firebase project.
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
