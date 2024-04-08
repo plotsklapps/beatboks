@@ -34,7 +34,7 @@ final ListSignal<Song> sSongList = listSignal(<Song>[
     album: 'Beauty Marks',
     year: '2018',
     genre: 'Pop, Dance',
-    duration: '3:24',
+    duration: '3:23',
     source: 'hipstrumentals.com',
     isChecked: isCiaraChecked,
   ),
