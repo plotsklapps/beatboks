@@ -24,6 +24,7 @@ dependencies:
   logger: ^2.1.0
   signals: ^4.5.1
   toastification: ^1.2.1
+  wakelock_plus: ^1.2.2
 
 dev_dependencies:
   flutter_test:

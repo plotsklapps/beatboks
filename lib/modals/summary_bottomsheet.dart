@@ -110,15 +110,26 @@ class _SummaryBottomsheetState extends State<SummaryBottomsheet> {
                 FloatingActionButton(
                   onPressed: () async {
                     if (sCheckedSongList.watch(context).isEmpty) {
-                      Snacks.showErrorSnack(context,
-                          'Please add some songs first, we recommend 3-8 songs for a solid workout!');
+                      Snacks.showErrorSnack(
+                        context,
+                        'Please add some songs first, we recommend 3-8 songs for a solid workout!',
+                      );
                     } else {
-                      await _audioPlayer.play();
+                      // Play the playList that was set in the initState.
+                      if (sIsPlaying.value == true) {
+                        await _audioPlayer.pause();
+                      } else {
+                        try {
+                          await _audioPlayer.play();
+                        } catch (e) {
+                          Logger().e('Error: $e');
+                        }
+                      }
                     }
                   },
                   child: sIsPlaying.watch(context)
                       ? const FaIcon(FontAwesomeIcons.circlePause)
-                      : const FaIcon(FontAwesomeIcons.forwardStep),
+                      : const FaIcon(FontAwesomeIcons.circlePlay),
                 ),
               ],
             ),
