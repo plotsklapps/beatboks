@@ -82,33 +82,35 @@ class HomeScreen extends StatelessWidget {
                     PointerDeviceKind.invertedStylus,
                   },
                 ),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: sSongList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return SongCard(
-                      leadingIcon: FontAwesomeIcons.circlePlay,
-                      artist: sSongList[index].artist,
-                      title: sSongList[index].title,
-                      album: sSongList[index].album,
-                      year: sSongList[index].year,
-                      genre: sSongList[index].genre,
-                      duration: sSongList[index].duration,
-                      source: sSongList[index].source,
-                      isChecked: sSongList[index].isChecked,
-                      onPressed: () {
-                        sSongList[index].isChecked.value =
-                            !sSongList[index].isChecked.value;
-                        if (sSongList[index].isChecked.value == true) {
-                          sCheckedSongs.value++;
-                          sCheckedSongList.add(sSongList[index]);
-                        } else {
-                          sCheckedSongs.value--;
-                          sCheckedSongList.remove(sSongList[index]);
-                        }
-                      },
-                    );
-                  },
+                child: Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: sSongList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return SongCard(
+                        leadingIcon: FontAwesomeIcons.circlePlay,
+                        artist: sSongList[index].artist,
+                        title: sSongList[index].title,
+                        album: sSongList[index].album,
+                        year: sSongList[index].year,
+                        genre: sSongList[index].genre,
+                        duration: sSongList[index].duration,
+                        source: sSongList[index].source,
+                        isChecked: sSongList[index].isChecked,
+                        onPressed: () {
+                          sSongList[index].isChecked.value =
+                              !sSongList[index].isChecked.value;
+                          if (sSongList[index].isChecked.value == true) {
+                            sCheckedSongs.value++;
+                            sCheckedSongList.add(sSongList[index]);
+                          } else {
+                            sCheckedSongs.value--;
+                            sCheckedSongList.remove(sSongList[index]);
+                          }
+                        },
+                      );
+                    },
+                  ),
                 ),
               ),
             ],

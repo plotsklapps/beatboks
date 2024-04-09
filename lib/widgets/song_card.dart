@@ -82,21 +82,31 @@ class _SongCardState extends State<SongCard> {
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: ExpansionTile(
-          leading: GestureDetector(
-            onTap: () async {
-              if (sIsPlaying.value == true) {
-                await _audioPlayer.pause();
-              } else {
-                try {
-                  await _audioPlayer.play();
-                } catch (e) {
-                  Logger().e('Error: $e');
-                }
-              }
-            },
-            child: sIsPlaying.watch(context)
-                ? const FaIcon(FontAwesomeIcons.circlePause)
-                : FaIcon(widget.leadingIcon),
+          leading: Stack(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () async {
+                  if (sIsPlaying.value == true) {
+                    await _audioPlayer.pause();
+                  } else {
+                    try {
+                      await _audioPlayer.play();
+                    } catch (e) {
+                      Logger().e('Error: $e');
+                    }
+                  }
+                },
+                child: sIsPlaying.watch(context)
+                    ? const FaIcon(FontAwesomeIcons.circlePause)
+                    : FaIcon(widget.leadingIcon),
+              ),
+              SizedBox(
+                height: 48,
+                width: 48,
+                child: Image.asset('assets/PNG/albumcovers/${widget.artist} - '
+                    '${widget.title}.png'),
+              ),
+            ],
           ),
           title: Text(widget.artist),
           subtitle: Text(widget.title),
