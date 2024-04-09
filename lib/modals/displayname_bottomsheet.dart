@@ -116,6 +116,11 @@ class _DisplayNameBottomsheetState extends State<DisplayNameBottomsheet> {
             const SizedBox(height: 16),
             TextField(
               controller: _displayNameController,
+              onChanged: (String value) {
+                // Set the signal immediately so it's already set before the
+                // user presses the FAB.
+                sDisplayName.value = value.trim();
+              },
               keyboardType: TextInputType.text,
               decoration: const InputDecoration(
                 icon: FaIcon(FontAwesomeIcons.userPen),
@@ -141,8 +146,17 @@ class _DisplayNameBottomsheetState extends State<DisplayNameBottomsheet> {
                     // Start the spinner.
                     sSpinner.value = true;
 
-                    // Set the signal.
-                    sDisplayName.value = _displayNameController.text.trim();
+                    if (sDisplayName.value!.isEmpty) {
+                      // Cancel the spinner.
+                      sSpinner.value = false;
+
+                      // Show a SnackBar.
+                      Snacks.showErrorSnack(
+                        context,
+                        'Username cannot be empty',
+                      );
+                      return;
+                    }
 
                     // Update the displayName in Firebase and Firestore.
                     _firebase.updateDisplayName(
