@@ -79,6 +79,7 @@ class _SongCardState extends State<SongCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: widget.isChecked.value ? Colors.green[100] : Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: ExpansionTile(
