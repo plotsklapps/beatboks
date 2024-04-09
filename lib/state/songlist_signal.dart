@@ -6,6 +6,7 @@ final Signal<int> sCheckedSongs = signal<int>(0);
 final Signal<bool> isEminemChecked = signal<bool>(false);
 final Signal<bool> isKanyeChecked = signal<bool>(false);
 final Signal<bool> isCiaraChecked = signal<bool>(false);
+final Signal<bool> isMaskedWolfChecked = signal<bool>(false);
 
 final ListSignal<Song> sSongList = listSignal(<Song>[
   Song(
@@ -37,6 +38,16 @@ final ListSignal<Song> sSongList = listSignal(<Song>[
     duration: '3:23',
     source: 'hipstrumentals.com',
     isChecked: isCiaraChecked,
+  ),
+  Song(
+    artist: 'Masked Wolf',
+    title: 'Astronaut In The Ocean',
+    album: 'Astronomical',
+    year: '2021',
+    genre: 'Pop, Rap',
+    duration: '2:13',
+    source: 'hipstrumentals.com',
+    isChecked: isMaskedWolfChecked,
   ),
 ]);
 
