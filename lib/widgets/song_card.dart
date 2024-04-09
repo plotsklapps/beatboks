@@ -1,3 +1,5 @@
+import 'package:beatboks/state/themecolor_signal.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:just_audio/just_audio.dart';
@@ -79,7 +81,11 @@ class _SongCardState extends State<SongCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: widget.isChecked.value ? Colors.green[100] : Colors.white,
+      color: widget.isChecked.value
+          ? cColor.value == FlexScheme.outerSpace
+              ? FlexColor.outerSpaceLightPrimaryContainer
+              : FlexColor.moneyLightPrimaryContainer
+          : null,
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: ExpansionTile(
