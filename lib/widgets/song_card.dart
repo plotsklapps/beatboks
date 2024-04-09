@@ -83,7 +83,18 @@ class _SongCardState extends State<SongCard> {
         padding: const EdgeInsets.all(8),
         child: ExpansionTile(
           leading: Stack(
+            alignment: Alignment.center,
             children: <Widget>[
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: SizedBox(
+                  height: 48,
+                  width: 48,
+                  child:
+                      Image.asset('assets/PNG/albumcovers/${widget.artist} - '
+                          '${widget.title}.png'),
+                ),
+              ),
               GestureDetector(
                 onTap: () async {
                   if (sIsPlaying.value == true) {
@@ -97,14 +108,12 @@ class _SongCardState extends State<SongCard> {
                   }
                 },
                 child: sIsPlaying.watch(context)
-                    ? const FaIcon(FontAwesomeIcons.circlePause)
-                    : FaIcon(widget.leadingIcon),
-              ),
-              SizedBox(
-                height: 48,
-                width: 48,
-                child: Image.asset('assets/PNG/albumcovers/${widget.artist} - '
-                    '${widget.title}.png'),
+                    ? const FaIcon(
+                        FontAwesomeIcons.circlePause,
+                      )
+                    : FaIcon(
+                        widget.leadingIcon,
+                      ),
               ),
             ],
           ),
