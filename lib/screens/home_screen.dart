@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
                         child: Column(
                           children: <Widget>[
                             Image.asset(
-                              sPhotoURL.watch(context)!,
+                              cPhotoURL.watch(context)!,
                               height: 24,
                             ),
                             Text(cDisplayName.watch(context)),

@@ -47,7 +47,7 @@ class SettingsBottomSheet extends StatelessWidget {
                   },
                 );
               },
-              title: const Text('Change username'),
+              title: const Text('Change profile'),
               leading: const SizedBox(
                 width: 40,
                 child: FaIcon(FontAwesomeIcons.userPen),

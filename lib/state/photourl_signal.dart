@@ -1,3 +1,4 @@
+import 'package:beatboks/state/sneakpeek_signal.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:signals/signals.dart';
 
@@ -20,3 +21,10 @@ final ListSignal<String> sPhotoURLList = listSignal<String>(<String>[
   'assets/PNG/punches/3B.png',
   'assets/PNG/punches/4B.png',
 ]);
+
+final Computed<String?> cPhotoURL = computed<String?>(() {
+  if (sSneakPeek.value) {
+    return 'assets/PNG/punches/1.png';
+  }
+  return sPhotoURL.value;
+});

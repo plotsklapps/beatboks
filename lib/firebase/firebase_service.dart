@@ -325,4 +325,47 @@ class FirebaseService {
       onError(error.toString());
     }
   }
+
+  // UPDATE PHOTOURL
+
+  Future<void> updatePhotoURL({
+    required String photoURL,
+    required void Function(String) onError,
+    required void Function() onSuccess,
+  }) async {
+    try {
+      final User? user = _firebase.currentUser;
+
+      if (user != null) {
+        // Update photoURL to Firebase.
+        await user.updatePhotoURL(photoURL);
+
+        // Update photoURL to Firestore.
+        await _firestore
+            .collection('users')
+            .doc(user.uid)
+            .update(<String, String>{
+          'photoURL': photoURL,
+        });
+
+        // Log the success.
+        Logger().i('Photo URL updated.');
+
+        // Trigger the onSuccess callback.
+        onSuccess();
+      } else {
+        // Log the error.
+        Logger().e('Unexpected error: No user found.');
+
+        // Trigger the onError callback.
+        onError('Unexpected error: No user found.');
+      }
+    } catch (error) {
+      // Log the error.
+      Logger().e(error);
+
+      // Trigger the onError callback.
+      onError(error.toString());
+    }
+  }
 }

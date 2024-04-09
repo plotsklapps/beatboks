@@ -51,7 +51,7 @@ class _DisplayNameBottomsheetState extends State<DisplayNameBottomsheet> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             const BottomSheetHeader(
-              title: 'Change your username',
+              title: 'Change your profile',
             ),
             const Divider(thickness: 2),
             const SizedBox(height: 16),
@@ -76,8 +76,33 @@ class _DisplayNameBottomsheetState extends State<DisplayNameBottomsheet> {
                       padding: const EdgeInsets.all(8),
                       child: GestureDetector(
                         onTap: () {
+                          // Start the spinner.
+                          sSpinner.value = true;
+
                           // Set the signal.
                           sPhotoURL.value = sPhotoURLList.value[index];
+
+                          // Update the photoURL in Firebase and Firestore.
+                          _firebase.updatePhotoURL(
+                            photoURL: sPhotoURL.value!,
+                            onError: (String error) {
+                              // Cancel the spinner.
+                              sSpinner.value = false;
+
+                              // Show a SnackBar.
+                              Snacks.showErrorSnack(context, error);
+                            },
+                            onSuccess: () {
+                              // Cancel the spinner.
+                              sSpinner.value = false;
+
+                              // Show a SnackBar.
+                              Snacks.showSuccessSnack(
+                                context,
+                                'Avatar changed!',
+                              );
+                            },
+                          );
                         },
                         child: Image.asset(
                           sPhotoURLList.value[index],
