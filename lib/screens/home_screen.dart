@@ -4,6 +4,7 @@ import 'package:beatboks/modals/settings_bottomsheet.dart';
 import 'package:beatboks/modals/summary_bottomsheet.dart';
 import 'package:beatboks/state/displayname_signal.dart';
 import 'package:beatboks/state/lastvisit_signal.dart';
+import 'package:beatboks/state/photourl_signal.dart';
 import 'package:beatboks/state/songlist_signal.dart';
 import 'package:beatboks/theme/text_utils.dart';
 import 'package:beatboks/widgets/song_card.dart';
@@ -31,7 +32,10 @@ class HomeScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(8),
                         child: Column(
                           children: <Widget>[
-                            const FaIcon(FontAwesomeIcons.userLarge),
+                            Image.asset(
+                              sPhotoURL.watch(context)!,
+                              height: 24,
+                            ),
                             Text(cDisplayName.watch(context)),
                           ],
                         ),
