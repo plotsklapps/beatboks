@@ -44,16 +44,31 @@ flutter:
     - assets/PNG/albumcovers/
 
 flutter_launcher_icons:
-  image_path: "assets/PNG/beatboksIcon.png"
-  ios: true
+  image_path: "assets/PNG/beatboksIconTransparent_512x512.png"
+  image_path_android: "assets/PNG/beatboksIconBlack_512x512.png"
+  android: true # can specify file name here e.g. "ic_launcher"
+  ios: true # can specify file name here e.g. "My-Launcher-Icon"
+  # adaptive_icon_background: "assets/images/christmas-background.png" # only
+  # available for Android 8.0 devices and above
+  # adaptive_icon_foreground: "assets/images/icon-foreground-432x432.png" #
+  # only available for Android 8.0 devices and above
+  # adaptive_icon_monochrome: "assets/images/icon-monochrome-432x432.png" #
+  # only available for Android 13 devices and above
+  min_sdk_android: 24 # android min sdk min:16, default 21
   remove_alpha_ios: true
+  background_color_ios: "#000000"
   web:
     generate: true
+    image_path: "assets/PNG/beatboksIconTransparent_512x512.png"
+    # background_color: "#hexcode"
+    # theme_color: "#hexcode"
   windows:
     generate: true
-    icon_size: 48
+    image_path: "assets/PNG/beatboksIconTransparent_512x512.png"
+    icon_size: 48 # min:48, max:256, default: 48
   macos:
     generate: true
+    image_path: "assets/PNG/beatboksIconTransparent_512x512.png"
 
 flutter_native_splash:
   # This package generates native code to customize Flutter's default white native splash screen
@@ -79,12 +94,12 @@ flutter_native_splash:
 
   # The image parameter allows you to specify an image used in the splash screen.  It must be a
   # png file and should be sized for 4x pixel density.
-  image: assets/PNG/beatboksIcon.png
+  image: assets/PNG/beatboksIconTransparent_512x512.png
 
   # The branding property allows you to specify an image used as branding in the splash screen.
   # It must be a png file. It is supported for Android, iOS and the Web.  For Android 12,
   # see the Android 12 section below.
-  branding: assets/PNG/plotsklappsLogo.png
+  branding: assets/PNG/plotsklappsLogoColor.png
 
   # To position the branding image at the bottom of the screen you can use bottom, bottomRight,
   # and bottomLeft. The default values is bottom if not specified or specified something else.
@@ -97,7 +112,7 @@ flutter_native_splash:
   # set.
   color_dark: "#000000"
   #background_image_dark: "assets/dark-background.png"
-  image_dark: assets/PNG/beatboksIcon.png
+  image_dark: assets/PNG/beatboksIconTransparent_512x512.png
   branding_dark: assets/PNG/plotsklappsLogoBW.png
 
   # From Android 12 onwards, the splash screen is handled differently than in previous versions.
@@ -111,23 +126,23 @@ flutter_native_splash:
     # 640 pixels in diameter.
     # App icon without an icon background: This should be 1152×1152 pixels, and fit within a circle
     # 768 pixels in diameter.
-    image: assets/PNG/beatboksIcon.png
+    image: assets/PNG/beatboksIconBlack_1152x1152.png
 
     # Splash screen background color.
-    color: "#ffffff"
+    color: "#000000"
 
     # App icon background color.
-    icon_background_color: "#ffffff"
+    # icon_background_color: "#ffffff"
 
     # The branding property allows you to specify an image used as branding in the splash screen.
-    branding: assets/PNG/plotsklappsLogo.png
+    branding: assets/PNG/plotsklappsLogoBW.png
 
-    # The image_dark, color_dark, icon_background_color_dark, and branding_dark set values that
-    # apply when the device is in dark mode. If they are not specified, the app will use the
-    # parameters from above.
-    image_dark: assets/PNG/beatboksIcon.png
-    color_dark: "#000000"
-    icon_background_color_dark: "#000000"
+  # The image_dark, color_dark, icon_background_color_dark, and branding_dark set values that
+  # apply when the device is in dark mode. If they are not specified, the app will use the
+  # parameters from above.
+  # image_dark: assets/PNG/beatboksIcon.png
+  # color_dark: "#000000"
+  # icon_background_color_dark: "#000000"
 
   # The android, ios and web parameters can be used to disable generating a splash screen on a given
   # platform.
