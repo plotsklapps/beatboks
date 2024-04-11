@@ -40,12 +40,13 @@ flutter:
     - assets/GIF/
     - assets/MP3/
     - assets/PNG/
+    - assets/PNG/icons/
     - assets/PNG/punches/
     - assets/PNG/albumcovers/
 
 flutter_launcher_icons:
-  image_path: "assets/PNG/beatboksIconTransparent_512x512.png"
-  image_path_android: "assets/PNG/beatboksIconBlack_512x512.png"
+  image_path: "assets/PNG/icons/beatboksIconTransparent_512x512.png"
+  image_path_android: "assets/PNG/icons/beatboksIconBlack_512x512.png"
   android: true # can specify file name here e.g. "ic_launcher"
   ios: true # can specify file name here e.g. "My-Launcher-Icon"
   # adaptive_icon_background: "assets/images/christmas-background.png" # only
@@ -59,16 +60,16 @@ flutter_launcher_icons:
   background_color_ios: "#000000"
   web:
     generate: true
-    image_path: "assets/PNG/beatboksIconTransparent_512x512.png"
+    image_path: "assets/PNG/icons/beatboksIconTransparent_512x512.png"
     # background_color: "#hexcode"
     # theme_color: "#hexcode"
   windows:
     generate: true
-    image_path: "assets/PNG/beatboksIconTransparent_512x512.png"
+    image_path: "assets/PNG/icons/beatboksIconTransparent_512x512.png"
     icon_size: 48 # min:48, max:256, default: 48
   macos:
     generate: true
-    image_path: "assets/PNG/beatboksIconTransparent_512x512.png"
+    image_path: "assets/PNG/icons/beatboksIconTransparent_512x512.png"
 
 flutter_native_splash:
   # This package generates native code to customize Flutter's default white native splash screen
@@ -94,7 +95,7 @@ flutter_native_splash:
 
   # The image parameter allows you to specify an image used in the splash screen.  It must be a
   # png file and should be sized for 4x pixel density.
-  image: assets/PNG/beatboksIconTransparent_512x512.png
+  image: assets/PNG/icons/beatboksIconTransparent_512x512.png
 
   # The branding property allows you to specify an image used as branding in the splash screen.
   # It must be a png file. It is supported for Android, iOS and the Web.  For Android 12,
@@ -112,7 +113,7 @@ flutter_native_splash:
   # set.
   color_dark: "#000000"
   #background_image_dark: "assets/dark-background.png"
-  image_dark: assets/PNG/beatboksIconTransparent_512x512.png
+  image_dark: assets/PNG/icons/beatboksIconTransparent_512x512.png
   branding_dark: assets/PNG/plotsklappsLogoBW.png
 
   # From Android 12 onwards, the splash screen is handled differently than in previous versions.
@@ -126,7 +127,7 @@ flutter_native_splash:
     # 640 pixels in diameter.
     # App icon without an icon background: This should be 1152×1152 pixels, and fit within a circle
     # 768 pixels in diameter.
-    image: assets/PNG/beatboksIconBlack_1152x1152.png
+    image: assets/PNG/icons/beatboksIconBlack_1152x1152.png
 
     # Splash screen background color.
     color: "#000000"
