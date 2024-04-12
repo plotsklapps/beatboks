@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "dev.plotsklapps.beatboks"
+    namespace "com.example.beatboks"
     compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 

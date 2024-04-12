@@ -3,12 +3,23 @@ import 'package:signals/signals.dart';
 
 final Signal<int> sCheckedSongs = signal<int>(0);
 
+final Signal<bool> isTutorialChecked = signal<bool>(false);
 final Signal<bool> isEminemChecked = signal<bool>(false);
 final Signal<bool> isKanyeChecked = signal<bool>(false);
 final Signal<bool> isCiaraChecked = signal<bool>(false);
 final Signal<bool> isMaskedWolfChecked = signal<bool>(false);
 
 final ListSignal<Song> sSongList = listSignal(<Song>[
+  Song(
+    artist: 'BeatBOKS',
+    title: 'Tutorial',
+    album: 'BeatBOKS Tutorials',
+    year: '2024',
+    genre: 'Tutorial',
+    duration: '1:22',
+    source: 'beatboks.app',
+    isChecked: isTutorialChecked,
+  ),
   Song(
     artist: 'Eminem (feat. Nate Dogg)',
     title: 'Till I Collapse',
