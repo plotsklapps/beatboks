@@ -100,8 +100,14 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                         itemCount: sCheckedSongList.watch(context).length,
                         itemBuilder: (BuildContext context, int index) {
                           return ListTile(
-                            leading: sCurrentSongIndex.value == index
-                                ? const FaIcon(FontAwesomeIcons.volumeHigh)
+                            leading: sCurrentSongIndex.watch(context) == index
+                                ? sIsPlaying.watch(context)
+                                    ? const FaIcon(
+                                        FontAwesomeIcons.volumeHigh,
+                                      )
+                                    : const FaIcon(
+                                        FontAwesomeIcons.volumeLow,
+                                      )
                                 : null,
                             title: Text(sCheckedSongList[index].artist),
                             subtitle: Text(sCheckedSongList[index].title),
