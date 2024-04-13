@@ -90,110 +90,103 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Column(
-                    children: <Widget>[
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: sCheckedSongList.watch(context).length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return ListTile(
-                            leading: sCurrentSongIndex.watch(context) == index
-                                ? sIsPlaying.watch(context)
-                                    ? const FaIcon(
-                                        FontAwesomeIcons.volumeHigh,
-                                      )
-                                    : const FaIcon(
-                                        FontAwesomeIcons.volumeLow,
-                                      )
-                                : null,
-                            title: Text(sCheckedSongList[index].artist),
-                            subtitle: Text(sCheckedSongList[index].title),
-                            trailing: Text(
-                              sCheckedSongList[index].duration,
-                              style: TextUtils.fontL,
-                            ),
-                          );
-                        },
-                      ),
-                      const Divider(thickness: 2),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          IconButton(
-                            icon: const FaIcon(
-                              FontAwesomeIcons.backwardStep,
-                              size: 32,
-                            ),
-                            onPressed: () {
-                              // Skip to the beginning of the current
-                              // track or skip to the previous track.
-                              if (sCurrentSongIndex.value > 0) {
-                                sCurrentSongIndex.value--;
-                                _audioPlayer.seekToPrevious();
-                              }
-                            },
-                          ),
-                          IconButton(
-                            icon: sIsPlaying.watch(context)
-                                ? const FaIcon(
-                                    FontAwesomeIcons.circlePause,
-                                    size: 48,
-                                  )
-                                : const FaIcon(
-                                    FontAwesomeIcons.circlePlay,
-                                    size: 48,
-                                  ),
-                            onPressed: () async {
-                              if (sIsPlaying.value == false) {
-                                try {
-                                  sIsPlaying.value = true;
-                                  await _audioPlayer.play();
-                                } catch (e) {
-                                  Logger().e('Error: $e');
-                                }
-                              } else {
-                                sIsPlaying.value = false;
-                                await _audioPlayer.pause();
-                              }
-                            },
-                          ),
-                          IconButton(
-                            icon: const FaIcon(
-                              FontAwesomeIcons.forwardStep,
-                              size: 32,
-                            ),
-                            onPressed: () {
-                              // Skip to the next track.
-                              if (sCurrentSongIndex.value <
-                                  sCheckedSongList.watch(context).length - 1) {
-                                sCurrentSongIndex.value++;
-                                _audioPlayer.seekToNext();
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Slider(
-                            value: 0,
-                            onChanged: (double value) {
-                              // Implement scroll control.
-                            },
-                          ),
-                          Text(
-                            cTotalDuration.value,
-                            style: TextUtils.fontXL,
-                          ),
-                        ],
-                      ),
-                    ],
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: sCheckedSongList.watch(context).length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    leading: sCurrentSongIndex.watch(context) == index
+                        ? sIsPlaying.watch(context)
+                            ? const FaIcon(
+                                FontAwesomeIcons.volumeHigh,
+                              )
+                            : const FaIcon(
+                                FontAwesomeIcons.volumeLow,
+                              )
+                        : null,
+                    title: Text(sCheckedSongList[index].artist),
+                    subtitle: Text(sCheckedSongList[index].title),
+                    trailing: Text(
+                      sCheckedSongList[index].duration,
+                      style: TextUtils.fontL,
+                    ),
+                  );
+                },
+              ),
+              const Divider(thickness: 2),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  IconButton(
+                    icon: const FaIcon(
+                      FontAwesomeIcons.backwardStep,
+                      size: 32,
+                    ),
+                    onPressed: () {
+                      // Skip to the beginning of the current
+                      // track or skip to the previous track.
+                      if (sCurrentSongIndex.value > 0) {
+                        sCurrentSongIndex.value--;
+                        _audioPlayer.seekToPrevious();
+                      }
+                    },
                   ),
-                ),
+                  const SizedBox(width: 16),
+                  IconButton(
+                    icon: sIsPlaying.watch(context)
+                        ? const FaIcon(
+                            FontAwesomeIcons.circlePause,
+                            size: 48,
+                          )
+                        : const FaIcon(
+                            FontAwesomeIcons.circlePlay,
+                            size: 48,
+                          ),
+                    onPressed: () async {
+                      if (sIsPlaying.value == false) {
+                        try {
+                          sIsPlaying.value = true;
+                          await _audioPlayer.play();
+                        } catch (e) {
+                          Logger().e('Error: $e');
+                        }
+                      } else {
+                        sIsPlaying.value = false;
+                        await _audioPlayer.pause();
+                      }
+                    },
+                  ),
+                  const SizedBox(width: 16),
+                  IconButton(
+                    icon: const FaIcon(
+                      FontAwesomeIcons.forwardStep,
+                      size: 32,
+                    ),
+                    onPressed: () {
+                      // Skip to the next track.
+                      if (sCurrentSongIndex.value <
+                          sCheckedSongList.watch(context).length - 1) {
+                        sCurrentSongIndex.value++;
+                        _audioPlayer.seekToNext();
+                      }
+                    },
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Slider(
+                    value: 0,
+                    onChanged: (double value) {
+                      // Implement scroll control.
+                    },
+                  ),
+                  Text(
+                    cTotalDuration.value,
+                    style: TextUtils.fontXL,
+                  ),
+                ],
               ),
             ],
           ),
