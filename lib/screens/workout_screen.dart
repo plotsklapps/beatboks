@@ -20,7 +20,7 @@ class WorkoutScreen extends StatefulWidget {
 class _WorkoutScreenState extends State<WorkoutScreen> {
   final AudioPlayer _audioPlayer = AudioPlayer();
   final Signal<bool> sIsPlaying = signal<bool>(false);
-  final Signal<int> sCurrentSongIndex = signal<int>(-1);
+  final Signal<int> sCurrentSongIndex = signal<int>(0);
 
   @override
   void initState() {
@@ -92,7 +92,9 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                         itemCount: sCheckedSongList.watch(context).length,
                         itemBuilder: (BuildContext context, int index) {
                           return ListTile(
-                            leading: const FaIcon(FontAwesomeIcons.volumeHigh),
+                            leading: sCurrentSongIndex.value == index
+                                ? const FaIcon(FontAwesomeIcons.volumeHigh)
+                                : null,
                             title: Text(sCheckedSongList[index].artist),
                             subtitle: Text(sCheckedSongList[index].title),
                             trailing: Text(
@@ -111,7 +113,14 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                               FontAwesomeIcons.backwardStep,
                               size: 32,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              // Skip to the beginning of the current
+                              // track or skip to the previous track.
+                              if (sCurrentSongIndex.value > 0) {
+                                sCurrentSongIndex.value--;
+                                _audioPlayer.seekToPrevious();
+                              }
+                            },
                           ),
                           IconButton(
                             icon: sIsPlaying.watch(context)
@@ -128,7 +137,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                                 try {
                                   await _audioPlayer.play();
                                   sIsPlaying.value = true;
-                                  sCurrentSongIndex.value == 0;
                                 } catch (e) {
                                   Logger().e('Error: $e');
                                 }
@@ -144,7 +152,12 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                               size: 32,
                             ),
                             onPressed: () {
-                              // Implement skipping to next track
+                              // Skip to the next track.
+                              if (sCurrentSongIndex.value <
+                                  sCheckedSongList.watch(context).length - 1) {
+                                sCurrentSongIndex.value++;
+                                _audioPlayer.seekToNext();
+                              }
                             },
                           ),
                         ],
