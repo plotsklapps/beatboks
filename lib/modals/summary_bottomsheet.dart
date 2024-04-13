@@ -1,68 +1,13 @@
 import 'package:beatboks/navigation/navigation.dart';
-import 'package:beatboks/song_class.dart';
 import 'package:beatboks/state/songlist_signal.dart';
 import 'package:beatboks/theme/text_utils.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:logger/logger.dart';
 import 'package:signals/signals_flutter.dart';
 
-class SummaryBottomsheet extends StatefulWidget {
+class SummaryBottomsheet extends StatelessWidget {
   const SummaryBottomsheet({super.key});
-
-  @override
-  State<SummaryBottomsheet> createState() {
-    return _SummaryBottomsheetState();
-  }
-}
-
-class _SummaryBottomsheetState extends State<SummaryBottomsheet> {
-  final AudioPlayer _audioPlayer = AudioPlayer();
-  final Signal<bool> sIsPlaying = signal<bool>(false);
-
-  @override
-  void initState() {
-    super.initState();
-    _initAudioPlayer();
-  }
-
-  Future<void> _initAudioPlayer() async {
-    // Set the assets list to the player on initialization.
-    try {
-      final List<AudioSource> playList =
-          sCheckedSongList.watch(context).map((Song song) {
-        return AudioSource.asset(
-          'assets/MP3/${song.artist} - ${song.title}.mp3',
-        );
-      }).toList();
-
-      await _audioPlayer.setAudioSource(
-        ConcatenatingAudioSource(children: playList),
-      );
-    } catch (e) {
-      Logger().e('Error: $e');
-    }
-
-    // playerState.playing returns a bool that is stored in the sIsPlaying
-    // signal. This signal is then used to update the UI.
-    _audioPlayer.playerStateStream.listen((PlayerState playerState) {
-      if (playerState.processingState == ProcessingState.ready) {
-        sIsPlaying.value = playerState.playing;
-      }
-      if (playerState.processingState == ProcessingState.completed) {
-        sIsPlaying.value = false;
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _audioPlayer.dispose();
-    Logger().i('Audio player disposed.');
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,23 +59,6 @@ class _SummaryBottomsheetState extends State<SummaryBottomsheet> {
 
                     // Navigate to the workout screen.
                     Navigate.toWorkoutScreen(context);
-                    // if (sCheckedSongList.watch(context).isEmpty) {
-                    //   Snacks.showErrorSnack(
-                    //     context,
-                    //     'Please add some songs first, we recommend 3-8 songs for a solid workout!',
-                    //   );
-                    // } else {
-                    //   // Play the playList that was set in the initState.
-                    //   if (sIsPlaying.value == true) {
-                    //     await _audioPlayer.pause();
-                    //   } else {
-                    //     try {
-                    //       await _audioPlayer.play();
-                    //     } catch (e) {
-                    //       Logger().e('Error: $e');
-                    //     }
-                    //   }
-                    // }
                   },
                   child: const FaIcon(FontAwesomeIcons.forwardStep),
                 ),
