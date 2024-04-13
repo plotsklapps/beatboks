@@ -2,6 +2,7 @@ import 'package:beatboks/navigation/navigation.dart';
 import 'package:beatboks/state/songlist_signal.dart';
 import 'package:beatboks/theme/text_utils.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
+import 'package:beatboks/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:signals/signals_flutter.dart';
@@ -54,11 +55,18 @@ class SummaryBottomsheet extends StatelessWidget {
               children: <Widget>[
                 FloatingActionButton(
                   onPressed: () async {
-                    // Pop the bottomsheet.
-                    Navigator.pop(context);
+                    if (sCheckedSongList.watch(context).isEmpty) {
+                      Snacks.showErrorSnack(
+                        context,
+                        'Please add some songs first, we recommend 3-8 songs for a solid workout!',
+                      );
+                    } else {
+                      // Pop the bottomsheet.
+                      Navigator.pop(context);
 
-                    // Navigate to the workout screen.
-                    Navigate.toWorkoutScreen(context);
+                      // Navigate to the workout screen.
+                      Navigate.toWorkoutScreen(context);
+                    }
                   },
                   child: const FaIcon(FontAwesomeIcons.forwardStep),
                 ),
