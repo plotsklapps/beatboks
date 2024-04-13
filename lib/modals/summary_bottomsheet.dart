@@ -1,8 +1,8 @@
+import 'package:beatboks/navigation/navigation.dart';
 import 'package:beatboks/song_class.dart';
 import 'package:beatboks/state/songlist_signal.dart';
 import 'package:beatboks/theme/text_utils.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
-import 'package:beatboks/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:just_audio/just_audio.dart';
@@ -109,27 +109,30 @@ class _SummaryBottomsheetState extends State<SummaryBottomsheet> {
               children: <Widget>[
                 FloatingActionButton(
                   onPressed: () async {
-                    if (sCheckedSongList.watch(context).isEmpty) {
-                      Snacks.showErrorSnack(
-                        context,
-                        'Please add some songs first, we recommend 3-8 songs for a solid workout!',
-                      );
-                    } else {
-                      // Play the playList that was set in the initState.
-                      if (sIsPlaying.value == true) {
-                        await _audioPlayer.pause();
-                      } else {
-                        try {
-                          await _audioPlayer.play();
-                        } catch (e) {
-                          Logger().e('Error: $e');
-                        }
-                      }
-                    }
+                    // Pop the bottomsheet.
+                    Navigator.pop(context);
+
+                    // Navigate to the workout screen.
+                    Navigate.toWorkoutScreen(context);
+                    // if (sCheckedSongList.watch(context).isEmpty) {
+                    //   Snacks.showErrorSnack(
+                    //     context,
+                    //     'Please add some songs first, we recommend 3-8 songs for a solid workout!',
+                    //   );
+                    // } else {
+                    //   // Play the playList that was set in the initState.
+                    //   if (sIsPlaying.value == true) {
+                    //     await _audioPlayer.pause();
+                    //   } else {
+                    //     try {
+                    //       await _audioPlayer.play();
+                    //     } catch (e) {
+                    //       Logger().e('Error: $e');
+                    //     }
+                    //   }
+                    // }
                   },
-                  child: sIsPlaying.watch(context)
-                      ? const FaIcon(FontAwesomeIcons.circlePause)
-                      : const FaIcon(FontAwesomeIcons.circlePlay),
+                  child: const FaIcon(FontAwesomeIcons.forwardStep),
                 ),
               ],
             ),
