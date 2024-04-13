@@ -20,6 +20,7 @@ class WorkoutScreen extends StatefulWidget {
 class _WorkoutScreenState extends State<WorkoutScreen> {
   final AudioPlayer _audioPlayer = AudioPlayer();
   final Signal<bool> sIsPlaying = signal<bool>(false);
+  final Signal<int> sCurrentSongIndex = signal<int>(-1);
 
   @override
   void initState() {
@@ -91,12 +92,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                         itemCount: sCheckedSongList.watch(context).length,
                         itemBuilder: (BuildContext context, int index) {
                           return ListTile(
-                            leading: IconButton(
-                              icon: const FaIcon(FontAwesomeIcons.volumeHigh),
-                              onPressed: () {
-                                // Implement play functionality
-                              },
-                            ),
+                            leading: const FaIcon(FontAwesomeIcons.volumeHigh),
                             title: Text(sCheckedSongList[index].artist),
                             subtitle: Text(sCheckedSongList[index].title),
                             trailing: Text(
@@ -132,6 +128,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                                 try {
                                   await _audioPlayer.play();
                                   sIsPlaying.value = true;
+                                  sCurrentSongIndex.value == 0;
                                 } catch (e) {
                                   Logger().e('Error: $e');
                                 }
