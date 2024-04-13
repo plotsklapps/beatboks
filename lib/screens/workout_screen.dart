@@ -149,14 +149,14 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                             onPressed: () async {
                               if (sIsPlaying.value == false) {
                                 try {
-                                  await _audioPlayer.play();
                                   sIsPlaying.value = true;
+                                  await _audioPlayer.play();
                                 } catch (e) {
                                   Logger().e('Error: $e');
                                 }
                               } else {
-                                await _audioPlayer.pause();
                                 sIsPlaying.value = false;
+                                await _audioPlayer.pause();
                               }
                             },
                           ),
