@@ -55,6 +55,14 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
         sIsPlaying.value = false;
       }
     });
+
+    // Listen to the currentIndexStream to update the sCurrentSongIndex
+    // signal, whenever the currently playing song changes.
+    _audioPlayer.currentIndexStream.listen((int? currentIndex) {
+      if (currentIndex != null) {
+        sCurrentSongIndex.value = currentIndex;
+      }
+    });
   }
 
   @override
