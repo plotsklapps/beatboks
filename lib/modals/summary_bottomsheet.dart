@@ -37,45 +37,47 @@ class SummaryBottomsheet extends StatelessWidget {
                 );
               },
             ),
-            const SizedBox(height: 16),
+            const Divider(thickness: 2),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 const Text(
                   'Total Duration',
                   style: TextUtils.fontXL,
                 ),
+                const SizedBox(width: 8),
                 Text(
                   cTotalDuration.value,
                   style: TextUtils.fontXL,
                 ),
+                const SizedBox(width: 8),
               ],
             ),
+            const SizedBox(height: 16),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    const Text('Include tutorial?'),
-                    const SizedBox(width: 8),
-                    Switch(
-                      value: isTutorialChecked.watch(context),
-                      onChanged: (bool value) {
-                        isTutorialChecked.value = value;
+                const Text('TUTORIAL', style: TextUtils.fontL),
+                const SizedBox(width: 8),
+                FloatingActionButton(
+                  onPressed: () {
+                    isTutorialChecked.value = !isTutorialChecked.value;
 
-                        if (isTutorialChecked.value) {
-                          sCheckedSongList.insert(0, sTutorialSong.value);
-                        } else {
-                          sCheckedSongList.removeWhere(
-                            (Song song) {
-                              return song.title == 'Tutorial';
-                            },
-                          );
-                        }
-                      },
-                    ),
-                  ],
+                    if (isTutorialChecked.value) {
+                      sCheckedSongList.insert(0, sTutorialSong.value);
+                    } else {
+                      sCheckedSongList.removeWhere(
+                        (Song song) {
+                          return song.title == 'Tutorial';
+                        },
+                      );
+                    }
+                  },
+                  child: isTutorialChecked.watch(context)
+                      ? const FaIcon(FontAwesomeIcons.check)
+                      : const FaIcon(FontAwesomeIcons.xmark),
                 ),
+                const SizedBox(width: 8),
                 FloatingActionButton(
                   onPressed: () async {
                     if (sCheckedSongList.watch(context).isEmpty) {
