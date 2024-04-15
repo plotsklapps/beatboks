@@ -1,6 +1,7 @@
 import 'package:beatboks/song_class.dart';
 import 'package:signals/signals.dart';
 
+// Signal that counts the number of checked songs for use in the FAB.
 final Signal<int> sCheckedSongs = signal<int>(0);
 
 final Signal<bool> isTutorialChecked = signal<bool>(false);
@@ -9,8 +10,7 @@ final Signal<bool> isKanyeChecked = signal<bool>(false);
 final Signal<bool> isCiaraChecked = signal<bool>(false);
 final Signal<bool> isMaskedWolfChecked = signal<bool>(false);
 
-final Signal<bool> sIncludeTutorial = signal<bool>(false);
-
+// Separate Song signal because this can be checked on/off by the user.
 final Signal<Song> sTutorialSong = signal<Song>(
   Song(
     artist: 'BeatBOKS',
@@ -24,6 +24,8 @@ final Signal<Song> sTutorialSong = signal<Song>(
   ),
 );
 
+// ListSignal for the list of songs. Every new song that's added to this list
+// automatically updates other signals that are dependent on it.
 final ListSignal<Song> sSongList = listSignal(<Song>[
   Song(
     artist: 'Eminem (feat. Nate Dogg)',
@@ -67,6 +69,8 @@ final ListSignal<Song> sSongList = listSignal(<Song>[
   ),
 ]);
 
+// ListSignal for the list of checked songs. Index 0 can be a first song or
+// the tutorial, dependant on the user's choice.
 final ListSignal<Song> sCheckedSongList = listSignal(<Song>[]);
 
 // Function to calculate total duration of the checked songs.
