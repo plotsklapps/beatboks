@@ -1,4 +1,5 @@
 import 'package:beatboks/navigation/navigation.dart';
+import 'package:beatboks/song_class.dart';
 import 'package:beatboks/state/songlist_signal.dart';
 import 'package:beatboks/theme/text_utils.dart';
 import 'package:beatboks/widgets/bottomsheetheader.dart';
@@ -51,8 +52,30 @@ class SummaryBottomsheet extends StatelessWidget {
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    const Text('Include tutorial?'),
+                    const SizedBox(width: 8),
+                    Switch(
+                      value: isTutorialChecked.watch(context),
+                      onChanged: (bool value) {
+                        isTutorialChecked.value = value;
+
+                        if (isTutorialChecked.value) {
+                          sCheckedSongList.insert(0, sTutorialSong.value);
+                        } else {
+                          sCheckedSongList.removeWhere(
+                            (Song song) {
+                              return song.title == 'Tutorial';
+                            },
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
                 FloatingActionButton(
                   onPressed: () async {
                     if (sCheckedSongList.watch(context).isEmpty) {

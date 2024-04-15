@@ -9,7 +9,9 @@ final Signal<bool> isKanyeChecked = signal<bool>(false);
 final Signal<bool> isCiaraChecked = signal<bool>(false);
 final Signal<bool> isMaskedWolfChecked = signal<bool>(false);
 
-final ListSignal<Song> sSongList = listSignal(<Song>[
+final Signal<bool> sIncludeTutorial = signal<bool>(false);
+
+final Signal<Song> sTutorialSong = signal<Song>(
   Song(
     artist: 'BeatBOKS',
     title: 'Tutorial',
@@ -20,6 +22,9 @@ final ListSignal<Song> sSongList = listSignal(<Song>[
     source: 'beatboks.app',
     isChecked: isTutorialChecked,
   ),
+);
+
+final ListSignal<Song> sSongList = listSignal(<Song>[
   Song(
     artist: 'Eminem (feat. Nate Dogg)',
     title: 'Till I Collapse',
