@@ -9,6 +9,7 @@ final Signal<bool> isEminemChecked = signal<bool>(false);
 final Signal<bool> isKanyeChecked = signal<bool>(false);
 final Signal<bool> isCiaraChecked = signal<bool>(false);
 final Signal<bool> isMaskedWolfChecked = signal<bool>(false);
+final Signal<bool> isMacklemoreChecked = signal<bool>(false);
 
 // Separate Song signal because this can be checked on/off by the user.
 final Signal<Song> sTutorialSong = signal<Song>(
@@ -66,6 +67,16 @@ final ListSignal<Song> sSongList = listSignal(<Song>[
     duration: '2:13',
     source: 'hipstrumentals.com',
     isChecked: isMaskedWolfChecked,
+  ),
+  Song(
+    artist: 'Macklemore (feat. Ryan Lewis)',
+    title: 'Cant Hold Us',
+    album: 'The Heist',
+    year: '2012',
+    genre: 'Pop, Hiphop',
+    duration: '4:19',
+    source: 'hipstrumentals.com',
+    isChecked: isMacklemoreChecked,
   ),
 ]);
 
