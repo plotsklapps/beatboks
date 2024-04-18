@@ -270,6 +270,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.5.0"
+  flutter_custom_carousel:
+    dependency: "direct main"
+    description:
+      name: flutter_custom_carousel
+      sha256: f5e09ea7c300dfa02210abb845d7bb2df01200a1e24040daf29ae5895ab46692
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0+1"
   flutter_launcher_icons:
     dependency: "direct main"
     description:

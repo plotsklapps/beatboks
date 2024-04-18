@@ -17,6 +17,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_animate: ^4.5.0
+  flutter_custom_carousel: ^0.1.0+1
   flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.4.0
   font_awesome_flutter: ^10.7.0
