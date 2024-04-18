@@ -107,7 +107,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           .blurXY(delay: 0.ms, duration: 100.ms, begin: 8)
                           .blurXY(delay: 100.ms, end: 8)
                           .slideY(
-                              delay: 0.ms, duration: 200.ms, begin: -3, end: 3)
+                            delay: 0.ms,
+                            duration: 200.ms,
+                            begin: -3,
+                            end: 3,
+                          )
                           .flipH(begin: -0.3, end: 0.3),
                     ),
                     children: _songList(),
