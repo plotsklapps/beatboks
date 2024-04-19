@@ -9,8 +9,6 @@ import 'package:beatboks/state/songlist_signal.dart';
 import 'package:beatboks/theme/text_utils.dart';
 import 'package:beatboks/widgets/song_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_custom_carousel/flutter_custom_carousel.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:signals/signals_flutter.dart';
 
@@ -90,31 +88,32 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
                 child: Expanded(
-                  child: CustomCarousel(
-                    itemCountBefore: 2,
-                    itemCountAfter: 2,
-                    loop: true,
-                    scrollSpeed: 2,
-                    alignment: Alignment.center,
-                    effectsBuilder: CustomCarousel.effectsBuilderFromAnimate(
-                      effects: EffectList()
-                          .shimmer(
-                            delay: 60.ms,
-                            duration: 140.ms,
-                            color: Colors.white38,
-                            angle: 0.3,
-                          )
-                          .blurXY(delay: 0.ms, duration: 100.ms, begin: 8)
-                          .blurXY(delay: 100.ms, end: 8)
-                          .slideY(
-                            delay: 0.ms,
-                            duration: 200.ms,
-                            begin: -3,
-                            end: 3,
-                          )
-                          .flipH(begin: -0.3, end: 0.3),
-                    ),
-                    children: _songList(),
+                  child: ListView.builder(
+                    itemCount: sSongList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return SongCard(
+                        leadingIcon: FontAwesomeIcons.circlePlay,
+                        artist: sSongList[index].artist,
+                        title: sSongList[index].title,
+                        album: sSongList[index].album,
+                        year: sSongList[index].year,
+                        genre: sSongList[index].genre,
+                        duration: sSongList[index].duration,
+                        source: sSongList[index].source,
+                        isChecked: sSongList[index].isChecked,
+                        onPressed: () {
+                          sSongList[index].isChecked.value =
+                              !sSongList[index].isChecked.value;
+                          if (sSongList[index].isChecked.value == true) {
+                            sCheckedSongs.value++;
+                            sCheckedSongList.add(sSongList[index]);
+                          } else {
+                            sCheckedSongs.value--;
+                            sCheckedSongList.remove(sSongList[index]);
+                          }
+                        },
+                      );
+                    },
                   ),
                 ),
               ),
@@ -161,35 +160,5 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-  }
-
-  List<Widget> _songList() {
-    final List<Widget> songList = <Widget>[];
-    for (int i = 0; i < sSongList.length; i++) {
-      songList.add(
-        SongCard(
-          leadingIcon: FontAwesomeIcons.circlePlay,
-          artist: sSongList[i].artist,
-          title: sSongList[i].title,
-          album: sSongList[i].album,
-          year: sSongList[i].year,
-          genre: sSongList[i].genre,
-          duration: sSongList[i].duration,
-          source: sSongList[i].source,
-          isChecked: sSongList[i].isChecked,
-          onPressed: () {
-            sSongList[i].isChecked.value = !sSongList[i].isChecked.value;
-            if (sSongList[i].isChecked.value == true) {
-              sCheckedSongs.value++;
-              sCheckedSongList.add(sSongList[i]);
-            } else {
-              sCheckedSongs.value--;
-              sCheckedSongList.remove(sSongList[i]);
-            }
-          },
-        ),
-      );
-    }
-    return songList;
   }
 }

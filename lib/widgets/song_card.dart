@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:logger/logger.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:signals/signals_flutter.dart';
 
 class SongCard extends StatefulWidget {
@@ -40,7 +41,7 @@ class SongCard extends StatefulWidget {
 
 class _SongCardState extends State<SongCard> {
   final AudioPlayer _audioPlayer = AudioPlayer();
-  final Signal<bool> sIsPlaying = signal<bool>(false);
+  final Signal<bool> _sIsPlaying = signal<bool>(false);
 
   @override
   void initState() {
@@ -63,10 +64,10 @@ class _SongCardState extends State<SongCard> {
     // signal. This signal is then used to update the UI.
     _audioPlayer.playerStateStream.listen((PlayerState playerState) {
       if (playerState.processingState == ProcessingState.ready) {
-        sIsPlaying.value = playerState.playing;
+        _sIsPlaying.value = playerState.playing;
       }
       if (playerState.processingState == ProcessingState.completed) {
-        sIsPlaying.value = false;
+        _sIsPlaying.value = false;
       }
     });
   }
@@ -92,19 +93,13 @@ class _SongCardState extends State<SongCard> {
           leading: Stack(
             alignment: Alignment.center,
             children: <Widget>[
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: SizedBox(
-                  height: 48,
-                  width: 48,
-                  child:
-                      Image.asset('assets/PNG/albumcovers/${widget.artist} - '
-                          '${widget.title}.png'),
-                ),
+              ShimmerImage(
+                imagePath:
+                    'assets/PNG/albumcovers/${widget.artist} - ${widget.title}.png',
               ),
               GestureDetector(
                 onTap: () async {
-                  if (sIsPlaying.value == true) {
+                  if (_sIsPlaying.value == true) {
                     await _audioPlayer.pause();
                   } else {
                     try {
@@ -114,12 +109,14 @@ class _SongCardState extends State<SongCard> {
                     }
                   }
                 },
-                child: sIsPlaying.watch(context)
+                child: _sIsPlaying.watch(context)
                     ? const FaIcon(
                         FontAwesomeIcons.circlePause,
+                        size: 24,
                       )
-                    : FaIcon(
-                        widget.leadingIcon,
+                    : const FaIcon(
+                        FontAwesomeIcons.circlePlay,
+                        size: 24,
                       ),
               ),
             ],
@@ -192,5 +189,85 @@ class _SongCardState extends State<SongCard> {
         ),
       ),
     );
+  }
+}
+
+class ShimmerImage extends StatefulWidget {
+  const ShimmerImage({
+    required this.imagePath,
+    super.key,
+  });
+
+  final String imagePath;
+
+  @override
+  ShimmerImageState createState() {
+    return ShimmerImageState();
+  }
+}
+
+class ShimmerImageState extends State<ShimmerImage> {
+  bool _isImageLoaded = false;
+  bool _isImagePreloadingStarted = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isImagePreloadingStarted) {
+      // Prevent the preload from running multiple times
+      _isImagePreloadingStarted = true;
+      // Start preloading the image
+      _loadImage();
+    }
+  }
+
+  Future<void> _loadImage() async {
+    try {
+      // Simulate a delay for debugging purposes
+      await Future<void>.delayed(const Duration(seconds: 2));
+      // Preload the image
+      if (mounted) {
+        await precacheImage(AssetImage(widget.imagePath), context);
+      }
+      if (mounted) {
+        setState(() {
+          _isImageLoaded = true;
+        });
+      }
+    } catch (e) {
+      Logger().e('Error loading image: $e');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_isImageLoaded) {
+      // Show Shimmer effect while loading
+      return Shimmer.fromColors(
+        baseColor: Colors.grey[500]!,
+        highlightColor: Colors.grey[100]!,
+        child: Container(
+          height: 48,
+          width: 48,
+          decoration: BoxDecoration(
+            color: Colors.grey,
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      );
+    } else {
+      // Show image when loaded
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: SizedBox(
+          height: 48,
+          width: 48,
+          child: Image.asset(
+            widget.imagePath,
+            fit: BoxFit.cover,
+          ),
+        ),
+      );
+    }
   }
 }

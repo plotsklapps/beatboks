@@ -25,6 +25,7 @@ dependencies:
   intl: ^0.19.0
   just_audio: ^0.9.37
   logger: ^2.1.0
+  shimmer: ^3.0.0
   signals: ^5.0.0
   toastification: ^1.2.1
   wakelock_plus: ^1.2.2

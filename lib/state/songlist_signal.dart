@@ -10,6 +10,7 @@ final Signal<bool> isKanyeChecked = signal<bool>(false);
 final Signal<bool> isCiaraChecked = signal<bool>(false);
 final Signal<bool> isMaskedWolfChecked = signal<bool>(false);
 final Signal<bool> isMacklemoreChecked = signal<bool>(false);
+final Signal<bool> is2PacChecked = signal<bool>(false);
 
 // Separate Song signal because this can be checked on/off by the user.
 final Signal<Song> sTutorialSong = signal<Song>(
@@ -77,6 +78,16 @@ final ListSignal<Song> sSongList = listSignal(<Song>[
     duration: '4:19',
     source: 'hipstrumentals.com',
     isChecked: isMacklemoreChecked,
+  ),
+  Song(
+    artist: '2Pac',
+    title: 'Changes',
+    album: 'Greatest Hits',
+    year: '1998',
+    genre: 'Rap, Hiphop',
+    duration: '4:29',
+    source: 'hipstrumentals.com',
+    isChecked: is2PacChecked,
   ),
 ]);
 
