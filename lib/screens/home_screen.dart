@@ -7,6 +7,7 @@ import 'package:beatboks/state/lastvisit_signal.dart';
 import 'package:beatboks/state/photourl_signal.dart';
 import 'package:beatboks/state/songlist_signal.dart';
 import 'package:beatboks/theme/text_utils.dart';
+import 'package:beatboks/widgets/bottomsheetheader.dart';
 import 'package:beatboks/widgets/song_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -61,14 +62,52 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Expanded(
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Column(
-                          children: <Widget>[
-                            const FaIcon(FontAwesomeIcons.calendarCheck),
-                            Text(sLastVisit.watch(context)),
-                          ],
+                    child: GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet<Widget>(
+                            showDragHandle: true,
+                            isScrollControlled: true,
+                            context: context,
+                            builder: (BuildContext context) {
+                              return SizedBox(
+                                child: Padding(
+                                  // Allow the bottomsheet to be pushed up by the keyboard.
+                                  padding: EdgeInsets.fromLTRB(
+                                    16,
+                                    0,
+                                    16,
+                                    MediaQuery.viewInsetsOf(context).bottom +
+                                        32,
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      BottomSheetHeader(
+                                        title: 'Training Days',
+                                      ),
+                                      Divider(thickness: 2),
+                                      SizedBox(height: 16),
+                                      CalendarDatePicker(
+                                        initialDate: null,
+                                        firstDate: DateTime.utc(2020),
+                                        lastDate: DateTime.utc(2030),
+                                        onDateChanged: (DateTime value) {},
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            });
+                      },
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Column(
+                            children: <Widget>[
+                              const FaIcon(FontAwesomeIcons.calendarCheck),
+                              Text(sLastVisit.watch(context)),
+                            ],
+                          ),
                         ),
                       ),
                     ),

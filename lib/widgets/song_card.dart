@@ -244,7 +244,7 @@ class ShimmerImageState extends State<ShimmerImage> {
     if (!_isImageLoaded) {
       // Show Shimmer effect while loading
       return Shimmer.fromColors(
-        baseColor: Colors.grey[500]!,
+        baseColor: Colors.grey[400]!,
         highlightColor: Colors.grey[100]!,
         child: Container(
           height: 48,
