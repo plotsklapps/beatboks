@@ -12,17 +12,22 @@ import 'package:beatboks/widgets/song_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:signals/signals_flutter.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() {
+    return HomeScreenState();
+  }
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final DateTime _focusedDay = DateTime.now();
+
     return SafeArea(
       child: Scaffold(
         extendBody: true,
@@ -82,16 +87,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
-                                      BottomSheetHeader(
+                                      const BottomSheetHeader(
                                         title: 'Training Days',
                                       ),
-                                      Divider(thickness: 2),
-                                      SizedBox(height: 16),
-                                      CalendarDatePicker(
-                                        initialDate: null,
-                                        firstDate: DateTime.utc(2020),
-                                        lastDate: DateTime.utc(2030),
-                                        onDateChanged: (DateTime value) {},
+                                      const Divider(thickness: 2),
+                                      const SizedBox(height: 16),
+                                      TableCalendar<CalendarStyle>(
+                                        focusedDay: _focusedDay,
+                                        firstDay: DateTime.utc(2023),
+                                        lastDay: DateTime.utc(2030),
+                                        headerStyle: const HeaderStyle(
+                                          titleCentered: true,
+                                          formatButtonVisible: false,
+                                        ),
+                                        startingDayOfWeek:
+                                            StartingDayOfWeek.monday,
                                       ),
                                     ],
                                   ),
