@@ -1,4 +1,4 @@
-package com.example.beatboks
+package dev.plotsklapps.beatboks
 
 import io.flutter.embedding.android.FlutterActivity
 
