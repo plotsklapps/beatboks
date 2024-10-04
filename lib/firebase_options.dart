@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -73,10 +70,21 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyBE_XjE1msgCsauSu5LR_UzOBO6__2Iwak',
-    appId: '1:102127708768:ios:9ca65447606734697f7105',
+    appId: '1:102127708768:ios:beea2f1bf729e1bc7f7105',
     messagingSenderId: '102127708768',
     projectId: 'beatboks',
     storageBucket: 'beatboks.appspot.com',
-    iosBundleId: 'dev.plotsklapps.beatboks.RunnerTests',
+    iosBundleId: 'dev.plotsklapps.beatboks',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyA73PCqryj8KueX8zeVVsiomEnOrNdJyIg',
+    appId: '1:102127708768:web:a580b63f061eaec77f7105',
+    messagingSenderId: '102127708768',
+    projectId: 'beatboks',
+    authDomain: 'beatboks.firebaseapp.com',
+    storageBucket: 'beatboks.appspot.com',
+    measurementId: 'G-43N2K0EQDX',
+  );
+
 }
