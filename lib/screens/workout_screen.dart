@@ -1,5 +1,5 @@
 import 'package:beatboks/song_class.dart';
-import 'package:beatboks/state/photoURL_signal.dart';
+import 'package:beatboks/state/photourl_signal.dart';
 import 'package:beatboks/state/songlist_signal.dart';
 import 'package:beatboks/theme/text_utils.dart';
 import 'package:flutter/material.dart';

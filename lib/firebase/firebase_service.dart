@@ -1,7 +1,7 @@
 import 'package:beatboks/state/displayname_signal.dart';
 import 'package:beatboks/state/email_signal.dart';
 import 'package:beatboks/state/lastvisit_signal.dart';
-import 'package:beatboks/state/photoURL_signal.dart';
+import 'package:beatboks/state/photourl_signal.dart';
 import 'package:beatboks/state/sneakpeek_signal.dart';
 import 'package:beatboks/state/spinner_signal.dart';
 import 'package:beatboks/state/themecolor_signal.dart';

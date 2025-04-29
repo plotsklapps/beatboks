@@ -2,7 +2,7 @@ import 'package:beatboks/state/creationdate_signal.dart';
 import 'package:beatboks/state/displayname_signal.dart';
 import 'package:beatboks/state/email_signal.dart';
 import 'package:beatboks/state/lastvisit_signal.dart';
-import 'package:beatboks/state/photoURL_signal.dart';
+import 'package:beatboks/state/photourl_signal.dart';
 import 'package:beatboks/state/themecolor_signal.dart';
 import 'package:beatboks/state/themefont_signal.dart';
 import 'package:beatboks/state/thememode_signal.dart';
