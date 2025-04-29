@@ -56,7 +56,7 @@ class _SongCardState extends State<SongCard> {
       await _audioPlayer.setAsset(
         'assets/MP3/${widget.artist} - ${widget.title}.mp3',
       );
-    } catch (e) {
+    } on Exception catch (e) {
       Logger().e('Error: $e');
     }
 
@@ -104,7 +104,7 @@ class _SongCardState extends State<SongCard> {
                   } else {
                     try {
                       await _audioPlayer.play();
-                    } catch (e) {
+                    } on Exception catch (e) {
                       Logger().e('Error: $e');
                     }
                   }
@@ -234,7 +234,7 @@ class ShimmerImageState extends State<ShimmerImage> {
           _isImageLoaded = true;
         });
       }
-    } catch (e) {
+    } on Exception catch (e) {
       Logger().e('Error loading image: $e');
     }
   }

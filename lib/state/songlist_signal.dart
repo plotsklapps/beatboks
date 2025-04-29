@@ -107,7 +107,8 @@ String calculateTotalDuration(List<Song> songs) {
   final int finalMinutes = totalSeconds ~/ 60;
   final int finalSeconds = totalSeconds % 60;
 
-  return '${finalMinutes.toString().padLeft(2, '0')}:${finalSeconds.toString().padLeft(2, '0')}';
+  return '${finalMinutes.toString().padLeft(2, '0')}:'
+  '${finalSeconds.toString().padLeft(2, '0')}';
 }
 
 // Computed signal that returns the String value of the total duration.

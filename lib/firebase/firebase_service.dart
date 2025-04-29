@@ -50,7 +50,7 @@ class FirebaseService {
         // Trigger the onError callback.
         onError('Unexpected error: User not found.');
       }
-    } catch (error) {
+    } on Exception catch (error) {
       // Log the error.
       Logger().e(error);
 
@@ -97,7 +97,7 @@ class FirebaseService {
         // Trigger the onError callback.
         onError('Unexpected error: No user found.');
       }
-    } catch (error) {
+    } on Exception catch (error) {
       // Log the error.
       Logger().e(error);
 
@@ -121,7 +121,7 @@ class FirebaseService {
 
       // Trigger the onSuccess callback.
       onSuccess();
-    } catch (error) {
+    } on Exception catch (error) {
       // Log the error.
       Logger().e(error);
 
@@ -167,7 +167,7 @@ class FirebaseService {
         // Trigger the onSuccess callback.
         onSuccess();
       }
-    } catch (error) {
+    } on Exception catch (error) {
       // Log the error.
       Logger().e(error);
 
@@ -214,7 +214,7 @@ class FirebaseService {
         // Trigger the onError callback.
         onError('Unexpected error: No user found.');
       }
-    } catch (error) {
+    } on Exception catch (error) {
       // Log the error.
       Logger().e(error);
 
@@ -249,7 +249,7 @@ class FirebaseService {
         // Trigger the onError callback.
         onError('Unexpected error: No user found.');
       }
-    } catch (error) {
+    } on Exception catch (error) {
       // Log the error.
       Logger().e(error);
 
@@ -274,7 +274,7 @@ class FirebaseService {
 
       // Trigger the onSuccess callback.
       onSuccess();
-    } catch (error) {
+    } on Exception catch (error) {
       // Log the error.
       Logger().e(error);
 
@@ -317,7 +317,7 @@ class FirebaseService {
         // Trigger the onError callback.
         onError('Unexpected error: No user found.');
       }
-    } catch (error) {
+    } on Exception catch (error) {
       // Log the error.
       Logger().e(error);
 
@@ -360,7 +360,7 @@ class FirebaseService {
         // Trigger the onError callback.
         onError('Unexpected error: No user found.');
       }
-    } catch (error) {
+    } on Exception catch (error) {
       // Log the error.
       Logger().e(error);
 

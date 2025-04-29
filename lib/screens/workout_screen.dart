@@ -38,10 +38,8 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
         );
       }).toList();
 
-      await _audioPlayer.setAudioSource(
-        ConcatenatingAudioSource(children: playList),
-      );
-    } catch (e) {
+      await _audioPlayer.setAudioSources(playList);
+          } on Exception catch (e) {
       Logger().e('Error: $e');
     }
 
@@ -147,7 +145,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                         try {
                           sIsPlaying.value = true;
                           await _audioPlayer.play();
-                        } catch (e) {
+                        } on Exception catch (e) {
                           Logger().e('Error: $e');
                         }
                       } else {

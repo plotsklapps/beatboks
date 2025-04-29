@@ -14,8 +14,6 @@ final Computed<ThemeData> cLightTheme = computed<ThemeData>(() {
     bottomAppBarElevation: 1,
     subThemesData: const FlexSubThemesData(
       blendOnLevel: 20,
-      blendTextTheme: true,
-      useTextTheme: true,
       thinBorderWidth: 2,
       thickBorderWidth: 4,
       elevatedButtonSchemeColor: SchemeColor.onPrimaryContainer,
@@ -66,7 +64,6 @@ final Computed<ThemeData> cLightTheme = computed<ThemeData>(() {
       keepTertiary: true,
     ),
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
-    useMaterial3: true,
     swapLegacyOnMaterial3: true,
     // Font is chosen by the user.
     fontFamily: cFont.value,
@@ -83,8 +80,6 @@ final Computed<ThemeData> cDarkTheme = computed<ThemeData>(() {
     bottomAppBarElevation: 2,
     subThemesData: const FlexSubThemesData(
       blendOnLevel: 40,
-      blendTextTheme: true,
-      useTextTheme: true,
       thinBorderWidth: 2,
       thickBorderWidth: 4,
       elevatedButtonSchemeColor: SchemeColor.onPrimaryContainer,
@@ -133,7 +128,6 @@ final Computed<ThemeData> cDarkTheme = computed<ThemeData>(() {
       keepPrimary: true,
     ),
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
-    useMaterial3: true,
     swapLegacyOnMaterial3: true,
     // Font is chosen by the user.
     fontFamily: cFont.value,

@@ -33,6 +33,7 @@ class DefaultFirebaseOptions {
           'DefaultFirebaseOptions have not been configured for linux - '
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
+      // Ignoring because it's from Firebase itself.
       // ignore: no_default_cases
       default:
         throw UnsupportedError(
@@ -86,5 +87,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'beatboks.appspot.com',
     measurementId: 'G-43N2K0EQDX',
   );
-
 }

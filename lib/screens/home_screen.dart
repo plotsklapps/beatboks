@@ -26,7 +26,7 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final DateTime _focusedDay = DateTime.now();
+    final DateTime focusedDay = DateTime.now();
 
     return SafeArea(
       child: Scaffold(
@@ -76,7 +76,8 @@ class HomeScreenState extends State<HomeScreen> {
                             builder: (BuildContext context) {
                               return SizedBox(
                                 child: Padding(
-                                  // Allow the bottomsheet to be pushed up by the keyboard.
+                                  // Allow the bottomsheet to be pushed up 
+                                  // by the keyboard.
                                   padding: EdgeInsets.fromLTRB(
                                     16,
                                     0,
@@ -93,7 +94,7 @@ class HomeScreenState extends State<HomeScreen> {
                                       const Divider(thickness: 2),
                                       const SizedBox(height: 16),
                                       TableCalendar<CalendarStyle>(
-                                        focusedDay: _focusedDay,
+                                        focusedDay: focusedDay,
                                         firstDay: DateTime.utc(2023),
                                         lastDay: DateTime.utc(2030),
                                         headerStyle: const HeaderStyle(
@@ -107,7 +108,7 @@ class HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                               );
-                            });
+                            },);
                       },
                       child: Card(
                         child: Padding(

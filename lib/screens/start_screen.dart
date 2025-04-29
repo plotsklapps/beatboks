@@ -66,7 +66,7 @@ class _StartScreenState extends State<StartScreen> {
           return;
         }
       }
-    } catch (error) {
+    } on Exception catch (error) {
       // Log the error.
       Logger().e(error);
 

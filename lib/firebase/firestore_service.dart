@@ -42,7 +42,7 @@ class FirestoreService {
 
         // Log the success.
         Logger().i('User document created.');
-      } catch (error) {
+      } on Exception catch (error) {
         // Log the error.
         Logger().e(error);
       }
@@ -98,7 +98,7 @@ class FirestoreService {
           // Log the error.
           Logger().e('Unexpected error: User document not found.');
         }
-      } catch (error) {
+      } on Exception catch (error) {
         // Log the error.
         Logger().e(error);
       }

@@ -83,7 +83,8 @@ class SummaryBottomsheet extends StatelessWidget {
                     if (sCheckedSongList.watch(context).isEmpty) {
                       Snacks.showErrorSnack(
                         context,
-                        'Please add some songs first, we recommend 3-8 songs for a solid workout!',
+                        'Please add some songs first, we recommend 3-8 songs '
+                        'for a solid workout!',
                       );
                     } else {
                       // Pop the bottomsheet.
