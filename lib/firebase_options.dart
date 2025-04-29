@@ -87,4 +87,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'beatboks.appspot.com',
     measurementId: 'G-43N2K0EQDX',
   );
+
 }
