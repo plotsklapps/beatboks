@@ -141,7 +141,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                             size: 48,
                           ),
                     onPressed: () async {
-                      if (sIsPlaying.value == false) {
+                      if (!sIsPlaying.value) {
                         try {
                           sIsPlaying.value = true;
                           await _audioPlayer.play();

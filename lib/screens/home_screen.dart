@@ -154,7 +154,7 @@ class HomeScreenState extends State<HomeScreen> {
                         onPressed: () {
                           sSongList[index].isChecked.value =
                               !sSongList[index].isChecked.value;
-                          if (sSongList[index].isChecked.value == true) {
+                          if (sSongList[index].isChecked.value) {
                             sCheckedSongs.value++;
                             sCheckedSongList.add(sSongList[index]);
                           } else {

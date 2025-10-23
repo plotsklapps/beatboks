@@ -99,7 +99,7 @@ class _SongCardState extends State<SongCard> {
               ),
               GestureDetector(
                 onTap: () async {
-                  if (_sIsPlaying.value == true) {
+                  if (_sIsPlaying.value) {
                     await _audioPlayer.pause();
                   } else {
                     try {
